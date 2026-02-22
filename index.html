@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Napas Bersih · Info & Solusi Asap Rokok</title>
+
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(145deg, #f0fdf4 0%, #e6f7ec 100%);
+            color: #1e2f23;
+            line-height: 1.5;
+            min-height: 100vh;
+            padding: 2rem 1.5rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* HEADER */
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #0b3b2c, #2f7b5a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: #2c5e47;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(4px);
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            border-radius: 60px;
+            border: 1px solid rgba(80, 130, 100, 0.2);
+            box-shadow: 0 4px 10px rgba(0, 40, 20, 0.05);
+        }
+
+        /* FLOW SELECTOR (TABS) */
+        .flow-selector {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
+        }
+
+        .flow-btn {
+            background: white;
+            border: none;
+            padding: 1rem 2.8rem;
+            border-radius: 60px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #2f5e4a;
+            box-shadow: 0 6px 14px rgba(0, 60, 30, 0.1);
+            cursor: pointer;
+            transition: 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            border: 1px solid transparent;
+        }
+
+        .flow-btn i {
+            font-size: 1.4rem;
+            opacity: 0.9;
+        }
+
+        .flow-btn.active {
+            background: #0e4733;
+            color: white;
+            box-shadow: 0 12px 22px rgba(20, 100, 60, 0.3);
+            border-color: #b7e0cd;
+        }
+
+        .flow-btn:not(.active):hover {
+            background: #dff3e9;
+            border-color: #89c2ad;
+            transform: translateY(-3px);
+        }
+
+        /* CARD UTAMA (KONTEN) */
+        .content-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border-radius: 2.5rem;
+            padding: 2.8rem 2.5rem;
+            box-shadow: 0 30px 50px -20px rgba(10, 70, 40, 0.3);
+            border: 1px solid rgba(120, 180, 140, 0.3);
+            transition: all 0.2s;
+        }
+
+        /* Halaman (flow) */
+        .flow-page {
+            display: none;
+            animation: fadePage 0.3s ease;
+        }
+
+        .flow-page.active-page {
+            display: block;
+        }
+
+        @keyframes fadePage {
+            0% { opacity: 0.3; transform: translateY(8px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* TYPOGRAPHY */
+        h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #0a3022;
+            margin-bottom: 1.8rem;
+            border-left: 8px solid #3e9470;
+            padding-left: 1.5rem;
+        }
+
+        h3 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #1b523b;
+            margin: 2rem 0 1rem;
+        }
+
+        .subhead {
+            font-size: 1.2rem;
+            color: #2f5e4a;
+            margin-bottom: 2.2rem;
+            background: #e4f4eb;
+            padding: 0.8rem 1.4rem;
+            border-radius: 50px;
+            display: inline-block;
+        }
+
+        /* GRID INFO */
+        .danger-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.8rem;
+            margin: 2rem 0 1rem;
+        }
+
+        .danger-item {
+            background: white;
+            padding: 1.8rem 1.4rem;
+            border-radius: 2rem;
+            box-shadow: 0 8px 18px rgba(30, 70, 50, 0.08);
+            border: 1px solid #cae3d8;
+            transition: 0.15s;
+        }
+
+        .danger-item:hover {
+            border-color: #5fa07e;
+            background: #f6fef9;
+        }
+
+        .danger-icon {
+            font-size: 2.4rem;
+            color: #bb3e3e;
+            margin-bottom: 1rem;
+        }
+
+        .danger-item h4 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #0f3829;
+        }
+
+        .danger-item p {
+            color: #2b4f3f;
+            font-size: 1rem;
+        }
+
+        /* LIST SOLUSI */
+        .solusi-list {
+            list-style: none;
+        }
+
+        .solusi-list li {
+            background: white;
+            margin: 1rem 0;
+            padding: 1.3rem 1.8rem;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            font-size: 1.15rem;
+            font-weight: 500;
+            border: 1px solid #bcddcf;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.02);
+        }
+
+        .solusi-list i {
+            font-size: 1.9rem;
+            min-width: 2.2rem;
+            color: #247457;
+        }
+
+        .badge-tip {
+            background: #1f7557;
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            margin-left: 1rem;
+            font-weight: 500;
+        }
+
+        .highlight-box {
+            background: linear-gradient(125deg, #ebfaf3, #daf0e6);
+            border-radius: 2rem;
+            padding: 2rem;
+            margin: 2.5rem 0 1.5rem;
+            border: 1px solid #8fc0ab;
+        }
+
+        .highlight-box p {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .btn-peduli {
+            background: #1b4b39;
+            color: white;
+            border: none;
+            padding: 0.9rem 2rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-top: 2rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            cursor: default;
+            box-shadow: 0 8px 18px #1e5941a0;
+        }
+
+        .footer-note {
+            margin-top: 3rem;
+            text-align: center;
+            color: #396b54;
+            background: rgba(255, 255, 255, 0.55);
+            padding: 1rem;
+            border-radius: 100px;
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 640px) {
+            body { padding: 1.2rem; }
+            .header h1 { font-size: 2rem; }
+            .flow-btn { padding: 0.8rem 1.8rem; font-size: 1.1rem; }
+            .content-card { padding: 1.8rem 1.2rem; }
+            h2 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- HEADER -->
+    <div class="header">
+        <h1>🌿 napas bersih</h1>
+        <p>edukasi & solusi · asap rokok & kesehatan</p>
+    </div>
+
+    <!-- TABS (DUA FLOW) -->
+    <div class="flow-selector">
+        <button class="flow-btn active" id="btnFlow1"><i class="fas fa-skull-crosswalk"></i> Bahaya Merokok</button>
+        <button class="flow-btn" id="btnFlow2"><i class="fas fa-leaf"></i> Atasi Paparan Asap</button>
+    </div>
+
+    <!-- KONTEN DINAMIS -->
+    <div class="content-card">
+        <!-- FLOW 1 : Bahaya Merokok -->
+        <div id="flow1" class="flow-page active-page">
+            <h2>🚬 Racun dalam setiap hisapan</h2>
+            <div class="subhead"><i class="fas fa-quote-right"></i> 70+ zat karsinogen · 4.000+ bahan kimia</div>
+
+            <div class="danger-grid">
+                <div class="danger-item">
+                    <div class="danger-icon"><i class="fas fa-lungs"></i></div>
+                    <h4>Paru-paru rusak</h4>
+                    <p>PPOK, emfisema, dan kanker paru — 84% kematian akibat kanker paru terkait rokok.</p>
+                </div>
+                <div class="danger-item">
+                    <div class="danger-icon"><i class="fas fa-heart-broken"></i></div>
+                    <h4>Jantung & stroke</h4>
+                    <p>Merokok menggandakan risiko serangan jantung dan menyempitkan pembuluh darah.</p>
+                </div>
+                <div class="danger-item">
+                    <div class="danger-icon"><i class="fas fa-brain"></i></div>
+                    <h4>Otak & saraf</h4>
+                    <p>Nikotin merusak sel otak, meningkatkan cemas, dan mempercepat penuaan kognitif.</p>
+                </div>
+                <div class="danger-item">
+                    <div class="danger-icon"><i class="fas fa-uterus"></i></div>
+                    <h4>Reproduksi</h4>
+                    <p>Infertilitas, impotensi, dan gangguan janin pada ibu hamil (BBLR, keguguran).</p>
+                </div>
+            </div>
+
+            <h3>⚠️ Dampak pada perokok pasif</h3>
+            <div class="highlight-box">
+                <p><i class="fas fa-child" style="margin-right: 10px;"></i> <strong>Anak-anak:</strong> 2x lebih rentan infeksi telinga, asma, dan SIDS (sindrom kematian mendadak).</p>
+                <p><i class="fas fa-user-friends"></i> <strong>Dewasa:</strong> risiko kanker paru 20–30% lebih tinggi walau tidak pernah merokok.</p>
+            </div>
+
+            <div style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between; margin-top: 2rem;">
+                <div style="background: #cbe5db; border-radius: 20px; padding: 1.5rem; flex: 1;">
+                    <i class="fas fa-skull" style="color: #a13d3d; font-size: 2rem;"></i>
+                    <p style="font-weight: 700; font-size: 1.7rem; margin: 0.5rem 0 0;">8 juta</p>
+                    <p>kematian per tahun akibat rokok (WHO)</p>
+                </div>
+                <div style="background: #cbe5db; border-radius: 20px; padding: 1.5rem; flex: 1;">
+                    <i class="fas fa-coins" style="color: #a1823d; font-size: 2rem;"></i>
+                    <p style="font-weight: 700; font-size: 1.7rem; margin: 0.5rem 0 0;">Rp 400rb+/bln</p>
+                    <p>rata-rata pengeluaran perokok aktif</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- FLOW 2 : Cara mengatasi terpapar asap rokok -->
+        <div id="flow2" class="flow-page">
+            <h2>🌱 Langkah cerdas saat terpapar asap</h2>
+            <p class="subhead"><i class="fas fa-clock"></i> Lakukan segera · lindungi diri & keluarga</p>
+
+            <ul class="solusi-list">
+                <li><i class="fas fa-wind"></i> <span><strong>Segera menjauh</strong> – cari area dengan udara bersih, hindari sumber asap.</span> <span class="badge-tip">prioritas #1</span></li>
+                <li><i class="fas fa-mask-face"></i> <span><strong>Gunakan masker (KN95 / N95)</strong> jika berada di lingkungan berasap.</span></li>
+                <li><i class="fas fa-tint"></i> <span><strong>Berkumur & cuci muka</strong> – kurangi partikel yang menempel di tenggorokan dan kulit.</span></li>
+                <li><i class="fas fa-hand-holding-heart"></i> <span><strong>Minum air putih hangat</strong> + madu/lemon untuk menenangkan saluran napas.</span></li>
+                <li><i class="fas fa-leaf"></i> <span><strong>Tanaman pembersih udara</strong> – lidah mertua, sirih gading di dalam ruangan.</span></li>
+                <li><i class="fas fa-fan"></i> <span><strong>Nyalakan exhaust fan / air purifier</strong> – sirkulasi udara maksimal.</span></li>
+                <li><i class="fas fa-shower"></i> <span><strong>Ganti pakaian</strong> – asap menempel di kain, segera cuci rambut jika perlu.</span></li>
+            </ul>
+
+            <h3 style="margin-top: 2.5rem;">🧘‍♀️ Pemulihan jangka pendek</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 1.8rem 0;">
+                <div style="background: white; border-radius: 2rem; padding: 1.8rem; border: 1px solid #addac5;">
+                    <i class="fas fa-carrot" style="font-size: 2.2rem; color: #eb7c36;"></i>
+                    <h4 style="margin: 0.5rem 0;">Konsumsi antioksidan</h4>
+                    <p>Buah vitamin C (jeruk, kiwi), brokoli, dan teh hijau membantu melawan radikal bebas asap rokok.</p>
+                </div>
+                <div style="background: white; border-radius: 2rem; padding: 1.8rem; border: 1px solid #addac5;">
+                    <i class="fas fa-lungs" style="font-size: 2.2rem; color: #3f9e7a;"></i>
+                    <h4 style="margin: 0.5rem 0;">Latihan napas</h4>
+                    <p>Tarik napas dalam (4 detik), tahan (4 detik), hembuskan perlahan. lakukan 5-10x.</p>
+                </div>
+            </div>
+
+            <!-- info penting -->
+            <div class="highlight-box" style="background: #c7e3d8; margin-top: 1rem;">
+                <p><i class="fas fa-stethoscope" style="margin-right: 12px;"></i> <strong>Jika mengalami sesak berat, batuk berkepanjangan, atau nyeri dada — segera ke fasilitas kesehatan terdekat.</strong> Paparan asap rokok berat bisa memicu serangan asma akut.</p>
+            </div>
+
+            <!-- tindakan preventif -->
+            <div style="background: #bde0d1; border-radius: 30px; padding: 1.8rem; margin-top: 2rem;">
+                <i class="fas fa-shield-alt" style="font-size: 2rem; float: left; margin-right: 1rem;"></i>
+                <h4 style="font-weight: 700;">Terapkan rumah bebas asap rokok</h4>
+                <p>Tegaskan area merokok hanya di luar rumah. Gunakan stiker "kawasan tanpa rokok" dan ajak keluarga sadar bahaya asap rokok.</p>
+            </div>
+        </div>
+
+        <!-- tombol ajakan (sama untuk dua flow) -->
+        <div class="btn-peduli">
+            <i class="fas fa-heart-circle-check"></i> Indonesia sehat · berhenti merokok sekarang
+        </div>
+    </div>
+
+    <div class="footer-note">
+        <i class="fas fa-circle-info"></i> Sumber: Kemenkes RI, WHO, Pusat Data Napas Bersih 2025
+    </div>
+</div>
+
+<!-- SCRIPT untuk berpindah FLOW -->
+<script>
+    const btnFlow1 = document.getElementById('btnFlow1');
+    const btnFlow2 = document.getElementById('btnFlow2');
+    const flowPage1 = document.getElementById('flow1');
+    const flowPage2 = document.getElementById('flow2');
+
+    function setActiveFlow(active) {
+        // update tombol
+        btnFlow1.classList.remove('active');
+        btnFlow2.classList.remove('active');
+        if (active === 1) {
+            btnFlow1.classList.add('active');
+            flowPage1.classList.add('active-page');
+            flowPage2.classList.remove('active-page');
+        } else {
+            btnFlow2.classList.add('active');
+            flowPage2.classList.add('active-page');
+            flowPage1.classList.remove('active-page');
+        }
+    }
+
+    btnFlow1.addEventListener('click', () => setActiveFlow(1));
+    btnFlow2.addEventListener('click', () => setActiveFlow(2));
+</script>
+
+<!-- background dot pattern opsional (estetik) -->
+<style>
+    body {
+        background-image: radial-gradient(#9ecfb7 1.2px, transparent 1.2px);
+        background-size: 32px 32px;
+    }
+</style>
+
+</body>
+</html>
