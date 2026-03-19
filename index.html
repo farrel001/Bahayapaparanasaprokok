@@ -1,14 +1,14 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BANKSIMULASI • Farrel Agallant</title>
+    <title>BANKSIMULASI • PayPal Style</title>
     
     <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
@@ -19,697 +19,1093 @@
         }
 
         body {
-            background: linear-gradient(145deg, #1a120b 0%, #2c1e12 100%);
-            color: #faf7f2;
             font-family: 'Inter', sans-serif;
+            background: #f0f2f5;
+            color: #1a1a1a;
             overflow-x: hidden;
+        }
+
+        /* PayPal Color Palette */
+        :root {
+            --paypal-blue: #0070ba;
+            --paypal-blue-dark: #005ea6;
+            --paypal-blue-light: #c9e2f7;
+            --paypal-navy: #003087;
+            --paypal-gold: #ffb500;
+            --paypal-gray: #6c7a8d;
+            --paypal-light: #f5f7fa;
+            --paypal-white: #ffffff;
+            --paypal-border: #e5e8eb;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+        }
+
+        /* Layout */
+        .app-container {
+            display: flex;
             min-height: 100vh;
         }
 
-        /* Color Palette Premium */
-        :root {
-            --primary: #C9A227;
-            --primary-dark: #A47C1E;
-            --primary-light: #E5B73B;
-            --secondary: #8B5A2B;
-            --secondary-light: #B17F4F;
-            --brown-dark: #1f140e;
-            --brown-medium: #4A3420;
-            --brown-light: #7A5C3A;
-            --cream: #FCF3E0;
-            --cream-dark: #F5E6CC;
-            --white: #FFFFFF;
-            --gray-soft: #EAE2D5;
-            --success: #27ae60;
-            --danger: #e74c3c;
-            --warning: #f39c12;
-        }
-
-        /* Background Pattern */
-        .bg-pattern {
+        /* Sidebar - PayPal Style */
+        .sidebar {
+            width: 260px;
+            background: var(--paypal-white);
+            border-right: 1px solid var(--paypal-border);
+            padding: 2rem 1rem;
             position: fixed;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(rgba(201, 162, 39, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(201, 162, 39, 0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
-            z-index: -1;
-            animation: patternMove 30s linear infinite;
+            height: 100vh;
+            overflow-y: auto;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.02);
         }
 
-        @keyframes patternMove {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(50px, 50px); }
-        }
-
-        /* Navigation */
-        nav {
-            background: rgba(31, 20, 14, 0.8);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(201, 162, 39, 0.2);
-            padding: 1rem 5%;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .bank-logo {
+        .logo {
             display: flex;
             align-items: center;
             gap: 0.8rem;
+            margin-bottom: 2.5rem;
+            padding-left: 0.5rem;
         }
 
-        .bank-icon {
-            width: 45px;
-            height: 45px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 12px;
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--paypal-blue);
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
-            color: var(--brown-dark);
-            transform: rotate(45deg);
+            color: white;
+            font-size: 1.3rem;
         }
 
-        .bank-icon i {
-            transform: rotate(-45deg);
-        }
-
-        .bank-name {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.5rem;
+        .logo-text {
             font-weight: 700;
-            background: linear-gradient(135deg, var(--primary), var(--cream));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 1.3rem;
+            color: var(--paypal-blue);
         }
 
-        .nav-right {
+        .nav-item {
             display: flex;
             align-items: center;
-            gap: 2rem;
+            gap: 1rem;
+            padding: 0.9rem 1rem;
+            margin: 0.3rem 0;
+            border-radius: 12px;
+            color: #2c3e50;
+            text-decoration: none;
+            transition: all 0.2s;
+            font-weight: 500;
+            cursor: pointer;
         }
 
-        .datetime {
-            color: var(--cream);
-            font-size: 0.9rem;
-            background: rgba(201, 162, 39, 0.1);
-            padding: 0.5rem 1rem;
-            border-radius: 30px;
-            border: 1px solid rgba(201, 162, 39, 0.2);
-        }
-
-        /* Main Container */
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 2rem 5%;
-        }
-
-        /* Welcome Section */
-        .welcome-section {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 2rem;
-            margin-bottom: 3rem;
-            background: rgba(74, 52, 32, 0.3);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(201, 162, 39, 0.15);
-            border-radius: 40px;
-            padding: 2rem;
-        }
-
-        .user-greeting h1 {
-            font-size: 2.5rem;
-            font-family: 'Space Grotesk', sans-serif;
-            margin-bottom: 0.5rem;
-        }
-
-        .user-greeting h1 span {
-            color: var(--primary);
-            position: relative;
-        }
-
-        .user-greeting h1 span::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, var(--primary), transparent);
-        }
-
-        .account-badge {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .badge-item {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            background: rgba(201, 162, 39, 0.1);
-            padding: 0.8rem 1.5rem;
-            border-radius: 50px;
-            border: 1px solid rgba(201, 162, 39, 0.2);
-        }
-
-        .badge-item i {
-            color: var(--primary);
+        .nav-item i {
+            width: 22px;
+            color: var(--paypal-gray);
             font-size: 1.2rem;
         }
 
-        /* Balance Cards */
-        .balance-cards {
+        .nav-item:hover {
+            background: var(--paypal-light);
+            color: var(--paypal-blue);
+        }
+
+        .nav-item:hover i {
+            color: var(--paypal-blue);
+        }
+
+        .nav-item.active {
+            background: var(--paypal-blue-light);
+            color: var(--paypal-blue);
+            font-weight: 600;
+        }
+
+        .nav-item.active i {
+            color: var(--paypal-blue);
+        }
+
+        .nav-divider {
+            height: 1px;
+            background: var(--paypal-border);
+            margin: 1.5rem 1rem;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 260px;
+            padding: 2rem;
+            background: #f8fafd;
+        }
+
+        /* Top Navigation - PayPal Style */
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            background: white;
+            padding: 1rem 2rem;
+            border-radius: 16px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+        }
+
+        .page-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .notification-icon {
+            position: relative;
+            cursor: pointer;
+            font-size: 1.3rem;
+            color: var(--paypal-gray);
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--paypal-gold);
+            color: white;
+            font-size: 0.7rem;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border-radius: 40px;
+            transition: background 0.2s;
+        }
+
+        .user-profile:hover {
+            background: var(--paypal-light);
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--paypal-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .user-info {
+            line-height: 1.3;
+        }
+
+        .user-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .user-email {
+            font-size: 0.8rem;
+            color: var(--paypal-gray);
+        }
+
+        /* Welcome Card */
+        .welcome-card {
+            background: linear-gradient(135deg, var(--paypal-blue), var(--paypal-navy));
+            border-radius: 24px;
+            padding: 2rem;
+            color: white;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,112,186,0.2);
+        }
+
+        .welcome-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 300px;
+            height: 300px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+        }
+
+        .welcome-title {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+
+        .welcome-subtitle {
+            font-size: 1rem;
+            opacity: 0.9;
+            position: relative;
+        }
+
+        .welcome-date {
+            position: relative;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Balance Cards Grid */
+        .balance-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            margin-bottom: 3rem;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
         }
 
         .balance-card {
-            background: linear-gradient(145deg, rgba(74, 52, 32, 0.6), rgba(44, 26, 14, 0.8));
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(201, 162, 39, 0.2);
-            border-radius: 30px;
-            padding: 2rem;
+            background: white;
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
             transition: all 0.3s ease;
-            animation: slideIn 0.6s ease-out forwards;
-            opacity: 0;
-        }
-
-        .balance-card:nth-child(1) { animation-delay: 0.1s; }
-        .balance-card:nth-child(2) { animation-delay: 0.2s; }
-        .balance-card:nth-child(3) { animation-delay: 0.3s; }
-
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+            border: 1px solid var(--paypal-border);
         }
 
         .balance-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary);
-            box-shadow: 0 20px 40px -15px rgba(201, 162, 39, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 24px rgba(0,112,186,0.1);
+            border-color: var(--paypal-blue-light);
         }
 
         .card-label {
-            color: var(--cream-dark);
+            color: var(--paypal-gray);
             font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 0.8rem;
-        }
-
-        .card-amount {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: var(--primary-light);
-        }
-
-        .card-footer {
-            margin-top: 1.5rem;
-            color: var(--cream);
-            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
 
-        /* Quick Actions */
-        .quick-actions {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 3rem;
-            flex-wrap: wrap;
+        .card-amount {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 0.5rem;
         }
 
-        .action-btn {
-            background: rgba(201, 162, 39, 0.1);
-            border: 1px solid rgba(201, 162, 39, 0.2);
-            color: var(--cream);
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
+        .card-trend {
+            font-size: 0.85rem;
             display: flex;
             align-items: center;
-            gap: 0.8rem;
-            font-size: 1rem;
+            gap: 0.3rem;
         }
 
-        .action-btn:hover {
-            background: var(--primary);
-            color: var(--brown-dark);
-            border-color: var(--primary);
-            transform: translateY(-2px);
+        .trend-up { color: var(--success); }
+        .trend-down { color: var(--danger); }
+
+        /* Two Column Layout */
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
         }
 
-        .action-btn.primary {
-            background: var(--primary);
-            color: var(--brown-dark);
-            border: none;
-        }
-
-        /* Transaction History Section */
-        .transaction-section {
-            background: rgba(31, 20, 14, 0.6);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(201, 162, 39, 0.15);
-            border-radius: 40px;
-            padding: 2rem;
-            margin-bottom: 3rem;
+        /* Card Section */
+        .card-section {
+            background: white;
+            border-radius: 20px;
+            padding: 1.8rem;
+            border: 1px solid var(--paypal-border);
         }
 
         .section-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-            gap: 1rem;
+            margin-bottom: 1.5rem;
         }
 
-        .section-header h2 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 2rem;
-            color: var(--cream);
-        }
-
-        .section-header h2 i {
-            color: var(--primary);
-            margin-right: 1rem;
-        }
-
-        .filter-group {
-            display: flex;
-            gap: 0.8rem;
-            flex-wrap: wrap;
-        }
-
-        .filter-select {
-            background: rgba(74, 52, 32, 0.6);
-            border: 1px solid rgba(201, 162, 39, 0.2);
-            color: var(--cream);
-            padding: 0.8rem 1.5rem;
-            border-radius: 30px;
-            font-size: 0.9rem;
-            cursor: pointer;
-        }
-
-        /* Table Styling */
-        .table-container {
-            overflow-x: auto;
-            border-radius: 20px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            min-width: 800px;
-        }
-
-        th {
-            text-align: left;
-            padding: 1.2rem 1rem;
-            color: var(--primary);
+        .section-header h3 {
+            font-size: 1.2rem;
             font-weight: 600;
-            border-bottom: 2px solid rgba(201, 162, 39, 0.3);
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        td {
-            padding: 1.2rem 1rem;
-            border-bottom: 1px solid rgba(201, 162, 39, 0.1);
-            color: var(--cream);
-        }
-
-        tr:hover td {
-            background: rgba(201, 162, 39, 0.05);
-        }
-
-        .transaction-type {
             display: flex;
             align-items: center;
             gap: 0.8rem;
         }
 
-        .type-icon {
-            width: 35px;
+        .section-header a {
+            color: var(--paypal-blue);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .credit-card {
+            background: linear-gradient(145deg, #1a2a3a, #0f1a24);
+            border-radius: 18px;
+            padding: 1.5rem;
+            color: white;
+            position: relative;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .card-chip {
+            width: 45px;
             height: 35px;
-            border-radius: 10px;
+            background: linear-gradient(135deg, #d4af37, #f5e6b3);
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-number {
+            font-size: 1.4rem;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+            font-family: monospace;
+        }
+
+        .card-details {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        .card-balance {
+            background: rgba(255,255,255,0.1);
+            padding: 1rem;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Quick Actions */
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.8rem;
+            margin-top: 1rem;
+        }
+
+        .action-item {
+            background: var(--paypal-light);
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .action-item:hover {
+            background: white;
+            border-color: var(--paypal-blue);
+            transform: scale(1.02);
+        }
+
+        .action-item i {
+            font-size: 1.5rem;
+            color: var(--paypal-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .action-item span {
+            font-size: 0.85rem;
+            font-weight: 500;
+            display: block;
+        }
+
+        /* Transaction History - PayPal Style Table */
+        .transaction-table {
+            background: white;
+            border-radius: 20px;
+            padding: 1.8rem;
+            border: 1px solid var(--paypal-border);
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .filter-tab {
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: var(--paypal-light);
+        }
+
+        .filter-tab.active {
+            background: var(--paypal-blue);
+            color: white;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            text-align: left;
+            padding: 1rem 0.5rem;
+            color: var(--paypal-gray);
+            font-weight: 500;
+            font-size: 0.85rem;
+            border-bottom: 1px solid var(--paypal-border);
+        }
+
+        td {
+            padding: 1.2rem 0.5rem;
+            border-bottom: 1px solid var(--paypal-border);
+        }
+
+        .transaction-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .transaction-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1rem;
         }
 
-        .type-icon.credit {
-            background: rgba(39, 174, 96, 0.15);
+        .icon-credit { background: #e3f2fd; color: var(--paypal-blue); }
+        .icon-debit { background: #fde9e9; color: var(--danger); }
+        .icon-transfer { background: #fff4db; color: var(--warning); }
+
+        .transaction-detail {
+            font-weight: 500;
+        }
+
+        .transaction-date {
+            font-size: 0.8rem;
+            color: var(--paypal-gray);
+        }
+
+        .amount-credit {
             color: var(--success);
-        }
-
-        .type-icon.debit {
-            background: rgba(231, 76, 60, 0.15);
-            color: var(--danger);
-        }
-
-        .type-icon.transfer {
-            background: rgba(241, 196, 15, 0.15);
-            color: var(--warning);
-        }
-
-        .amount {
-            font-family: 'Space Grotesk', sans-serif;
             font-weight: 600;
-            font-size: 1.1rem;
         }
 
-        .amount.credit {
-            color: var(--success);
-        }
-
-        .amount.debit {
+        .amount-debit {
             color: var(--danger);
+            font-weight: 600;
         }
 
         .status-badge {
             padding: 0.3rem 1rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
+            border-radius: 30px;
+            font-size: 0.75rem;
             font-weight: 600;
         }
 
-        .status-badge.success {
-            background: rgba(39, 174, 96, 0.15);
+        .status-success {
+            background: #e3f7e9;
             color: var(--success);
         }
 
-        .status-badge.pending {
-            background: rgba(241, 196, 15, 0.15);
+        .status-pending {
+            background: #fff4db;
             color: var(--warning);
         }
 
-        /* Summary Cards */
-        .summary-cards {
+        /* Analytics Cards */
+        .analytics-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 1.5rem;
-            margin-top: 2rem;
+            gap: 1rem;
+            margin: 1.5rem 0;
         }
 
-        .summary-item {
-            background: rgba(74, 52, 32, 0.3);
-            border: 1px solid rgba(201, 162, 39, 0.15);
-            border-radius: 20px;
-            padding: 1.5rem;
-            text-align: center;
+        .analytics-item {
+            background: var(--paypal-light);
+            border-radius: 16px;
+            padding: 1.2rem;
+            border: 1px solid var(--paypal-border);
         }
 
-        .summary-value {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.8rem;
+        .analytics-label {
+            font-size: 0.8rem;
+            color: var(--paypal-gray);
+            margin-bottom: 0.3rem;
+        }
+
+        .analytics-value {
+            font-size: 1.3rem;
             font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 0.5rem;
         }
 
-        .summary-label {
-            color: var(--cream-dark);
-            font-size: 0.9rem;
+        .analytics-trend {
+            font-size: 0.75rem;
+            margin-top: 0.3rem;
         }
 
-        /* Footer */
-        footer {
-            background: rgba(31, 20, 14, 0.9);
-            border-top: 1px solid rgba(201, 162, 39, 0.2);
-            padding: 2rem 5%;
-            margin-top: 4rem;
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1001;
+            justify-content: center;
+            align-items: center;
         }
 
-        .footer-content {
-            max-width: 1400px;
-            margin: 0 auto;
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 24px;
+            padding: 2rem;
+            width: 90%;
+            max-width: 400px;
+            animation: modalSlide 0.3s ease;
+        }
+
+        @keyframes modalSlide {
+            from { transform: translateY(-30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-            color: var(--cream-dark);
+            margin-bottom: 1.5rem;
         }
 
-        .footer-links {
-            display: flex;
-            gap: 2rem;
+        .modal-close {
+            cursor: pointer;
+            font-size: 1.3rem;
+            color: var(--paypal-gray);
         }
 
-        .footer-links a {
-            color: var(--cream-dark);
-            text-decoration: none;
-            transition: color 0.3s;
+        .form-group {
+            margin-bottom: 1.2rem;
         }
 
-        .footer-links a:hover {
-            color: var(--primary);
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--paypal-border);
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 0.95rem;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--paypal-blue);
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--paypal-blue);
+            color: white;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background: var(--paypal-blue-dark);
         }
 
         /* Responsive */
-        @media (max-width: 768px) {
-            .balance-cards {
-                grid-template-columns: 1fr;
-            }
-            
-            .summary-cards {
+        @media (max-width: 1024px) {
+            .balance-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
-            
-            .welcome-section {
-                flex-direction: column;
-                align-items: flex-start;
+            .two-column {
+                grid-template-columns: 1fr;
             }
-            
-            .nav-right .datetime {
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
                 display: none;
+            }
+            .main-content {
+                margin-left: 0;
             }
         }
     </style>
 </head>
 <body>
-    <div class="bg-pattern"></div>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-building-columns"></i>
+                </div>
+                <div class="logo-text">BANKSIMULASI</div>
+            </div>
 
-    <!-- Navigation -->
-    <nav>
-        <div class="bank-logo">
-            <div class="bank-icon">
-                <i class="fas fa-building-columns"></i>
+            <div class="nav-item active">
+                <i class="fas fa-house"></i>
+                <span>Dashboard</span>
             </div>
-            <div class="bank-name">BANKSIMULASI</div>
-        </div>
-        <div class="nav-right">
-            <div class="datetime" id="datetime"></div>
-            <div class="bank-logo" style="gap: 0.5rem;">
-                <i class="fas fa-circle-user" style="color: var(--primary); font-size: 1.8rem;"></i>
-                <span style="color: var(--cream);">Farrel A.</span>
+            <div class="nav-item">
+                <i class="fas fa-arrow-right-arrow-left"></i>
+                <span>Transaksi</span>
             </div>
-        </div>
-    </nav>
+            <div class="nav-item">
+                <i class="fas fa-credit-card"></i>
+                <span>Kartu Saya</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-chart-line"></i>
+                <span>Analisis</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-bell"></i>
+                <span>Notifikasi</span>
+            </div>
+            
+            <div class="nav-divider"></div>
 
-    <div class="container">
-        <!-- Welcome Section -->
-        <div class="welcome-section">
-            <div class="user-greeting">
-                <h1>Selamat datang, <span>Farrel Agallant</span></h1>
-                <p style="color: var(--cream-dark);">Terakhir login: 19 Maret 2025 • 08:47 WIB</p>
+            <div class="nav-item">
+                <i class="fas fa-gear"></i>
+                <span>Pengaturan</span>
             </div>
-            <div class="account-badge">
-                <div class="badge-item">
-                    <i class="fas fa-credit-card"></i>
-                    <div>
-                        <div style="font-size: 0.8rem; color: var(--cream-dark);">No. Rekening</div>
-                        <div style="font-weight: 600;">7012-4321-9876-5432</div>
+            <div class="nav-item">
+                <i class="fas fa-circle-question"></i>
+                <span>Bantuan</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-arrow-right-from-bracket"></i>
+                <span>Keluar</span>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Top Navigation -->
+            <div class="top-nav">
+                <div class="page-title">Dashboard</div>
+                <div class="nav-actions">
+                    <div class="notification-icon">
+                        <i class="far fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </div>
+                    <div class="user-profile" onclick="toggleUserMenu()">
+                        <div class="user-avatar">FA</div>
+                        <div class="user-info">
+                            <div class="user-name">Farrel Agallant</div>
+                            <div class="user-email">farrel@email.com</div>
+                        </div>
+                        <i class="fas fa-chevron-down" style="font-size: 0.8rem; color: var(--paypal-gray);"></i>
                     </div>
                 </div>
-                <div class="badge-item">
-                    <i class="fas fa-layer-group"></i>
-                    <div>
-                        <div style="font-size: 0.8rem; color: var(--cream-dark);">Tipe Akun</div>
-                        <div style="font-weight: 600;">Premium Gold</div>
+            </div>
+
+            <!-- Welcome Card -->
+            <div class="welcome-card">
+                <div class="welcome-title">Selamat datang, Farrel 👋</div>
+                <div class="welcome-subtitle">Kelola keuangan Anda dengan mudah dan aman</div>
+                <div class="welcome-date" id="currentDate"></div>
+            </div>
+
+            <!-- Balance Cards -->
+            <div class="balance-grid">
+                <div class="balance-card">
+                    <div class="card-label">
+                        <i class="fas fa-wallet" style="color: var(--paypal-blue);"></i>
+                        Total Saldo
+                    </div>
+                    <div class="card-amount">Rp 28.475.000</div>
+                    <div class="card-trend trend-up">
+                        <i class="fas fa-arrow-up"></i> +12.5% dari bulan lalu
+                    </div>
+                </div>
+                <div class="balance-card">
+                    <div class="card-label">
+                        <i class="fas fa-piggy-bank" style="color: var(--paypal-blue);"></i>
+                        Tabungan
+                    </div>
+                    <div class="card-amount">Rp 15.000.000</div>
+                    <div class="card-trend">Jatuh tempo 12/2025</div>
+                </div>
+                <div class="balance-card">
+                    <div class="card-label">
+                        <i class="fas fa-credit-card" style="color: var(--paypal-blue);"></i>
+                        Limit Kartu
+                    </div>
+                    <div class="card-amount">Rp 5.000.000</div>
+                    <div class="card-trend">Tersisa Rp 3.250.000</div>
+                </div>
+                <div class="balance-card">
+                    <div class="card-label">
+                        <i class="fas fa-coins" style="color: var(--paypal-blue);"></i>
+                        Investasi
+                    </div>
+                    <div class="card-amount">Rp 7.250.000</div>
+                    <div class="card-trend trend-up">
+                        <i class="fas fa-arrow-up"></i> +8.3%
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Balance Cards -->
-        <div class="balance-cards">
-            <div class="balance-card">
-                <div class="card-label">Total Saldo</div>
-                <div class="card-amount">Rp 28.475.000</div>
-                <div class="card-footer">
-                    <i class="fas fa-arrow-up" style="color: var(--success);"></i>
-                    <span style="color: var(--success);">+12.5%</span> dari bulan lalu
+            <!-- Two Column Section -->
+            <div class="two-column">
+                <!-- Kartu & Quick Actions -->
+                <div class="card-section">
+                    <div class="section-header">
+                        <h3><i class="fas fa-credit-card" style="color: var(--paypal-blue);"></i> Kartu Utama</h3>
+                        <a href="#" onclick="showModal('cardModal')">Kelola <i class="fas fa-chevron-right"></i></a>
+                    </div>
+
+                    <div class="credit-card">
+                        <div class="card-chip"></div>
+                        <div class="card-number">7012 4321 9876 5432</div>
+                        <div class="card-details">
+                            <span>Farrel Agallant</span>
+                            <span>12/27</span>
+                        </div>
+                        <div style="margin-top: 1.5rem;">
+                            <div style="font-size: 0.8rem; opacity: 0.7;">Saldo Tersedia</div>
+                            <div style="font-size: 1.5rem; font-weight: 600;">Rp 28.475.000</div>
+                        </div>
+                    </div>
+
+                    <div class="actions-grid">
+                        <div class="action-item" onclick="showModal('transferModal')">
+                            <i class="fas fa-arrow-right-arrow-left"></i>
+                            <span>Transfer</span>
+                        </div>
+                        <div class="action-item" onclick="showModal('topupModal')">
+                            <i class="fas fa-mobile-alt"></i>
+                            <span>Top Up</span>
+                        </div>
+                        <div class="action-item" onclick="showModal('billModal')">
+                            <i class="fas fa-file-invoice"></i>
+                            <span>Tagihan</span>
+                        </div>
+                        <div class="action-item" onclick="showModal('withdrawModal')">
+                            <i class="fas fa-money-bill"></i>
+                            <span>Tarik</span>
+                        </div>
+                        <div class="action-item" onclick="showModal('investModal')">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Investasi</span>
+                        </div>
+                        <div class="action-item" onclick="showModal('qrModal')">
+                            <i class="fas fa-qrcode"></i>
+                            <span>QR Pay</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analytics Card -->
+                <div class="card-section">
+                    <div class="section-header">
+                        <h3><i class="fas fa-chart-pie" style="color: var(--paypal-blue);"></i> Ringkasan Bulan Ini</h3>
+                        <a href="#">Detail</a>
+                    </div>
+
+                    <div class="analytics-grid">
+                        <div class="analytics-item">
+                            <div class="analytics-label">Pemasukan</div>
+                            <div class="analytics-value" style="color: var(--success);">Rp 18.5jt</div>
+                            <div class="analytics-trend trend-up">↑ 15%</div>
+                        </div>
+                        <div class="analytics-item">
+                            <div class="analytics-label">Pengeluaran</div>
+                            <div class="analytics-value" style="color: var(--danger);">Rp 12.3jt</div>
+                            <div class="analytics-trend trend-down">↓ 5%</div>
+                        </div>
+                        <div class="analytics-item">
+                            <div class="analytics-label">Transfer</div>
+                            <div class="analytics-value">Rp 4.2jt</div>
+                            <div class="analytics-trend">8 transaksi</div>
+                        </div>
+                        <div class="analytics-item">
+                            <div class="analytics-label">Tabungan</div>
+                            <div class="analytics-value">Rp 2.1jt</div>
+                            <div class="analytics-trend">+ bulan ini</div>
+                        </div>
+                    </div>
+
+                    <div style="background: var(--paypal-light); border-radius: 12px; padding: 1rem; margin-top: 1rem;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                            <span style="font-size: 0.9rem;">Pengeluaran per Kategori</span>
+                            <span style="font-size: 0.8rem; color: var(--paypal-blue);">Bulan Ini</span>
+                        </div>
+                        <div style="margin: 1rem 0;">
+                            <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.3rem;">
+                                <span>Makanan</span>
+                                <span>35%</span>
+                            </div>
+                            <div style="height: 6px; background: #e0e0e0; border-radius: 10px;">
+                                <div style="width: 35%; height: 100%; background: var(--paypal-blue); border-radius: 10px;"></div>
+                            </div>
+                        </div>
+                        <div style="margin: 1rem 0;">
+                            <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.3rem;">
+                                <span>Transport</span>
+                                <span>20%</span>
+                            </div>
+                            <div style="height: 6px; background: #e0e0e0; border-radius: 10px;">
+                                <div style="width: 20%; height: 100%; background: var(--paypal-blue); border-radius: 10px;"></div>
+                            </div>
+                        </div>
+                        <div style="margin: 1rem 0;">
+                            <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.3rem;">
+                                <span>Belanja</span>
+                                <span>25%</span>
+                            </div>
+                            <div style="height: 6px; background: #e0e0e0; border-radius: 10px;">
+                                <div style="width: 25%; height: 100%; background: var(--paypal-blue); border-radius: 10px;"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="balance-card">
-                <div class="card-label">Tabungan Berjangka</div>
-                <div class="card-amount">Rp 15.000.000</div>
-                <div class="card-footer">
-                    <i class="fas fa-clock" style="color: var(--primary);"></i>
-                    Jatuh tempo 12/2025
-                </div>
-            </div>
-            <div class="balance-card">
-                <div class="card-label">Limit Kartu Kredit</div>
-                <div class="card-amount">Rp 5.000.000</div>
-                <div class="card-footer">
-                    <i class="fas fa-chart-line" style="color: var(--primary);"></i>
-                    Tersisa Rp 3.250.000
-                </div>
-            </div>
-        </div>
 
-        <!-- Quick Actions -->
-        <div class="quick-actions">
-            <button class="action-btn primary" onclick="alert('Fitur Transfer (Simulasi)')">
-                <i class="fas fa-arrow-right-arrow-left"></i> Transfer
-            </button>
-            <button class="action-btn" onclick="alert('Fitur Pembayaran (Simulasi)')">
-                <i class="fas fa-file-invoice"></i> Bayar Tagihan
-            </button>
-            <button class="action-btn" onclick="alert('Fitur Top Up (Simulasi)')">
-                <i class="fas fa-mobile-alt"></i> Top Up
-            </button>
-            <button class="action-btn" onclick="alert('Fitur Tarik Tunai (Simulasi)')">
-                <i class="fas fa-money-bill"></i> Tarik Tunai
-            </button>
-        </div>
-
-        <!-- Transaction History -->
-        <div class="transaction-section">
-            <div class="section-header">
-                <h2><i class="fas fa-history"></i> Riwayat Transaksi</h2>
-                <div class="filter-group">
-                    <select class="filter-select" id="filterMonth" onchange="filterTransactions()">
-                        <option value="all">Semua Bulan</option>
-                        <option value="03">Maret 2025</option>
-                        <option value="02">Februari 2025</option>
-                        <option value="01">Januari 2025</option>
-                    </select>
-                    <select class="filter-select" id="filterType" onchange="filterTransactions()">
-                        <option value="all">Semua Tipe</option>
-                        <option value="credit">Pemasukan</option>
-                        <option value="debit">Pengeluaran</option>
-                        <option value="transfer">Transfer</option>
-                    </select>
+            <!-- Transaction History -->
+            <div class="transaction-table">
+                <div class="table-header">
+                    <h3 style="font-size: 1.2rem;">Riwayat Transaksi Terbaru</h3>
+                    <div class="filter-tabs">
+                        <div class="filter-tab active" onclick="filterTransactions('all')">Semua</div>
+                        <div class="filter-tab" onclick="filterTransactions('credit')">Pemasukan</div>
+                        <div class="filter-tab" onclick="filterTransactions('debit')">Pengeluaran</div>
+                        <div class="filter-tab" onclick="filterTransactions('transfer')">Transfer</div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="table-container">
                 <table id="transactionTable">
                     <thead>
                         <tr>
-                            <th>Tanggal</th>
-                            <th>Deskripsi</th>
+                            <th>Transaksi</th>
                             <th>Kategori</th>
                             <th>Jumlah</th>
                             <th>Status</th>
-                            <th>Detail</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody id="transactionBody">
-                        <!-- Data akan diisi oleh JavaScript -->
+                        <!-- Data will be loaded by JavaScript -->
                     </tbody>
                 </table>
-            </div>
 
-            <!-- Summary Cards -->
-            <div class="summary-cards">
-                <div class="summary-item">
-                    <div class="summary-value" id="totalCredit">Rp 0</div>
-                    <div class="summary-label">Total Pemasukan</div>
-                </div>
-                <div class="summary-item">
-                    <div class="summary-value" id="totalDebit">Rp 0</div>
-                    <div class="summary-label">Total Pengeluaran</div>
-                </div>
-                <div class="summary-item">
-                    <div class="summary-value" id="totalTransfer">Rp 0</div>
-                    <div class="summary-label">Total Transfer</div>
-                </div>
-                <div class="summary-item">
-                    <div class="summary-value" id="transactionCount">0</div>
-                    <div class="summary-label">Jumlah Transaksi</div>
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button class="btn btn-primary" style="width: auto; padding: 0.8rem 2rem;" onclick="alert('Memuat semua transaksi')">
+                        Lihat Semua Transaksi
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div>© 2025 BANKSIMULASI — Farrel Agallant</div>
-            <div class="footer-links">
-                <a href="#" onclick="alert('Halaman Bantuan (Simulasi)')">Bantuan</a>
-                <a href="#" onclick="alert('Kebijakan Privasi (Simulasi)')">Privasi</a>
-                <a href="#" onclick="alert('Syarat & Ketentuan (Simulasi)')">Syarat</a>
-                <a href="#" onclick="alert('Hubungi Kami (Simulasi)')">Kontak</a>
+    <!-- Transfer Modal -->
+    <div class="modal" id="transferModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Transfer Uang</h3>
+                <i class="fas fa-times modal-close" onclick="hideModal('transferModal')"></i>
             </div>
+            <div class="form-group">
+                <label>Dari Rekening</label>
+                <select>
+                    <option>7012-4321-9876-5432 (Rp 28.475.000)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Nomor Rekening Tujuan</label>
+                <input type="text" placeholder="Contoh: 1234-5678-9012">
+            </div>
+            <div class="form-group">
+                <label>Jumlah Transfer</label>
+                <input type="text" placeholder="Rp">
+            </div>
+            <div class="form-group">
+                <label>Berita (opsional)</label>
+                <input type="text" placeholder="Pembayaran...">
+            </div>
+            <button class="btn btn-primary" onclick="alert('Transfer berhasil diproses (simulasi)'); hideModal('transferModal')">Lanjutkan Transfer</button>
         </div>
-    </footer>
+    </div>
+
+    <!-- Top Up Modal -->
+    <div class="modal" id="topupModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Top Up Saldo</h3>
+                <i class="fas fa-times modal-close" onclick="hideModal('topupModal')"></i>
+            </div>
+            <div class="form-group">
+                <label>Metode Pembayaran</label>
+                <select>
+                    <option>Transfer Bank</option>
+                    <option>Kartu Kredit</option>
+                    <option>Virtual Account</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Jumlah Top Up</label>
+                <input type="text" placeholder="Rp">
+            </div>
+            <button class="btn btn-primary" onclick="alert('Permintaan top up diproses (simulasi)'); hideModal('topupModal')">Top Up Sekarang</button>
+        </div>
+    </div>
+
+    <!-- Bill Payment Modal -->
+    <div class="modal" id="billModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Pembayaran Tagihan</h3>
+                <i class="fas fa-times modal-close" onclick="hideModal('billModal')"></i>
+            </div>
+            <div class="form-group">
+                <label>Jenis Tagihan</label>
+                <select>
+                    <option>Listrik</option>
+                    <option>Air PDAM</option>
+                    <option>Internet</option>
+                    <option>Kartu Kredit</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Nomor ID / Pelanggan</label>
+                <input type="text" placeholder="Masukkan nomor pelanggan">
+            </div>
+            <div class="form-group">
+                <label>Jumlah Pembayaran</label>
+                <input type="text" placeholder="Rp">
+            </div>
+            <button class="btn btn-primary" onclick="alert('Pembayaran berhasil (simulasi)'); hideModal('billModal')">Bayar Sekarang</button>
+        </div>
+    </div>
+
+    <!-- Withdraw Modal -->
+    <div class="modal" id="withdrawModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Tarik Tunai</h3>
+                <i class="fas fa-times modal-close" onclick="hideModal('withdrawModal')"></i>
+            </div>
+            <div class="form-group">
+                <label>Jumlah Penarikan</label>
+                <input type="text" placeholder="Rp">
+            </div>
+            <div class="form-group">
+                <label>Metode</label>
+                <select>
+                    <option>ATM BANKSIMULASI</option>
+                    <option>Transfer ke Bank Lain</option>
+                </select>
+            </div>
+            <button class="btn btn-primary" onclick="alert('Permintaan penarikan diproses (simulasi)'); hideModal('withdrawModal')">Proses Penarikan</button>
+        </div>
+    </div>
+
+    <!-- Invest Modal -->
+    <div class="modal" id="investModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Investasi</h3>
+                <i class="fas fa-times modal-close" onclick="hideModal('investModal')"></i>
+            </div>
+            <div class="form-group">
+                <label>Pilih Produk</label>
+                <select>
+                    <option>Deposito 3 bulan (4.5%)</option>
+                    <option>Deposito 6 bulan (5.2%)</option>
+                    <option>Reksadana Pasar Uang</option>
+                    <option>Obligasi Negara</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Jumlah Investasi</label>
+                <input type="text" placeholder="Rp">
+            </div>
+            <button class="btn btn-primary" onclick="alert('Investasi berhasil (simulasi)'); hideModal('investModal')">Mulai Investasi</button>
+        </div>
+    </div>
+
+    <!-- QR Modal -->
+    <div class="modal" id="qrModal">
+        <div class="modal-content" style="text-align: center;">
+            <div class="modal-header">
+                <h3>QR Code Payment</h3>
+                <i class="fas fa-times modal-close" onclick="hideModal('qrModal')"></i>
+            </div>
+            <div style="background: var(--paypal-light); width: 200px; height: 200px; margin: 2rem auto; display: flex; align-items: center; justify-content: center; border-radius: 20px;">
+                <i class="fas fa-qrcode" style="font-size: 8rem; color: var(--paypal-blue); opacity: 0.8;"></i>
+            </div>
+            <p style="margin-bottom: 1rem;">Scan QR code untuk melakukan pembayaran</p>
+            <button class="btn btn-primary" onclick="hideModal('qrModal')">Tutup</button>
+        </div>
+    </div>
 
     <script>
-        // Data Transaksi Farrel Agallant (32 transaksi)
+        // Data Transaksi
         const transactions = [
-            // Maret 2025
-            { date: "2025-03-19", desc: "Setoran Tunai", category: "credit", amount: 5000000, status: "success", type: "credit", icon: "fa-circle-dollar" },
-            { date: "2025-03-18", desc: "Transfer dari PT. Maju Jaya", category: "credit", amount: 2750000, status: "success", type: "credit", icon: "fa-building" },
-            { date: "2025-03-17", desc: "Pembayaran Listrik", category: "debit", amount: 450000, status: "success", type: "debit", icon: "fa-bolt" },
-            { date: "2025-03-16", desc: "Transfer ke Dewi Sartika", category: "transfer", amount: 500000, status: "success", type: "transfer", icon: "fa-user" },
-            { date: "2025-03-15", desc: "Pembelian Pulsa", category: "debit", amount: 100000, status: "success", type: "debit", icon: "fa-phone" },
-            { date: "2025-03-14", desc: "Setoran Tunai ATM", category: "credit", amount: 2000000, status: "success", type: "credit", icon: "fa-building-columns" },
-            { date: "2025-03-12", desc: "Transfer ke Rekening Tabungan", category: "transfer", amount: 750000, status: "success", type: "transfer", icon: "fa-piggy-bank" },
-            { date: "2025-03-10", desc: "Pembayaran Kartu Kredit", category: "debit", amount: 1250000, status: "success", type: "debit", icon: "fa-credit-card" },
-            { date: "2025-03-08", desc: "Bonus Tahunan", category: "credit", amount: 3500000, status: "success", type: "credit", icon: "fa-gift" },
-            { date: "2025-03-05", desc: "Transfer dari Orang Tua", category: "credit", amount: 1000000, status: "success", type: "credit", icon: "fa-heart" },
-            { date: "2025-03-03", desc: "Pembayaran Internet", category: "debit", amount: 350000, status: "success", type: "debit", icon: "fa-wifi" },
-            { date: "2025-03-01", desc: "Belanja Supermarket", category: "debit", amount: 850000, status: "success", type: "debit", icon: "fa-cart-shopping" },
-
-            // Februari 2025
-            { date: "2025-02-28", desc: "Transfer ke Rekanan", category: "transfer", amount: 1200000, status: "success", type: "transfer", icon: "fa-users" },
-            { date: "2025-02-25", desc: "Gaji Bulanan", category: "credit", amount: 8500000, status: "success", type: "credit", icon: "fa-briefcase" },
-            { date: "2025-02-22", desc: "Pembayaran Air PDAM", category: "debit", amount: 125000, status: "success", type: "debit", icon: "fa-droplet" },
-            { date: "2025-02-20", desc: "Transfer ke Investasi", category: "transfer", amount: 2000000, status: "success", type: "transfer", icon: "fa-chart-line" },
-            { date: "2025-02-18", desc: "Makan di Restoran", category: "debit", amount: 375000, status: "success", type: "debit", icon: "fa-utensils" },
-            { date: "2025-02-15", desc: "Bonus Project", category: "credit", amount: 1500000, status: "success", type: "credit", icon: "fa-medal" },
-            { date: "2025-02-12", desc: "Pembayaran Asuransi", category: "debit", amount: 550000, status: "success", type: "debit", icon: "fa-shield" },
-            { date: "2025-02-10", desc: "Transfer ke Farrel (Tabungan)", category: "transfer", amount: 500000, status: "success", type: "transfer", icon: "fa-piggy-bank" },
-            { date: "2025-02-07", desc: "Belanja Online", category: "debit", amount: 425000, status: "pending", type: "debit", icon: "fa-bag-shopping" },
-            { date: "2025-02-05", desc: "Dividen Saham", category: "credit", amount: 750000, status: "success", type: "credit", icon: "fa-coins" },
-            { date: "2025-02-02", desc: "Bensin & Tol", category: "debit", amount: 300000, status: "success", type: "debit", icon: "fa-car" },
-
-            // Januari 2025
-            { date: "2025-01-28", desc: "Transfer ke Ayah", category: "transfer", amount: 1000000, status: "success", type: "transfer", icon: "fa-user" },
-            { date: "2025-01-25", desc: "Gaji Bulanan", category: "credit", amount: 8500000, status: "success", type: "credit", icon: "fa-briefcase" },
-            { date: "2025-01-20", desc: "Pembayaran Cicilan Motor", category: "debit", amount: 950000, status: "success", type: "debit", icon: "fa-motorcycle" },
-            { date: "2025-01-18", desc: "Transfer ke Teman", category: "transfer", amount: 200000, status: "success", type: "transfer", icon: "fa-user-friends" },
-            { date: "2025-01-15", desc: "Refund Toko Online", category: "credit", amount: 250000, status: "success", type: "credit", icon: "fa-rotate-left" },
-            { date: "2025-01-12", desc: "Pembayaran Streaming", category: "debit", amount: 85000, status: "success", type: "debit", icon: "fa-tv" },
-            { date: "2025-01-10", desc: "THR (lebih awal)", category: "credit", amount: 1000000, status: "success", type: "credit", icon: "fa-hands-praying" },
-            { date: "2025-01-05", desc: "Top Up E-Wallet", category: "debit", amount: 500000, status: "success", type: "debit", icon: "fa-wallet" },
-            { date: "2025-01-02", desc: "Sisa THR 2024", category: "credit", amount: 2500000, status: "success", type: "credit", icon: "fa-sack-dollar" }
+            { date: "2025-03-19", desc: "Gaji Bulanan", category: "credit", amount: 8500000, status: "success", icon: "fa-briefcase" },
+            { date: "2025-03-18", desc: "Transfer dari PT Maju", category: "credit", amount: 2750000, status: "success", icon: "fa-building" },
+            { date: "2025-03-17", desc: "Pembayaran Listrik", category: "debit", amount: 450000, status: "success", icon: "fa-bolt" },
+            { date: "2025-03-16", desc: "Transfer ke Dewi", category: "transfer", amount: 500000, status: "success", icon: "fa-user" },
+            { date: "2025-03-15", desc: "Pembelian Pulsa", category: "debit", amount: 100000, status: "success", icon: "fa-phone" },
+            { date: "2025-03-14", desc: "Setoran Tunai", category: "credit", amount: 2000000, status: "success", icon: "fa-building-columns" },
+            { date: "2025-03-12", desc: "Transfer Tabungan", category: "transfer", amount: 750000, status: "success", icon: "fa-piggy-bank" },
+            { date: "2025-03-10", desc: "Pembayaran Kartu", category: "debit", amount: 1250000, status: "success", icon: "fa-credit-card" },
+            { date: "2025-03-08", desc: "Bonus Tahunan", category: "credit", amount: 3500000, status: "success", icon: "fa-gift" },
+            { date: "2025-03-05", desc: "Transfer Ortu", category: "credit", amount: 1000000, status: "success", icon: "fa-heart" }
         ];
 
         // Format Rupiah
@@ -717,943 +1113,81 @@
             return 'Rp ' + amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
         }
 
-        // Format Tanggal
+        // Format Date
         function formatDate(dateStr) {
             const date = new Date(dateStr);
-            const options = { year: 'numeric', month: 'short', day: 'numeric' };
-            return date.toLocaleDateString('id-ID', options);
+            return date.toLocaleDateString('id-ID', { day: 'numeric', month: 'short' });
         }
 
-        // Render Tabel
-        function renderTransactions(filterMonth = 'all', filterType = 'all') {
+        // Render Transactions
+        function renderTransactions(filter = 'all') {
             const tbody = document.getElementById('transactionBody');
             tbody.innerHTML = '';
 
-            let filtered = [...transactions];
-
-            // Filter Bulan
-            if (filterMonth !== 'all') {
-                filtered = filtered.filter(t => t.date.substring(5,7) === filterMonth);
+            let filtered = transactions;
+            if (filter !== 'all') {
+                filtered = transactions.filter(t => t.category === filter);
             }
 
-            // Filter Tipe
-            if (filterType !== 'all') {
-                filtered = filtered.filter(t => t.type === filterType);
-            }
+            filtered.slice(0, 5).forEach(t => {
+                const iconClass = t.category === 'credit' ? 'icon-credit' : (t.category === 'debit' ? 'icon-debit' : 'icon-transfer');
+                const amountClass = t.category === 'credit' ? 'amount-credit' : (t.category === 'debit' ? 'amount-debit' : '');
+                const amountPrefix = t.category === 'debit' ? '- ' : (t.category === 'transfer' ? '↻ ' : '+ ');
 
-            // Sort by date descending (terbaru di atas)
-            filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-            // Hitung summary
-            let totalCredit = 0, totalDebit = 0, totalTransfer = 0;
-            
-            filtered.forEach(t => {
-                if (t.type === 'credit') totalCredit += t.amount;
-                else if (t.type === 'debit') totalDebit += t.amount;
-                else if (t.type === 'transfer') totalTransfer += t.amount;
-            });
-
-            document.getElementById('totalCredit').innerText = formatRupiah(totalCredit);
-            document.getElementById('totalDebit').innerText = formatRupiah(totalDebit);
-            document.getElementById('totalTransfer').innerText = formatRupiah(totalTransfer);
-            document.getElementById('transactionCount').innerText = filtered.length;
-
-            // Render rows
-            filtered.forEach(t => {
                 const row = document.createElement('tr');
-                
-                let typeIcon = '';
-                let amountClass = '';
-                
-                if (t.type === 'credit') {
-                    typeIcon = 'credit';
-                    amountClass = 'credit';
-                } else if (t.type === 'debit') {
-                    typeIcon = 'debit';
-                    amountClass = 'debit';
-                } else {
-                    typeIcon = 'transfer';
-                    amountClass = '';
-                }
-
-                const statusClass = t.status === 'success' ? 'success' : 'pending';
-                const statusText = t.status === 'success' ? 'Berhasil' : 'Pending';
-
                 row.innerHTML = `
-                    <td>${formatDate(t.date)}</td>
                     <td>
-                        <div class="transaction-type">
-                            <div class="type-icon ${typeIcon}">
+                        <div class="transaction-info">
+                            <div class="transaction-icon ${iconClass}">
                                 <i class="fas ${t.icon}"></i>
                             </div>
                             <div>
-                                <div style="font-weight: 500;">${t.desc}</div>
-                                <div style="font-size: 0.8rem; color: var(--cream-dark);">${t.category === 'credit' ? 'Pemasukan' : t.category === 'debit' ? 'Pengeluaran' : 'Transfer'}</div>
+                                <div class="transaction-detail">${t.desc}</div>
+                                <div class="transaction-date">${formatDate(t.date)}</div>
                             </div>
                         </div>
                     </td>
-                    <td>${t.category === 'credit' ? 'Pemasukan' : t.category === 'debit' ? 'Pengeluaran' : 'Transfer'}</td>
-                    <td class="amount ${amountClass}">${formatRupiah(t.amount)}</td>
-                    <td><span class="status-badge ${statusClass}">${statusText}</span></td>
-                    <td><i class="fas fa-chevron-right" style="color: var(--primary); cursor: pointer;" onclick="alert('Detail transaksi: ${t.desc}')"></i></td>
+                    <td>${t.category === 'credit' ? 'Pemasukan' : (t.category === 'debit' ? 'Pengeluaran' : 'Transfer')}</td>
+                    <td class="${amountClass}">${amountPrefix}${formatRupiah(t.amount)}</td>
+                    <td><span class="status-badge status-success">Berhasil</span></td>
+                    <td><i class="fas fa-chevron-right" style="color: var(--paypal-blue); cursor: pointer;" onclick="alert('Detail transaksi ${t.desc}')"></i></td>
                 `;
                 tbody.appendChild(row);
             });
-
-            if (filtered.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 3rem; color: var(--cream-dark);">Tidak ada transaksi ditemukan.</td></tr>';
-            }
-        }
-
-        // Filter Function
-        func<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BANKSIMULASI • Farrel Agallant</title>
-    
-    <!-- Fonts & Icons -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background: linear-gradient(145deg, #1a120b 0%, #2c1e12 100%);
-            color: #faf7f2;
-            font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
-            min-height: 100vh;
-        }
-
-        /* Color Palette Premium */
-        :root {
-            --primary: #C9A227;
-            --primary-dark: #A47C1E;
-            --primary-light: #E5B73B;
-            --secondary: #8B5A2B;
-            --secondary-light: #B17F4F;
-            --brown-dark: #1f140e;
-            --brown-medium: #4A3420;
-            --brown-light: #7A5C3A;
-            --cream: #FCF3E0;
-            --cream-dark: #F5E6CC;
-            --white: #FFFFFF;
-            --gray-soft: #EAE2D5;
-            --success: #27ae60;
-            --danger: #e74c3c;
-            --warning: #f39c12;
-        }
-
-        /* Background Pattern */
-        .bg-pattern {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(rgba(201, 162, 39, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(201, 162, 39, 0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
-            z-index: -1;
-            animation: patternMove 30s linear infinite;
-        }
-
-        @keyframes patternMove {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(50px, 50px); }
-        }
-
-        /* Navigation */
-        nav {
-            background: rgba(31, 20, 14, 0.8);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(201, 162, 39, 0.2);
-            padding: 1rem 5%;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .bank-logo {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-        }
-
-        .bank-icon {
-            width: 45px;
-            height: 45px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            color: var(--brown-dark);
-            transform: rotate(45deg);
-        }
-
-        .bank-icon i {
-            transform: rotate(-45deg);
-        }
-
-        .bank-name {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--primary), var(--cream));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-        }
-
-        .datetime {
-            color: var(--cream);
-            font-size: 0.9rem;
-            background: rgba(201, 162, 39, 0.1);
-            padding: 0.5rem 1rem;
-            border-radius: 30px;
-            border: 1px solid rgba(201, 162, 39, 0.2);
-        }
-
-        /* Main Container */
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 2rem 5%;
-        }
-
-        /* Welcome Section */
-        .welcome-section {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 2rem;
-            margin-bottom: 3rem;
-            background: rgba(74, 52, 32, 0.3);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(201, 162, 39, 0.15);
-            border-radius: 40px;
-            padding: 2rem;
-        }
-
-        .user-greeting h1 {
-            font-size: 2.5rem;
-            font-family: 'Space Grotesk', sans-serif;
-            margin-bottom: 0.5rem;
-        }
-
-        .user-greeting h1 span {
-            color: var(--primary);
-            position: relative;
-        }
-
-        .user-greeting h1 span::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, var(--primary), transparent);
-        }
-
-        .account-badge {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .badge-item {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            background: rgba(201, 162, 39, 0.1);
-            padding: 0.8rem 1.5rem;
-            border-radius: 50px;
-            border: 1px solid rgba(201, 162, 39, 0.2);
-        }
-
-        .badge-item i {
-            color: var(--primary);
-            font-size: 1.2rem;
-        }
-
-        /* Balance Cards */
-        .balance-cards {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-
-        .balance-card {
-            background: linear-gradient(145deg, rgba(74, 52, 32, 0.6), rgba(44, 26, 14, 0.8));
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(201, 162, 39, 0.2);
-            border-radius: 30px;
-            padding: 2rem;
-            transition: all 0.3s ease;
-            animation: slideIn 0.6s ease-out forwards;
-            opacity: 0;
-        }
-
-        .balance-card:nth-child(1) { animation-delay: 0.1s; }
-        .balance-card:nth-child(2) { animation-delay: 0.2s; }
-        .balance-card:nth-child(3) { animation-delay: 0.3s; }
-
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .balance-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary);
-            box-shadow: 0 20px 40px -15px rgba(201, 162, 39, 0.3);
-        }
-
-        .card-label {
-            color: var(--cream-dark);
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 0.8rem;
-        }
-
-        .card-amount {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: var(--primary-light);
-        }
-
-        .card-footer {
-            margin-top: 1.5rem;
-            color: var(--cream);
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        /* Quick Actions */
-        .quick-actions {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 3rem;
-            flex-wrap: wrap;
-        }
-
-        .action-btn {
-            background: rgba(201, 162, 39, 0.1);
-            border: 1px solid rgba(201, 162, 39, 0.2);
-            color: var(--cream);
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            font-size: 1rem;
-        }
-
-        .action-btn:hover {
-            background: var(--primary);
-            color: var(--brown-dark);
-            border-color: var(--primary);
-            transform: translateY(-2px);
-        }
-
-        .action-btn.primary {
-            background: var(--primary);
-            color: var(--brown-dark);
-            border: none;
-        }
-
-        /* Transaction History Section */
-        .transaction-section {
-            background: rgba(31, 20, 14, 0.6);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(201, 162, 39, 0.15);
-            border-radius: 40px;
-            padding: 2rem;
-            margin-bottom: 3rem;
-        }
-
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .section-header h2 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 2rem;
-            color: var(--cream);
-        }
-
-        .section-header h2 i {
-            color: var(--primary);
-            margin-right: 1rem;
-        }
-
-        .filter-group {
-            display: flex;
-            gap: 0.8rem;
-            flex-wrap: wrap;
-        }
-
-        .filter-select {
-            background: rgba(74, 52, 32, 0.6);
-            border: 1px solid rgba(201, 162, 39, 0.2);
-            color: var(--cream);
-            padding: 0.8rem 1.5rem;
-            border-radius: 30px;
-            font-size: 0.9rem;
-            cursor: pointer;
-        }
-
-        /* Table Styling */
-        .table-container {
-            overflow-x: auto;
-            border-radius: 20px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            min-width: 800px;
-        }
-
-        th {
-            text-align: left;
-            padding: 1.2rem 1rem;
-            color: var(--primary);
-            font-weight: 600;
-            border-bottom: 2px solid rgba(201, 162, 39, 0.3);
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        td {
-            padding: 1.2rem 1rem;
-            border-bottom: 1px solid rgba(201, 162, 39, 0.1);
-            color: var(--cream);
-        }
-
-        tr:hover td {
-            background: rgba(201, 162, 39, 0.05);
-        }
-
-        .transaction-type {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-        }
-
-        .type-icon {
-            width: 35px;
-            height: 35px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1rem;
-        }
-
-        .type-icon.credit {
-            background: rgba(39, 174, 96, 0.15);
-            color: var(--success);
-        }
-
-        .type-icon.debit {
-            background: rgba(231, 76, 60, 0.15);
-            color: var(--danger);
-        }
-
-        .type-icon.transfer {
-            background: rgba(241, 196, 15, 0.15);
-            color: var(--warning);
-        }
-
-        .amount {
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-
-        .amount.credit {
-            color: var(--success);
-        }
-
-        .amount.debit {
-            color: var(--danger);
-        }
-
-        .status-badge {
-            padding: 0.3rem 1rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
-        .status-badge.success {
-            background: rgba(39, 174, 96, 0.15);
-            color: var(--success);
-        }
-
-        .status-badge.pending {
-            background: rgba(241, 196, 15, 0.15);
-            color: var(--warning);
-        }
-
-        /* Summary Cards */
-        .summary-cards {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .summary-item {
-            background: rgba(74, 52, 32, 0.3);
-            border: 1px solid rgba(201, 162, 39, 0.15);
-            border-radius: 20px;
-            padding: 1.5rem;
-            text-align: center;
-        }
-
-        .summary-value {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .summary-label {
-            color: var(--cream-dark);
-            font-size: 0.9rem;
         }
 
-        /* Footer */
-        footer {
-            background: rgba(31, 20, 14, 0.9);
-            border-top: 1px solid rgba(201, 162, 39, 0.2);
-            padding: 2rem 5%;
-            margin-top: 4rem;
-        }
-
-        .footer-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-            color: var(--cream-dark);
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 2rem;
-        }
-
-        .footer-links a {
-            color: var(--cream-dark);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .footer-links a:hover {
-            color: var(--primary);
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .balance-cards {
-                grid-template-columns: 1fr;
-            }
-            
-            .summary-cards {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .welcome-section {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            
-            .nav-right .datetime {
-                display: none;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="bg-pattern"></div>
-
-    <!-- Navigation -->
-    <nav>
-        <div class="bank-logo">
-            <div class="bank-icon">
-                <i class="fas fa-building-columns"></i>
-            </div>
-            <div class="bank-name">BANKSIMULASI</div>
-        </div>
-        <div class="nav-right">
-            <div class="datetime" id="datetime"></div>
-            <div class="bank-logo" style="gap: 0.5rem;">
-                <i class="fas fa-circle-user" style="color: var(--primary); font-size: 1.8rem;"></i>
-                <span style="color: var(--cream);">Farrel A.</span>
-            </div>
-        </div>
-    </nav>
-
-    <div class="container">
-        <!-- Welcome Section -->
-        <div class="welcome-section">
-            <div class="user-greeting">
-                <h1>Selamat datang, <span>Farrel Agallant</span></h1>
-                <p style="color: var(--cream-dark);">Terakhir login: 19 Maret 2025 • 08:47 WIB</p>
-            </div>
-            <div class="account-badge">
-                <div class="badge-item">
-                    <i class="fas fa-credit-card"></i>
-                    <div>
-                        <div style="font-size: 0.8rem; color: var(--cream-dark);">No. Rekening</div>
-                        <div style="font-weight: 600;">7012-4321-9876-5432</div>
-                    </div>
-                </div>
-                <div class="badge-item">
-                    <i class="fas fa-layer-group"></i>
-                    <div>
-                        <div style="font-size: 0.8rem; color: var(--cream-dark);">Tipe Akun</div>
-                        <div style="font-weight: 600;">Premium Gold</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Balance Cards -->
-        <div class="balance-cards">
-            <div class="balance-card">
-                <div class="card-label">Total Saldo</div>
-                <div class="card-amount">Rp 28.475.000</div>
-                <div class="card-footer">
-                    <i class="fas fa-arrow-up" style="color: var(--success);"></i>
-                    <span style="color: var(--success);">+12.5%</span> dari bulan lalu
-                </div>
-            </div>
-            <div class="balance-card">
-                <div class="card-label">Tabungan Berjangka</div>
-                <div class="card-amount">Rp 15.000.000</div>
-                <div class="card-footer">
-                    <i class="fas fa-clock" style="color: var(--primary);"></i>
-                    Jatuh tempo 12/2025
-                </div>
-            </div>
-            <div class="balance-card">
-                <div class="card-label">Limit Kartu Kredit</div>
-                <div class="card-amount">Rp 5.000.000</div>
-                <div class="card-footer">
-                    <i class="fas fa-chart-line" style="color: var(--primary);"></i>
-                    Tersisa Rp 3.250.000
-                </div>
-            </div>
-        </div>
-
-        <!-- Quick Actions -->
-        <div class="quick-actions">
-            <button class="action-btn primary" onclick="alert('Fitur Transfer (Simulasi)')">
-                <i class="fas fa-arrow-right-arrow-left"></i> Transfer
-            </button>
-            <button class="action-btn" onclick="alert('Fitur Pembayaran (Simulasi)')">
-                <i class="fas fa-file-invoice"></i> Bayar Tagihan
-            </button>
-            <button class="action-btn" onclick="alert('Fitur Top Up (Simulasi)')">
-                <i class="fas fa-mobile-alt"></i> Top Up
-            </button>
-            <button class="action-btn" onclick="alert('Fitur Tarik Tunai (Simulasi)')">
-                <i class="fas fa-money-bill"></i> Tarik Tunai
-            </button>
-        </div>
-
-        <!-- Transaction History -->
-        <div class="transaction-section">
-            <div class="section-header">
-                <h2><i class="fas fa-history"></i> Riwayat Transaksi</h2>
-                <div class="filter-group">
-                    <select class="filter-select" id="filterMonth" onchange="filterTransactions()">
-                        <option value="all">Semua Bulan</option>
-                        <option value="03">Maret 2025</option>
-                        <option value="02">Februari 2025</option>
-                        <option value="01">Januari 2025</option>
-                    </select>
-                    <select class="filter-select" id="filterType" onchange="filterTransactions()">
-                        <option value="all">Semua Tipe</option>
-                        <option value="credit">Pemasukan</option>
-                        <option value="debit">Pengeluaran</option>
-                        <option value="transfer">Transfer</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="table-container">
-                <table id="transactionTable">
-                    <thead>
-                        <tr>
-                            <th>Tanggal</th>
-                            <th>Deskripsi</th>
-                            <th>Kategori</th>
-                            <th>Jumlah</th>
-                            <th>Status</th>
-                            <th>Detail</th>
-                        </tr>
-                    </thead>
-                    <tbody id="transactionBody">
-                        <!-- Data akan diisi oleh JavaScript -->
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- Summary Cards -->
-            <div class="summary-cards">
-                <div class="summary-item">
-                    <div class="summary-value" id="totalCredit">Rp 0</div>
-                    <div class="summary-label">Total Pemasukan</div>
-                </div>
-                <div class="summary-item">
-                    <div class="summary-value" id="totalDebit">Rp 0</div>
-                    <div class="summary-label">Total Pengeluaran</div>
-                </div>
-                <div class="summary-item">
-                    <div class="summary-value" id="totalTransfer">Rp 0</div>
-                    <div class="summary-label">Total Transfer</div>
-                </div>
-                <div class="summary-item">
-                    <div class="summary-value" id="transactionCount">0</div>
-                    <div class="summary-label">Jumlah Transaksi</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div>© 2025 BANKSIMULASI — Farrel Agallant</div>
-            <div class="footer-links">
-                <a href="#" onclick="alert('Halaman Bantuan (Simulasi)')">Bantuan</a>
-                <a href="#" onclick="alert('Kebijakan Privasi (Simulasi)')">Privasi</a>
-                <a href="#" onclick="alert('Syarat & Ketentuan (Simulasi)')">Syarat</a>
-                <a href="#" onclick="alert('Hubungi Kami (Simulasi)')">Kontak</a>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        // Data Transaksi Farrel Agallant (32 transaksi)
-        const transactions = [
-            // Maret 2025
-            { date: "2025-03-19", desc: "Setoran Tunai", category: "credit", amount: 5000000, status: "success", type: "credit", icon: "fa-circle-dollar" },
-            { date: "2025-03-18", desc: "Transfer dari PT. Maju Jaya", category: "credit", amount: 2750000, status: "success", type: "credit", icon: "fa-building" },
-            { date: "2025-03-17", desc: "Pembayaran Listrik", category: "debit", amount: 450000, status: "success", type: "debit", icon: "fa-bolt" },
-            { date: "2025-03-16", desc: "Transfer ke Dewi Sartika", category: "transfer", amount: 500000, status: "success", type: "transfer", icon: "fa-user" },
-            { date: "2025-03-15", desc: "Pembelian Pulsa", category: "debit", amount: 100000, status: "success", type: "debit", icon: "fa-phone" },
-            { date: "2025-03-14", desc: "Setoran Tunai ATM", category: "credit", amount: 2000000, status: "success", type: "credit", icon: "fa-building-columns" },
-            { date: "2025-03-12", desc: "Transfer ke Rekening Tabungan", category: "transfer", amount: 750000, status: "success", type: "transfer", icon: "fa-piggy-bank" },
-            { date: "2025-03-10", desc: "Pembayaran Kartu Kredit", category: "debit", amount: 1250000, status: "success", type: "debit", icon: "fa-credit-card" },
-            { date: "2025-03-08", desc: "Bonus Tahunan", category: "credit", amount: 3500000, status: "success", type: "credit", icon: "fa-gift" },
-            { date: "2025-03-05", desc: "Transfer dari Orang Tua", category: "credit", amount: 1000000, status: "success", type: "credit", icon: "fa-heart" },
-            { date: "2025-03-03", desc: "Pembayaran Internet", category: "debit", amount: 350000, status: "success", type: "debit", icon: "fa-wifi" },
-            { date: "2025-03-01", desc: "Belanja Supermarket", category: "debit", amount: 850000, status: "success", type: "debit", icon: "fa-cart-shopping" },
-
-            // Februari 2025
-            { date: "2025-02-28", desc: "Transfer ke Rekanan", category: "transfer", amount: 1200000, status: "success", type: "transfer", icon: "fa-users" },
-            { date: "2025-02-25", desc: "Gaji Bulanan", category: "credit", amount: 8500000, status: "success", type: "credit", icon: "fa-briefcase" },
-            { date: "2025-02-22", desc: "Pembayaran Air PDAM", category: "debit", amount: 125000, status: "success", type: "debit", icon: "fa-droplet" },
-            { date: "2025-02-20", desc: "Transfer ke Investasi", category: "transfer", amount: 2000000, status: "success", type: "transfer", icon: "fa-chart-line" },
-            { date: "2025-02-18", desc: "Makan di Restoran", category: "debit", amount: 375000, status: "success", type: "debit", icon: "fa-utensils" },
-            { date: "2025-02-15", desc: "Bonus Project", category: "credit", amount: 1500000, status: "success", type: "credit", icon: "fa-medal" },
-            { date: "2025-02-12", desc: "Pembayaran Asuransi", category: "debit", amount: 550000, status: "success", type: "debit", icon: "fa-shield" },
-            { date: "2025-02-10", desc: "Transfer ke Farrel (Tabungan)", category: "transfer", amount: 500000, status: "success", type: "transfer", icon: "fa-piggy-bank" },
-            { date: "2025-02-07", desc: "Belanja Online", category: "debit", amount: 425000, status: "pending", type: "debit", icon: "fa-bag-shopping" },
-            { date: "2025-02-05", desc: "Dividen Saham", category: "credit", amount: 750000, status: "success", type: "credit", icon: "fa-coins" },
-            { date: "2025-02-02", desc: "Bensin & Tol", category: "debit", amount: 300000, status: "success", type: "debit", icon: "fa-car" },
-
-            // Januari 2025
-            { date: "2025-01-28", desc: "Transfer ke Ayah", category: "transfer", amount: 1000000, status: "success", type: "transfer", icon: "fa-user" },
-            { date: "2025-01-25", desc: "Gaji Bulanan", category: "credit", amount: 8500000, status: "success", type: "credit", icon: "fa-briefcase" },
-            { date: "2025-01-20", desc: "Pembayaran Cicilan Motor", category: "debit", amount: 950000, status: "success", type: "debit", icon: "fa-motorcycle" },
-            { date: "2025-01-18", desc: "Transfer ke Teman", category: "transfer", amount: 200000, status: "success", type: "transfer", icon: "fa-user-friends" },
-            { date: "2025-01-15", desc: "Refund Toko Online", category: "credit", amount: 250000, status: "success", type: "credit", icon: "fa-rotate-left" },
-            { date: "2025-01-12", desc: "Pembayaran Streaming", category: "debit", amount: 85000, status: "success", type: "debit", icon: "fa-tv" },
-            { date: "2025-01-10", desc: "THR (lebih awal)", category: "credit", amount: 1000000, status: "success", type: "credit", icon: "fa-hands-praying" },
-            { date: "2025-01-05", desc: "Top Up E-Wallet", category: "debit", amount: 500000, status: "success", type: "debit", icon: "fa-wallet" },
-            { date: "2025-01-02", desc: "Sisa THR 2024", category: "credit", amount: 2500000, status: "success", type: "credit", icon: "fa-sack-dollar" }
-        ];
-
-        // Format Rupiah
-        function formatRupiah(amount) {
-            return 'Rp ' + amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-        }
-
-        // Format Tanggal
-        function formatDate(dateStr) {
-            const date = new Date(dateStr);
-            const options = { year: 'numeric', month: 'short', day: 'numeric' };
-            return date.toLocaleDateString('id-ID', options);
-        }
-
-        // Render Tabel
-        function renderTransactions(filterMonth = 'all', filterType = 'all') {
-            const tbody = document.getElementById('transactionBody');
-            tbody.innerHTML = '';
-
-            let filtered = [...transactions];
-
-            // Filter Bulan
-            if (filterMonth !== 'all') {
-                filtered = filtered.filter(t => t.date.substring(5,7) === filterMonth);
-            }
-
-            // Filter Tipe
-            if (filterType !== 'all') {
-                filtered = filtered.filter(t => t.type === filterType);
-            }
-
-            // Sort by date descending (terbaru di atas)
-            filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-            // Hitung summary
-            let totalCredit = 0, totalDebit = 0, totalTransfer = 0;
-            
-            filtered.forEach(t => {
-                if (t.type === 'credit') totalCredit += t.amount;
-                else if (t.type === 'debit') totalDebit += t.amount;
-                else if (t.type === 'transfer') totalTransfer += t.amount;
-            });
-
-            document.getElementById('totalCredit').innerText = formatRupiah(totalCredit);
-            document.getElementById('totalDebit').innerText = formatRupiah(totalDebit);
-            document.getElementById('totalTransfer').innerText = formatRupiah(totalTransfer);
-            document.getElementById('transactionCount').innerText = filtered.length;
-
-            // Render rows
-            filtered.forEach(t => {
-                const row = document.createElement('tr');
-                
-                let typeIcon = '';
-                let amountClass = '';
-                
-                if (t.type === 'credit') {
-                    typeIcon = 'credit';
-                    amountClass = 'credit';
-                } else if (t.type === 'debit') {
-                    typeIcon = 'debit';
-                    amountClass = 'debit';
-                } else {
-                    typeIcon = 'transfer';
-                    amountClass = '';
-                }
-
-                const statusClass = t.status === 'success' ? 'success' : 'pending';
-                const statusText = t.status === 'success' ? 'Berhasil' : 'Pending';
-
-                row.innerHTML = `
-                    <td>${formatDate(t.date)}</td>
-                    <td>
-                        <div class="transaction-type">
-                            <div class="type-icon ${typeIcon}">
-                                <i class="fas ${t.icon}"></i>
-                            </div>
-                            <div>
-                                <div style="font-weight: 500;">${t.desc}</div>
-                                <div style="font-size: 0.8rem; color: var(--cream-dark);">${t.category === 'credit' ? 'Pemasukan' : t.category === 'debit' ? 'Pengeluaran' : 'Transfer'}</div>
-                            </div>
-                        </div>
-                    </td>
-                    <td>${t.category === 'credit' ? 'Pemasukan' : t.category === 'debit' ? 'Pengeluaran' : 'Transfer'}</td>
-                    <td class="amount ${amountClass}">${formatRupiah(t.amount)}</td>
-                    <td><span class="status-badge ${statusClass}">${statusText}</span></td>
-                    <td><i class="fas fa-chevron-right" style="color: var(--primary); cursor: pointer;" onclick="alert('Detail transaksi: ${t.desc}')"></i></td>
-                `;
-                tbody.appendChild(row);
-            });
-
-            if (filtered.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 3rem; color: var(--cream-dark);">Tidak ada transaksi ditemukan.</td></tr>';
-            }
-        }
-
-        // Filter Function
-        function filterTransactions() {
-            const month = document.getElementById('filterMonth').value;
-            const type = document.getElementById('filterType').value;
-            renderTransactions(month, type);
-        }
+        // Filter Handler
+        window.filterTransactions = function(filter) {
+            document.querySelectorAll('.filter-tab').forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+            renderTransactions(filter);
+        };
 
-        // Update Datetime
-        function updateDateTime() {
+        // Current Date
+        const dateElement = document.getElementById('currentDate');
+        if (dateElement) {
             const now = new Date();
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
-            document.getElementById('datetime').innerText = now.toLocaleDateString('id-ID', options);
+            dateElement.innerText = now.toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) + ' • ' + now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+        }
+
+        // Modal Functions
+        window.showModal = function(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        window.hideModal = function(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.classList.remove('active');
+            }
         }
 
         // Initialize
-        window.onload = function() {
-            updateDateTime();
-            renderTransactions('all', 'all');
-            setInterval(updateDateTime, 60000); // Update every minute
-        };
+        renderTransactions('all');
     </script>
 </body>
-    </html>tion filterTransactions() {
-            const month = document.getElementById('filterMonth').value;
-            const type = document.getElementById('filterType').value;
-            renderTransactions(month, type);
-        }
-
-        // Update Datetime
-        function updateDateTime() {
-            const now = new Date();
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
-            document.getElementById('datetime').innerText = now.toLocaleDateString('id-ID', options);
-        }
-
-        // Initialize
-        window.onload = function() {
-            updateDateTime();
-            renderTransactions('all', 'all');
-            setInterval(updateDateTime, 60000); // Update every minute
-        };
-    </script>
-</body>
-</html> 
+ </html>
