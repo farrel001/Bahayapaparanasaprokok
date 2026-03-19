@@ -2,10 +2,16 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEON TRADER</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>TRADE+ • Modern Trading</title>
+    <!-- Font & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <!-- Font Awesome (optional, untuk fallback, tapi kita akan lebih banyak pake SVG) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* ===== RESET & DASAR ===== */
+        /* RESET MODERN */
         * {
             margin: 0;
             padding: 0;
@@ -13,884 +19,938 @@
         }
 
         body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #f5f7fa;
+            color: #1e293b;
             min-height: 100vh;
             display: flex;
-            justify-content: center;
             align-items: center;
-            background: #0c0f15;
-            font-family: 'Courier New', Courier, monospace;
-            padding: 16px;
-            transition: background 0.3s;
+            justify-content: center;
+            padding: 12px;
         }
 
-        /* ===== THEME VARIABLES ===== */
-        body.theme-cyberpunk {
-            --bg-primary: #0d0f1c;
-            --bg-secondary: #161b2b;
-            --card-bg: #1f263b;
-            --text-primary: #22ffff;
-            --text-secondary: #ff44dd;
-            --accent: #00eeff;
-            --accent-secondary: #ff00aa;
-            --border-glow: 0 0 10px #00ffff, 0 0 20px #ff00aa;
-            --shadow: 0 0 30px #00aaff;
-            --btn-bg: #242b44;
-            --btn-hover: #323d66;
-        }
-
-        body.theme-tokyo {
-            --bg-primary: #1e1a2e;
-            --bg-secondary: #2a2347;
-            --card-bg: #372f57;
-            --text-primary: #ffb86b;
-            --text-secondary: #ff7b9c;
-            --accent: #ff9f4b;
-            --accent-secondary: #ff577f;
-            --border-glow: 0 0 15px #ff7b9c;
-            --shadow: 0 0 30px #ff6b8b;
-            --btn-bg: #40355f;
-            --btn-hover: #55477a;
-        }
-
-        body.theme-gangster {
-            --bg-primary: #1a120b;
-            --bg-secondary: #2c1e12;
-            --card-bg: #3e2c1b;
-            --text-primary: #d4af37;
-            --text-secondary: #b8860b;
-            --accent: #c9a227;
-            --accent-secondary: #8b5a2b;
-            --border-glow: 0 0 15px #b8860b;
-            --shadow: 0 0 30px #a0522d;
-            --btn-bg: #4a3824;
-            --btn-hover: #5e4830;
-        }
-
-        body {
-            background: var(--bg-primary);
-            color: var(--text-primary);
-        }
-
-        /* ===== CONTAINER ===== */
-        .game-container {
-            max-width: 1100px;
+        .app-container {
+            max-width: 420px;
             width: 100%;
-            background: var(--bg-secondary);
-            border: 2px solid var(--accent);
-            border-radius: 40px;
-            padding: 24px;
-            box-shadow: var(--shadow), inset 0 0 40px rgba(0,255,255,0.1);
-            backdrop-filter: blur(5px);
+            margin: 0 auto;
+            background: white;
+            border-radius: 36px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            overflow: hidden;
+            position: relative;
         }
 
-        /* ===== HEADER ===== */
+        /* Konten utama dengan padding */
+        .main-content {
+            padding: 20px 18px;
+        }
+
+        /* Header */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
             margin-bottom: 24px;
         }
 
-        .title svg {
-            width: 220px;
-            height: 50px;
-            filter: drop-shadow(var(--border-glow));
+        .logo h1 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #0a1172, #1e4dd8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
         }
 
-        .balance-box {
-            background: var(--card-bg);
-            border: 1px solid var(--accent);
-            border-radius: 60px;
-            padding: 12px 30px;
+        .balance-chip {
+            background: #eef2f6;
+            padding: 8px 16px;
+            border-radius: 40px;
             display: flex;
             align-items: center;
-            gap: 12px;
-            box-shadow: var(--shadow);
+            gap: 6px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #0b1e4b;
         }
 
-        .balance-box svg {
-            width: 28px;
-            height: 28px;
-            fill: var(--accent);
+        .balance-chip svg {
+            width: 20px;
+            height: 20px;
+            fill: #f5b342;
         }
 
-        #balanceDisplay {
-            font-size: 2rem;
-            font-weight: 800;
-            letter-spacing: 2px;
-        }
-
-        .theme-selector {
+        /* Tema selector kecil */
+        .theme-row {
             display: flex;
             gap: 8px;
+            margin-bottom: 20px;
+            justify-content: flex-end;
         }
 
         .theme-btn {
-            background: var(--btn-bg);
-            border: 1px solid var(--accent);
-            color: var(--text-primary);
-            padding: 8px 16px;
+            background: white;
+            border: 1px solid #e2e8f0;
             border-radius: 40px;
+            padding: 6px 14px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #64748b;
             cursor: pointer;
-            font-weight: bold;
             transition: 0.2s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
         }
 
-        .theme-btn:hover {
-            background: var(--btn-hover);
-            box-shadow: var(--shadow);
+        .theme-btn.active {
+            background: #1e3a8a;
+            color: white;
+            border-color: #1e3a8a;
         }
 
-        /* ===== CHART AREA (SVG GRAFIK) ===== */
-        .chart-area {
-            background: var(--bg-primary);
-            border: 2px solid var(--accent);
-            border-radius: 30px;
-            padding: 20px;
-            margin-bottom: 24px;
-            position: relative;
-            box-shadow: inset 0 0 40px rgba(0,255,255,0.1);
+        /* Chart card */
+        .chart-card {
+            background: #0b1426;
+            border-radius: 28px;
+            padding: 20px 16px 16px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 25px rgba(0,20,80,0.15);
         }
 
-        .chart-svg {
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            color: #94a3b8;
+            font-size: 0.8rem;
+            margin-bottom: 12px;
+            padding: 0 4px;
+        }
+
+        .asset-info {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .asset-name {
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .asset-change {
+            color: #22c55e;
+            background: rgba(34,197,94,0.1);
+            padding: 2px 8px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .price-large {
+            color: white;
+            font-size: 2.2rem;
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+        }
+
+        .price-large small {
+            font-size: 1rem;
+            color: #64748b;
+            font-weight: 400;
+        }
+
+        /* SVG chart */
+        .chart-svg-container {
             width: 100%;
-            height: auto;
-            background: rgba(0,0,0,0.3);
-            border-radius: 20px;
-            display: block;
+            height: 130px;
+            margin: 10px 0 5px;
         }
 
-        .current-price {
-            position: absolute;
-            top: 30px;
-            right: 40px;
-            background: var(--card-bg);
-            border: 1px solid var(--accent);
-            border-radius: 60px;
-            padding: 8px 24px;
-            font-size: 2rem;
-            font-weight: 800;
-            backdrop-filter: blur(8px);
-            box-shadow: var(--shadow);
+        .chart-svg-container svg {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+        }
+
+        /* Prediksi tombol */
+        .prediction-box {
             display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .current-price svg {
-            width: 30px;
-            height: 30px;
-            fill: var(--accent);
-        }
-
-        /* ===== TRADING PANEL ===== */
-        .trading-panel {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 24px;
+            gap: 12px;
             margin-bottom: 24px;
         }
 
-        .direction-buttons {
-            flex: 2;
-            display: flex;
-            gap: 20px;
-            align-items: center;
-        }
-
-        .direction-btn {
+        .pred-btn {
             flex: 1;
-            background: var(--btn-bg);
-            border: 3px solid var(--accent);
-            border-radius: 50px;
-            padding: 20px;
-            cursor: pointer;
-            transition: 0.2s;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .direction-btn svg {
-            width: 60px;
-            height: 60px;
-            fill: var(--accent);
-            transition: 0.2s;
-        }
-
-        .direction-btn:hover {
-            background: var(--btn-hover);
-            transform: scale(1.05);
-            box-shadow: var(--shadow);
-        }
-
-        .direction-btn:hover svg {
-            fill: var(--text-secondary);
-        }
-
-        .betting-controls {
-            flex: 1;
-            background: var(--card-bg);
-            border: 2px solid var(--accent);
-            border-radius: 40px;
-            padding: 24px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .bet-input {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .bet-input label {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 1.1rem;
-        }
-
-        .bet-input label svg {
-            width: 20px;
-            height: 20px;
-            fill: var(--accent);
-        }
-
-        .bet-input input {
-            background: var(--bg-primary);
-            border: 1px solid var(--accent);
-            color: var(--text-primary);
-            padding: 12px 16px;
+            background: white;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 60px;
+            padding: 16px 0;
+            font-weight: 700;
             font-size: 1.2rem;
-            border-radius: 30px;
-            outline: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: #1e293b;
+            transition: 0.2s;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
         }
 
-        .multiplier-info {
+        .pred-btn.up {
+            color: #22c55e;
+        }
+
+        .pred-btn.down {
+            color: #ef4444;
+        }
+
+        .pred-btn.active {
+            background: #f8fafc;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
+        }
+
+        .pred-btn svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+
+        /* Control panel */
+        .control-panel {
+            background: #f8fafc;
+            border-radius: 28px;
+            padding: 18px;
+            margin-bottom: 20px;
+            border: 1px solid #eef2f6;
+        }
+
+        .amount-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 1.2rem;
+            margin-bottom: 16px;
         }
 
-        .multiplier-info svg {
-            width: 24px;
-            height: 24px;
-            fill: var(--accent-secondary);
+        .amount-label {
+            font-size: 0.9rem;
+            color: #475569;
+            font-weight: 500;
         }
 
-        #placeBetBtn {
-            background: var(--btn-bg);
-            border: 2px solid var(--accent);
-            color: var(--text-primary);
-            padding: 15px;
-            border-radius: 60px;
+        .amount-input-wrapper {
+            display: flex;
+            align-items: center;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 40px;
+            padding: 4px;
+        }
+
+        .amount-input-wrapper button {
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: transparent;
             font-size: 1.3rem;
-            font-weight: bold;
+            font-weight: 600;
+            color: #64748b;
             cursor: pointer;
-            transition: 0.2s;
+            border-radius: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
         }
 
-        #placeBetBtn svg {
-            width: 24px;
-            height: 24px;
-            fill: var(--accent);
+        .amount-input-wrapper button:hover {
+            background: #eef2f6;
         }
 
-        #placeBetBtn:hover {
-            background: var(--btn-hover);
-            box-shadow: var(--shadow);
+        .amount-input-wrapper input {
+            width: 90px;
+            border: none;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1rem;
+            background: transparent;
+            color: #0f172a;
         }
 
-        /* ===== SHOP SECTION ===== */
-        .shop-section {
-            border: 2px dashed var(--accent);
+        .multiplier-badge {
+            background: #e0f2fe;
+            color: #0369a1;
+            padding: 6px 14px;
             border-radius: 40px;
-            padding: 24px;
-            margin-bottom: 24px;
-            background: var(--card-bg);
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 4px;
         }
 
-        .shop-title {
+        .multiplier-badge.highlight {
+            background: #fef9c3;
+            color: #854d0e;
+        }
+
+        .place-btn {
+            background: #1e3a8a;
+            color: white;
+            border: none;
+            border-radius: 60px;
+            padding: 16px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            width: 100%;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .place-btn:disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .place-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+        }
+
+        /* Shop card */
+        .shop-card {
+            background: linear-gradient(145deg, #f1f5f9, #ffffff);
+            border-radius: 28px;
+            padding: 16px;
+            margin-bottom: 20px;
+            border: 1px solid #e9eef3;
+        }
+
+        .shop-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            color: #0f172a;
+            margin-bottom: 14px;
+        }
+
+        .shop-header svg {
+            width: 22px;
+            height: 22px;
+            fill: #b45309;
+        }
+
+        .charm-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .charm-info {
             display: flex;
             align-items: center;
             gap: 12px;
-            font-size: 1.8rem;
-            margin-bottom: 20px;
         }
 
-        .shop-title svg {
-            width: 32px;
-            height: 32px;
-            fill: var(--accent);
-        }
-
-        .shop-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: var(--bg-secondary);
-            border: 1px solid var(--accent);
-            border-radius: 60px;
-            padding: 16px 28px;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .item-info {
+        .charm-icon {
+            background: #ffedd5;
+            width: 48px;
+            height: 48px;
+            border-radius: 20px;
             display: flex;
             align-items: center;
-            gap: 20px;
+            justify-content: center;
         }
 
-        .item-info svg {
-            width: 40px;
-            height: 40px;
-            fill: var(--accent-secondary);
+        .charm-icon svg {
+            width: 28px;
+            height: 28px;
+            fill: #c2410c;
         }
 
-        .item-desc strong {
-            font-size: 1.3rem;
+        .charm-text h4 {
+            font-size: 1rem;
+            font-weight: 700;
         }
 
-        .item-price {
+        .charm-text p {
+            font-size: 0.75rem;
+            color: #64748b;
+        }
+
+        .charm-price {
+            font-weight: 700;
+            color: #1e293b;
+            margin-right: 12px;
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-size: 1.5rem;
-            font-weight: 800;
+            gap: 4px;
         }
 
-        .item-price svg {
-            width: 24px;
-            height: 24px;
-            fill: var(--accent);
+        .charm-price svg {
+            width: 16px;
+            height: 16px;
+            fill: #f5b342;
         }
 
-        .buy-btn {
-            background: var(--btn-bg);
-            border: 1px solid var(--accent);
-            color: var(--text-primary);
-            padding: 10px 30px;
+        .charm-buy {
+            background: white;
+            border: 1px solid #cbd5e1;
             border-radius: 40px;
-            font-size: 1.2rem;
-            font-weight: bold;
+            padding: 8px 22px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #334155;
             cursor: pointer;
             transition: 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
 
-        .buy-btn svg {
-            width: 20px;
-            height: 20px;
-            fill: var(--accent);
+        .charm-buy:hover {
+            background: #1e3a8a;
+            color: white;
+            border-color: #1e3a8a;
         }
 
-        .buy-btn:hover:not(:disabled) {
-            background: var(--btn-hover);
-            box-shadow: var(--shadow);
-        }
-
-        .buy-btn:disabled {
+        .charm-buy:disabled {
             opacity: 0.4;
-            cursor: not-allowed;
+            pointer-events: none;
         }
 
         .active-charm {
-            margin-top: 20px;
-            background: var(--bg-primary);
+            margin-top: 16px;
+            background: #f1f5f9;
             border-radius: 60px;
-            padding: 15px 25px;
+            padding: 12px 16px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            border: 1px solid var(--accent);
-            font-size: 1.2rem;
+            font-size: 0.9rem;
+            font-weight: 600;
         }
 
         .active-charm svg {
-            width: 28px;
-            height: 28px;
-            fill: var(--accent-secondary);
+            width: 20px;
+            fill: #b45309;
         }
 
-        #charmTimer {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: var(--text-secondary);
-        }
-
-        /* ===== REDEEM SECTION ===== */
-        .redeem-section {
-            background: var(--card-bg);
-            border: 1px solid var(--accent);
+        .timer {
+            background: #1e293b;
+            color: white;
+            padding: 4px 12px;
             border-radius: 40px;
-            padding: 20px;
-            margin-bottom: 24px;
+            font-family: monospace;
+            font-size: 1.1rem;
+        }
+
+        /* Redeem card */
+        .redeem-card {
+            background: white;
+            border-radius: 28px;
+            padding: 16px;
+            border: 1px solid #e2e8f0;
+            margin-bottom: 20px;
             display: flex;
             flex-wrap: wrap;
             align-items: center;
-            justify-content: space-between;
-            gap: 20px;
+            gap: 10px;
         }
 
-        .redeem-left {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .redeem-left svg {
-            width: 32px;
-            height: 32px;
-            fill: var(--accent-secondary);
-        }
-
-        .redeem-left input {
-            background: var(--bg-primary);
-            border: 1px solid var(--accent);
-            color: var(--text-primary);
-            padding: 12px 20px;
-            border-radius: 60px;
-            font-size: 1rem;
-            width: 200px;
+        .redeem-card input {
+            flex: 2;
+            min-width: 160px;
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            border-radius: 40px;
+            padding: 14px 18px;
+            font-size: 0.9rem;
         }
 
         .redeem-btn {
-            background: var(--btn-bg);
-            border: 2px solid var(--accent);
-            color: var(--text-primary);
-            padding: 12px 28px;
-            border-radius: 60px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .redeem-btn svg {
-            width: 20px;
-            height: 20px;
-            fill: var(--accent);
-        }
-
-        .redeem-btn:hover {
-            background: var(--btn-hover);
-            box-shadow: var(--shadow);
-        }
-
-        .redeem-history {
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-
-        /* ===== RESULT MESSAGE ===== */
-        .result-message {
-            text-align: center;
-            padding: 18px;
-            border-radius: 60px;
-            background: var(--bg-primary);
-            border: 1px solid var(--accent);
-            margin-top: 20px;
-            font-size: 1.5rem;
+            flex: 1;
+            background: #0f172a;
+            border: none;
+            border-radius: 40px;
+            padding: 14px 10px;
+            color: white;
+            font-weight: 600;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
+            gap: 6px;
+            cursor: pointer;
         }
 
-        .result-message svg {
-            width: 28px;
-            height: 28px;
-            fill: var(--accent-secondary);
+        .redeem-btn svg {
+            width: 18px;
+            fill: white;
+        }
+
+        .redeem-message {
+            font-size: 0.8rem;
+            color: #475569;
+            width: 100%;
+            text-align: center;
+        }
+
+        /* result */
+        .result-line {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            color: #334155;
+            padding: 12px;
+            background: #f1f5f9;
+            border-radius: 60px;
+        }
+
+        /* responsive */
+        @media (max-width: 380px) {
+            .main-content { padding: 16px; }
+            .price-large { font-size: 1.8rem; }
         }
     </style>
 </head>
-<body class="theme-cyberpunk">
-    <div class="game-container">
-        <!-- HEADER -->
-        <div class="header">
-            <div class="title">
-                <svg viewBox="0 0 300 50">
-                    <text x="10" y="35" fill="none" stroke="currentColor" stroke-width="2" font-size="32" font-weight="bold" letter-spacing="2">NEON TRADER</text>
-                    <text x="10" y="35" fill="currentColor" font-size="32" font-weight="bold" letter-spacing="2">NEON TRADER</text>
-                </svg>
-            </div>
-            <div class="balance-box">
-                <svg viewBox="0 0 32 32">
-                    <circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="2"/>
-                    <path d="M8 16 L24 16 M16 8 L16 24" stroke="currentColor" stroke-width="2"/>
-                    <circle cx="16" cy="16" r="4" fill="currentColor"/>
-                </svg>
-                <span id="balanceDisplay">10000</span>
-            </div>
-            <div class="theme-selector">
-                <div class="theme-btn" data-theme="cyberpunk">CYBER</div>
-                <div class="theme-btn" data-theme="tokyo">TOKYO</div>
-                <div class="theme-btn" data-theme="gangster">GANGSTER</div>
-            </div>
-        </div>
-
-        <!-- CHART SVG -->
-        <div class="chart-area">
-            <svg class="chart-svg" viewBox="0 0 800 200" preserveAspectRatio="none">
-                <polyline id="chartLine" points="0,150 100,120 200,170 300,90 400,140 500,60 600,110 700,40 800,80" 
-                          fill="none" stroke="var(--accent)" stroke-width="3" vector-effect="non-scaling-stroke"/>
-                <circle cx="800" cy="80" r="6" fill="var(--accent-secondary)" id="currentPoint"/>
-            </svg>
-            <div class="current-price">
-                <svg viewBox="0 0 24 24">
-                    <path d="M12 2 L12 22 M5 12 L19 12" stroke="currentColor" stroke-width="2"/>
-                    <circle cx="12" cy="12" r="4" fill="currentColor"/>
-                </svg>
-                <span id="currentPriceLabel">100</span>
-            </div>
-        </div>
-
-        <!-- TRADING PANEL -->
-        <div class="trading-panel">
-            <div class="direction-buttons">
-                <div class="direction-btn" id="btnUp">
-                    <svg viewBox="0 0 100 100">
-                        <polygon points="50,10 90,80 10,80" fill="currentColor"/>
-                    </svg>
+<body>
+    <div class="app-container">
+        <div class="main-content">
+            <!-- Header -->
+            <div class="header">
+                <div class="logo">
+                    <h1>trade+</h1>
                 </div>
-                <div class="direction-btn" id="btnDown">
-                    <svg viewBox="0 0 100 100">
-                        <polygon points="50,90 90,20 10,20" fill="currentColor"/>
-                    </svg>
-                </div>
-            </div>
-            <div class="betting-controls">
-                <div class="bet-input">
-                    <label>
-                        <svg viewBox="0 0 24 24">
-                            <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
-                            <path d="M12 6 L12 18 M6 12 L18 12" stroke="currentColor" stroke-width="2"/>
-                        </svg>
-                        MODAL
-                    </label>
-                    <input type="number" id="betAmount" min="100" value="1000" step="100">
-                </div>
-                <div class="multiplier-info">
-                    <span>
-                        <svg viewBox="0 0 24 24">
-                            <text x="2" y="20" font-size="20" fill="currentColor">2x</text>
-                        </svg>
-                        Pengganda:
-                    </span>
-                    <span id="multiplierDisplay">2x</span>
-                </div>
-                <button id="placeBetBtn">
+                <div class="balance-chip">
                     <svg viewBox="0 0 24 24">
-                        <path d="M5 12 L19 12 M12 5 L12 19" stroke="currentColor" stroke-width="2"/>
+                        <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                        <path d="M6 12h12M12 6v12" stroke="currentColor" stroke-width="1.5"/>
                     </svg>
-                    PASANG TARUHAN
-                </button>
+                    <span id="balanceDisplay">10.000</span>
+                </div>
             </div>
-        </div>
 
-        <!-- SHOP JIMAT -->
-        <div class="shop-section">
-            <div class="shop-title">
-                <svg viewBox="0 0 32 32">
-                    <rect x="4" y="10" width="24" height="18" rx="4" fill="none" stroke="currentColor" stroke-width="2"/>
-                    <path d="M8 10 L8 4 L24 4 L24 10" stroke="currentColor" stroke-width="2" fill="none"/>
-                </svg>
-                SHOP JIMAT • 1 MENIT
+            <!-- Theme selector simple -->
+            <div class="theme-row">
+                <div class="theme-btn active" data-theme="light">Light</div>
+                <div class="theme-btn" data-theme="dark">Dark</div>
+                <div class="theme-btn" data-theme="blue">Blue</div>
             </div>
-            <div class="shop-item">
-                <div class="item-info">
-                    <svg viewBox="0 0 40 40">
-                        <circle cx="20" cy="20" r="16" fill="none" stroke="currentColor" stroke-width="2"/>
-                        <path d="M20 8 L20 32 M8 20 L32 20" stroke="currentColor" stroke-width="2"/>
-                        <circle cx="20" cy="20" r="4" fill="currentColor"/>
+
+            <!-- Chart Card -->
+            <div class="chart-card" id="chartCard">
+                <div class="chart-header">
+                    <div class="asset-info">
+                        <span class="asset-name">BTC/USD</span>
+                        <span class="asset-change" id="changePct">+2.4%</span>
+                    </div>
+                    <span>24h Vol • 1.2B</span>
+                </div>
+                <div class="price-large">
+                    <span id="currentPrice">48,234</span>
+                    <small>USD</small>
+                </div>
+                <div class="chart-svg-container" id="chartContainer">
+                    <svg viewBox="0 0 300 100" preserveAspectRatio="none">
+                        <polyline id="chartLine"
+                            points="0,70 30,40 60,80 90,30 120,60 150,20 180,50 210,30 240,65 270,45 300,55"
+                            fill="none" stroke="#3b82f6" stroke-width="3" vector-effect="non-scaling-stroke" />
+                        <circle id="currentDot" cx="300" cy="55" r="5" fill="#3b82f6" stroke="white" stroke-width="2" />
                     </svg>
-                    <div class="item-desc">
-                        <strong>JIMAT KEBERUNTUNGAN</strong><br>
-                        <small>Jika menang 3x lipat (aktif 60 detik)</small>
+                </div>
+            </div>
+
+            <!-- Prediksi naik/turun -->
+            <div class="prediction-box">
+                <div class="pred-btn up" id="btnUp">
+                    <svg viewBox="0 0 24 24">
+                        <polygon points="12,4 20,20 4,20" fill="currentColor"/>
+                    </svg>
+                    NAIK
+                </div>
+                <div class="pred-btn down" id="btnDown">
+                    <svg viewBox="0 0 24 24">
+                        <polygon points="12,20 20,4 4,4" fill="currentColor"/>
+                    </svg>
+                    TURUN
+                </div>
+            </div>
+
+            <!-- Control panel (modal + multiplier) -->
+            <div class="control-panel">
+                <div class="amount-row">
+                    <span class="amount-label">Modal (Rp)</span>
+                    <div class="amount-input-wrapper">
+                        <button id="decrementAmount">−</button>
+                        <input type="text" id="betAmount" value="1000" readonly>
+                        <button id="incrementAmount">+</button>
                     </div>
                 </div>
-                <div class="item-price">
-                    <svg viewBox="0 0 24 24">
-                        <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
-                        <text x="8" y="18" font-size="12" fill="currentColor">5</text>
-                    </svg>
-                    5000
+                <div class="amount-row">
+                    <span class="amount-label">Pengganda</span>
+                    <div class="multiplier-badge" id="multiplierDisplay">
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                            <text x="2" y="18" font-size="16">2x</text>
+                        </svg>
+                        <span>2x</span>
+                    </div>
                 </div>
-                <button class="buy-btn" id="buyCharmBtn">
+                <button class="place-btn" id="placeBetBtn">
                     <svg viewBox="0 0 24 24">
-                        <path d="M5 12 L19 12 M12 5 L12 19" stroke="currentColor" stroke-width="2"/>
+                        <path d="M5 12h14M12 5v14" stroke="white" stroke-width="2" fill="none"/>
                     </svg>
-                    BELI
+                    Pasang Taruhan
                 </button>
             </div>
-            <div id="activeCharmDisplay" class="active-charm" style="display: none;">
-                <svg viewBox="0 0 24 24">
-                    <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
-                    <path d="M12 6 L12 12 L16 14" stroke="currentColor" stroke-width="2" fill="none"/>
-                </svg>
-                <span>JIMAT AKTIF <span id="charmTimer">60</span>s</span>
-            </div>
-        </div>
 
-        <!-- REDEEM CODE SYSTEM -->
-        <div class="redeem-section">
-            <div class="redeem-left">
-                <svg viewBox="0 0 32 32">
-                    <rect x="6" y="10" width="20" height="16" rx="4" fill="none" stroke="currentColor" stroke-width="2"/>
-                    <path d="M10 6 L10 12 M22 6 L22 12" stroke="currentColor" stroke-width="2"/>
-                    <text x="8" y="28" font-size="12" fill="currentColor">$</text>
-                </svg>
-                <input type="text" id="redeemCodeInput" placeholder="MASUKKAN CODE" value="FREEBONUS">
+            <!-- SHOP JIMAT -->
+            <div class="shop-card">
+                <div class="shop-header">
+                    <svg viewBox="0 0 24 24">
+                        <rect x="4" y="8" width="16" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                        <path d="M8 6v2M16 6v2" stroke="currentColor" stroke-width="1.5"/>
+                    </svg>
+                    <span>Jimat Keberuntungan • 1 Menit</span>
+                </div>
+                <div class="charm-item">
+                    <div class="charm-info">
+                        <div class="charm-icon">
+                            <svg viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                                <path d="M12 8v8M8 12h8" stroke="currentColor" stroke-width="1.5"/>
+                            </svg>
+                        </div>
+                        <div class="charm-text">
+                            <h4>Amulet Keberuntungan</h4>
+                            <p>Menang jadi 3x lipat · 60 detik</p>
+                        </div>
+                    </div>
+                    <div class="charm-price">
+                        <svg viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                            <text x="7" y="18" font-size="12" fill="currentColor">5</text>
+                        </svg>
+                        5.000
+                    </div>
+                    <button class="charm-buy" id="buyCharmBtn">Beli</button>
+                </div>
+                <div id="activeCharmDisplay" class="active-charm" style="display: none;">
+                    <svg viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                        <path d="M12 6v6l4 2" stroke="currentColor" stroke-width="1.5"/>
+                    </svg>
+                    <span>Jimat aktif</span>
+                    <span class="timer" id="charmTimer">60s</span>
+                </div>
+            </div>
+
+            <!-- REDEEM CODE -->
+            <div class="redeem-card">
+                <input type="text" id="redeemCodeInput" placeholder="Kode promo" value="WELCOME10">
                 <button class="redeem-btn" id="redeemBtn">
                     <svg viewBox="0 0 24 24">
-                        <path d="M20 6 L9 17 L4 12" stroke="currentColor" stroke-width="3" fill="none"/>
+                        <path d="M20 6L9 17l-5-5" stroke="white" stroke-width="2" fill="none"/>
                     </svg>
-                    REDEEM
+                    Redeem
                 </button>
+                <div class="redeem-message" id="redeemMessage"></div>
             </div>
-            <div class="redeem-history">
-                <span id="redeemMessage"></span>
-            </div>
-        </div>
 
-        <!-- RESULT MESSAGE -->
-        <div id="resultMessage" class="result-message">
-            <svg viewBox="0 0 24 24">
-                <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
-                <text x="7" y="18" font-size="14" fill="currentColor">i</text>
-            </svg>
-            <span>SIAP MAIN</span>
+            <!-- Result message -->
+            <div class="result-line" id="resultMessage">
+                <svg viewBox="0 0 24 24" width="18" height="18">
+                    <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                    <text x="7" y="18" font-size="12" fill="currentColor">i</text>
+                </svg>
+                <span id="resultText">Siap main</span>
+            </div>
         </div>
     </div>
 
     <script>
         (function() {
-            // ----- STATE GAME -----
+            // --- STATE ---
             let balance = 10000;
-            let currentPrice = 100;
-            let priceHistory = [150, 120, 170, 90, 140, 60, 110, 40, 80]; // seed awal
+            let currentPrice = 48234;
+            let priceHistory = [70, 40, 80, 30, 60, 20, 50, 30, 65, 45, 55]; // normalized untuk svg
             let chartLine = document.getElementById('chartLine');
-            let currentPoint = document.getElementById('currentPoint');
-            let currentPriceLabel = document.getElementById('currentPriceLabel');
-            let balanceDisplay = document.getElementById('balanceDisplay');
-            let betAmountInput = document.getElementById('betAmount');
-            let multiplierDisplay = document.getElementById('multiplierDisplay');
-            let resultDiv = document.getElementById('resultMessage').querySelector('span');
-            let placeBetBtn = document.getElementById('placeBetBtn');
-            let btnUp = document.getElementById('btnUp');
-            let btnDown = document.getElementById('btnDown');
+            let currentDot = document.getElementById('currentDot');
+            let currentPriceEl = document.getElementById('currentPrice');
+            let balanceEl = document.getElementById('balanceDisplay');
+            let changePctEl = document.getElementById('changePct');
             
-            // Status taruhan
+            // Taruhan
             let currentBet = null; // { direction, amount, priceAtBet }
             let betPending = false;
-            
+            let selectedDirection = null;
+
             // Jimat
             let charmActive = false;
             let charmEndTime = 0;
             let charmTimerInterval = null;
-            let activeCharmDisplay = document.getElementById('activeCharmDisplay');
+            let activeCharmDiv = document.getElementById('activeCharmDisplay');
             let charmTimerSpan = document.getElementById('charmTimer');
-            let buyCharmBtn = document.getElementById('buyCharmBtn');
+            let multiplierDisplay = document.getElementById('multiplierDisplay').querySelector('span');
+            let multiplierBadge = document.getElementById('multiplierDisplay');
 
-            // Redeem codes
+            // UI Elements
+            let betInput = document.getElementById('betAmount');
+            let placeBtn = document.getElementById('placeBetBtn');
+            let btnUp = document.getElementById('btnUp');
+            let btnDown = document.getElementById('btnDown');
+            let resultText = document.getElementById('resultText');
+            let redeemInput = document.getElementById('redeemCodeInput');
+            let redeemBtn = document.getElementById('redeemBtn');
+            let redeemMsg = document.getElementById('redeemMessage');
+
+            // --- REDEEM CODES (bisa ditambah kapan saja) ---
             let redeemCodes = {
-                "FREEBONUS": 5000,
+                "WELCOME10": 5000,
                 "BONUS100": 10000,
-                "JIMATGRATIS": 2000,
-                "HOKI": 7500
-            
+                "LUCKY7": 7000,
+                "JIMATFREE": 2000
             };
 
-            // ----- FUNGSI UPDATE UI -----
+            // --- FUNGSI UPDATE UI ---
             function updateBalance(amount) {
                 balance = amount;
-                balanceDisplay.textContent = balance;
+                balanceEl.textContent = balance.toLocaleString('id-ID');
             }
 
-            // Update grafik SVG berdasarkan priceHistory
+            // Update grafik & harga
             function updateChart() {
                 let points = "";
-                let width = 800, height = 200;
+                let width = 300, height = 100;
                 let step = width / (priceHistory.length - 1);
-                
-                // Normalize harga ke range 20-180 (biar keliatan di svg)
-                let minPrice = Math.min(...priceHistory, 20);
-                let maxPrice = Math.max(...priceHistory, 180);
-                let range = maxPrice - minPrice || 1;
                 
                 for (let i = 0; i < priceHistory.length; i++) {
                     let x = i * step;
-                    let y = height - 20 - ((priceHistory[i] - minPrice) / range) * (height - 60);
+                    let y = height - priceHistory[i]; // karena nilai 20-80
                     points += `${x},${y} `;
                 }
                 chartLine.setAttribute('points', points.trim());
                 
                 // update titik terakhir
                 let lastX = (priceHistory.length - 1) * step;
-                let lastY = height - 20 - ((priceHistory[priceHistory.length-1] - minPrice) / range) * (height - 60);
-                currentPoint.setAttribute('cx', lastX);
-                currentPoint.setAttribute('cy', lastY);
+                let lastY = height - priceHistory[priceHistory.length-1];
+                currentDot.setAttribute('cx', lastX);
+                currentDot.setAttribute('cy', lastY);
                 
-                currentPriceLabel.textContent = Math.floor(priceHistory[priceHistory.length-1]);
+                // Update harga (fluktuasi)
+                let basePrice = 48000;
+                let change = (priceHistory[priceHistory.length-1] - 50) * 30; // simulasi
+                let newPrice = basePrice + change;
+                currentPrice = Math.round(newPrice);
+                currentPriceEl.textContent = currentPrice.toLocaleString('id-ID');
+                
+                // Hitung persen perubahan (acak)
+                let pct = (Math.random() * 5 - 1).toFixed(1);
+                changePctEl.textContent = (pct > 0 ? '+' : '') + pct + '%';
+                changePctEl.style.color = pct >= 0 ? '#22c55e' : '#ef4444';
             }
 
             // Generate harga baru (random walk)
             function generateNewPrice() {
                 let last = priceHistory[priceHistory.length-1];
-                let change = (Math.random() * 10) - 4; // -4 .. +6 (cenderung naik sedikit biar seru)
-                let newPrice = Math.max(10, last + change);
-                priceHistory.push(newPrice);
-                if (priceHistory.length > 10) priceHistory.shift();
-                currentPrice = newPrice;
+                let change = Math.floor(Math.random() * 11) - 3; // -3..+7
+                let newVal = Math.min(90, Math.max(10, last + change));
+                priceHistory.push(newVal);
+                if (priceHistory.length > 11) priceHistory.shift();
+                
                 updateChart();
                 
-                // Cek hasil taruhan jika ada yang pending
+                // Cek hasil taruhan
                 if (betPending && currentBet) {
-                    let result = null;
-                    if (newPrice > currentBet.priceAtBet) result = 'up';
-                    else if (newPrice < currentBet.priceAtBet) result = 'down';
+                    let lastPrice = currentPrice;
+                    let prevPrice = currentBet.priceAtBet;
                     
-                    if (result) {
-                        let win = (currentBet.direction === result);
-                        let multiplier = charmActive ? 3 : 2;
-                        
-                        if (win) {
+                    if (lastPrice > prevPrice) {
+                        // harga naik
+                        if (currentBet.direction === 'up') {
+                            // menang
+                            let multiplier = charmActive ? 3 : 2;
                             let winAmount = currentBet.amount * multiplier;
                             updateBalance(balance + winAmount);
-                            resultDiv.innerHTML = `MENANG! +${winAmount}`;
+                            resultText.innerHTML = `MENANG +${winAmount.toLocaleString()}`;
                         } else {
-                            resultDiv.innerHTML = `KALAH... -${currentBet.amount}`;
-                            // saldo sudah dipotong saat pasang
+                            // kalah
+                            resultText.innerHTML = `KALAH -${currentBet.amount.toLocaleString()}`;
                         }
-                        
-                        // Tampilkan panah
-                        let arrow = result === 'up' ? '▲' : '▼';
-                        resultDiv.innerHTML += ` ${arrow}`;
-                        
                         betPending = false;
                         currentBet = null;
-                        placeBetBtn.disabled = false;
+                        placeBtn.disabled = false;
+                        selectedDirection = null;
+                        btnUp.classList.remove('active');
+                        btnDown.classList.remove('active');
+                    } else if (lastPrice < prevPrice) {
+                        // harga turun
+                        if (currentBet.direction === 'down') {
+                            let multiplier = charmActive ? 3 : 2;
+                            let winAmount = currentBet.amount * multiplier;
+                            updateBalance(balance + winAmount);
+                            resultText.innerHTML = `MENANG +${winAmount.toLocaleString()}`;
+                        } else {
+                            resultText.innerHTML = `KALAH -${currentBet.amount.toLocaleString()}`;
+                        }
+                        betPending = false;
+                        currentBet = null;
+                        placeBtn.disabled = false;
+                        selectedDirection = null;
+                        btnUp.classList.remove('active');
+                        btnDown.classList.remove('active');
                     }
+                    // else equal -> tunggu pergerakan berikutnya
                 }
             }
 
-            // Interval gerak harga
-            setInterval(generateNewPrice, 1200);
+            // Interval harga
+            setInterval(generateNewPrice, 1500);
 
-            // ----- TARUHAN -----
-            function placeBet(direction) {
+            // --- SETUP TARUHAN ---
+            function setDirection(dir) {
+                if (betPending) return;
+                selectedDirection = dir;
+                if (dir === 'up') {
+                    btnUp.classList.add('active');
+                    btnDown.classList.remove('active');
+                } else {
+                    btnDown.classList.add('active');
+                    btnUp.classList.remove('active');
+                }
+            }
+
+            btnUp.addEventListener('click', () => setDirection('up'));
+            btnDown.addEventListener('click', () => setDirection('down'));
+
+            // Place bet
+            function placeBet() {
+                if (!selectedDirection) {
+                    resultText.innerHTML = "Pilih arah dulu!";
+                    return;
+                }
                 if (betPending) {
-                    resultDiv.innerHTML = "TUNGGU TARUHAN SEBELUMNYA";
+                    resultText.innerHTML = "Tunggu hasil sebelumnya";
                     return;
                 }
-                
-                let amount = parseInt(betAmountInput.value);
-                if (isNaN(amount) || amount < 100) amount = 100;
+                let amount = parseInt(betInput.value.replace(/\D/g,'')) || 1000;
+                if (amount < 100) amount = 100;
                 if (amount > balance) {
-                    resultDiv.innerHTML = "SALDO TIDAK CUKUP";
+                    resultText.innerHTML = "Saldo tidak cukup";
                     return;
                 }
                 
-                // potong saldo
+                // Potong saldo
                 updateBalance(balance - amount);
                 
                 currentBet = {
-                    direction: direction,
+                    direction: selectedDirection,
                     amount: amount,
                     priceAtBet: currentPrice
                 };
                 betPending = true;
-                placeBetBtn.disabled = true;
+                placeBtn.disabled = true;
                 
-                resultDiv.innerHTML = `TARUHAN ${direction === 'up' ? 'NAIK' : 'TURUN'} Rp${amount}...`;
+                resultText.innerHTML = `Taruhan ${selectedDirection === 'up' ? 'NAIK' : 'TURUN'} Rp${amount.toLocaleString()}`;
             }
 
-            btnUp.addEventListener('click', () => placeBet('up'));
-            btnDown.addEventListener('click', () => placeBet('down'));
+            placeBtn.addEventListener('click', placeBet);
 
-            // ----- JIMAT -----
-            function buyCharm() {
+            // --- JIMAT ---
+            document.getElementById('buyCharmBtn').addEventListener('click', function() {
                 if (balance < 5000) {
-                    resultDiv.innerHTML = "SALDO TIDAK CUKUP";
+                    resultText.innerHTML = "Saldo kurang!";
                     return;
                 }
                 if (charmActive) {
-                    resultDiv.innerHTML = "JIMAT SUDAH AKTIF";
+                    resultText.innerHTML = "Jimat sudah aktif";
                     return;
                 }
-                
                 updateBalance(balance - 5000);
                 charmActive = true;
-                charmEndTime = Date.now() + 60000; // 60 detik
-                activeCharmDisplay.style.display = 'flex';
+                charmEndTime = Date.now() + 60000;
+                activeCharmDiv.style.display = 'flex';
+                multiplierBadge.classList.add('highlight');
                 multiplierDisplay.textContent = '3x';
                 
                 if (charmTimerInterval) clearInterval(charmTimerInterval);
                 charmTimerInterval = setInterval(() => {
                     let remaining = Math.max(0, Math.ceil((charmEndTime - Date.now()) / 1000));
-                    charmTimerSpan.textContent = remaining;
+                    charmTimerSpan.textContent = remaining + 's';
                     
                     if (remaining <= 0) {
                         charmActive = false;
-                        activeCharmDisplay.style.display = 'none';
+                        activeCharmDiv.style.display = 'none';
+                        multiplierBadge.classList.remove('highlight');
                         multiplierDisplay.textContent = '2x';
                         clearInterval(charmTimerInterval);
                     }
                 }, 200);
-            }
-            buyCharmBtn.addEventListener('click', buyCharm);
+            });
 
-            // ----- REDEEM CODE (bisa ditambah kapan saja via console atau dengan method) -----
+            // --- REDEEM (bisa ditambah kapan saja via console) ---
             window.addRedeemCode = function(code, value) {
                 redeemCodes[code.toUpperCase()] = value;
-                console.log(`✅ Code ${code} ditambahkan dengan nilai ${value}`);
+                console.log(`✅ Code ${code} added with value ${value}`);
             };
 
-            document.getElementById('redeemBtn').addEventListener('click', function() {
-                let input = document.getElementById('redeemCodeInput').value.trim().toUpperCase();
-                let msg = document.getElementById('redeemMessage');
-                
-                if (redeemCodes.hasOwnProperty(input)) {
-                    let bonus = redeemCodes[input];
+            redeemBtn.addEventListener('click', function() {
+                let code = redeemInput.value.trim().toUpperCase();
+                if (redeemCodes[code]) {
+                    let bonus = redeemCodes[code];
                     updateBalance(balance + bonus);
-                    msg.innerHTML = `✅ REDEEM BERHASIL +${bonus}`;
-                    // Hapus code setelah dipakai (opsional)
-                    delete redeemCodes[input];
+                    redeemMsg.innerHTML = `✅ +${bonus} berhasil!`;
+                    // optional: delete after use
+                    delete redeemCodes[code];
                 } else {
-                    msg.innerHTML = "❌ CODE TIDAK VALID";
+                    redeemMsg.innerHTML = "❌ Kode tidak valid";
                 }
             });
 
-            // ----- THEME SWITCHER -----
+            // --- ADJUST AMOUNT ---
+            document.getElementById('incrementAmount').addEventListener('click', function() {
+                let curr = parseInt(betInput.value) || 1000;
+                betInput.value = curr + 500;
+            });
+            document.getElementById('decrementAmount').addEventListener('click', function() {
+                let curr = parseInt(betInput.value) || 1000;
+                if (curr > 500) betInput.value = curr - 500;
+            });
+
+            // --- THEME SWITCH (simple) ---
             document.querySelectorAll('.theme-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
+                    document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
                     let theme = this.dataset.theme;
-                    document.body.className = ''; // reset
-                    document.body.classList.add(`theme-${theme}`);
+                    let chart = document.getElementById('chartCard');
+                    if (theme === 'dark') {
+                        chart.style.background = '#0f172a';
+                        document.querySelector('.app-container').style.background = '#1e293b';
+                    } else if (theme === 'blue') {
+                        chart.style.background = '#172554';
+                        document.querySelector('.app-container').style.background = '#dbeafe';
+                    } else {
+                        chart.style.background = '#0b1426';
+                        document.querySelector('.app-container').style.background = 'white';
+                    }
                 });
             });
 
-            // ----- INITIAL RENDER -----
+            // --- INIT ---
             updateBalance(balance);
             updateChart();
             multiplierDisplay.textContent = '2x';
-            
-            // Contoh cara nambah redeem code via console: 
-            // addRedeemCode("RAHASIA", 25000)
         })();
     </script>
 </body>
