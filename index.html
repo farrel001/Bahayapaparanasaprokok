@@ -3,15 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bank Pisang • 🍌 Simulasi</title>
-    
-    <!-- Fonts & Icons -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+    <title>NEON TRADER</title>
     <style>
+        /* ===== RESET & DASAR ===== */
         * {
             margin: 0;
             padding: 0;
@@ -19,819 +13,885 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background: #f5f7fa;
-            color: #2c3e50;
-        }
-
-        /* Bank Pisang Color Palette */
-        :root {
-            --pisang-primary: #f1c40f;  /* Kuning pisang */
-            --pisang-dark: #d4ac0d;
-            --pisang-light: #f9e79f;
-            --pisang-batangan: #7d3c1f;  /* Coklat batang pisang */
-            --pisang-daun: #2ecc71;
-            --warning-bg: #fff3cd;
-            --warning-border: #ffeeba;
-            --warning-text: #856404;
-            --danger-light: #f8d7da;
-        }
-
-        /* ⚠️ Style untuk elemen penting */
-        .warning-important {
-            background-color: var(--warning-bg);
-            border: 2px solid var(--warning-border);
-            border-radius: 12px;
-            padding: 1rem;
-            margin: 1rem 0;
-            color: var(--warning-text);
-            font-weight: 600;
-            position: relative;
-            animation: pulseWarning 2s infinite;
-        }
-
-        @keyframes pulseWarning {
-            0% { box-shadow: 0 0 0 0 rgba(255, 193, 7, 0.4); }
-            70% { box-shadow: 0 0 0 10px rgba(255, 193, 7, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(255, 193, 7, 0); }
-        }
-
-        .warning-icon {
-            color: #ffc107;
-            margin-right: 0.5rem;
-            font-size: 1.2rem;
-        }
-
-        .badge-warning {
-            background: #ffc107;
-            color: #000;
-            padding: 0.2rem 0.8rem;
-            border-radius: 30px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.3rem;
-        }
-
-        /* Layout */
-        .app-container {
-            display: flex;
             min-height: 100vh;
-        }
-
-        /* Sidebar */
-        .sidebar {
-            width: 260px;
-            background: white;
-            border-right: 1px solid #e5e7eb;
-            padding: 2rem 1rem;
-            position: fixed;
-            height: 100vh;
-            overflow-y: auto;
-        }
-
-        .logo {
             display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            margin-bottom: 2.5rem;
-            padding-left: 0.5rem;
-        }
-
-        .logo-icon {
-            width: 45px;
-            height: 45px;
-            background: var(--pisang-primary);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
             justify-content: center;
-            color: var(--pisang-batangan);
-            font-size: 1.8rem;
-            transform: rotate(-10deg);
-        }
-
-        .logo-text {
-            font-weight: 700;
-            font-size: 1.4rem;
-            color: var(--pisang-batangan);
-        }
-
-        .logo-text span {
-            color: var(--pisang-primary);
-            font-size: 1rem;
-            background: var(--pisang-light);
-            padding: 0.2rem 0.5rem;
-            border-radius: 30px;
-            margin-left: 0.3rem;
-        }
-
-        .nav-item {
-            display: flex;
             align-items: center;
-            gap: 1rem;
-            padding: 0.9rem 1rem;
-            margin: 0.3rem 0;
-            border-radius: 12px;
-            color: #4b5563;
-            text-decoration: none;
-            transition: all 0.2s;
-            font-weight: 500;
-            cursor: pointer;
+            background: #0c0f15;
+            font-family: 'Courier New', Courier, monospace;
+            padding: 16px;
+            transition: background 0.3s;
         }
 
-        .nav-item i {
-            width: 22px;
-            color: #9ca3af;
+        /* ===== THEME VARIABLES ===== */
+        body.theme-cyberpunk {
+            --bg-primary: #0d0f1c;
+            --bg-secondary: #161b2b;
+            --card-bg: #1f263b;
+            --text-primary: #22ffff;
+            --text-secondary: #ff44dd;
+            --accent: #00eeff;
+            --accent-secondary: #ff00aa;
+            --border-glow: 0 0 10px #00ffff, 0 0 20px #ff00aa;
+            --shadow: 0 0 30px #00aaff;
+            --btn-bg: #242b44;
+            --btn-hover: #323d66;
         }
 
-        .nav-item:hover {
-            background: var(--pisang-light);
-            color: var(--pisang-batangan);
+        body.theme-tokyo {
+            --bg-primary: #1e1a2e;
+            --bg-secondary: #2a2347;
+            --card-bg: #372f57;
+            --text-primary: #ffb86b;
+            --text-secondary: #ff7b9c;
+            --accent: #ff9f4b;
+            --accent-secondary: #ff577f;
+            --border-glow: 0 0 15px #ff7b9c;
+            --shadow: 0 0 30px #ff6b8b;
+            --btn-bg: #40355f;
+            --btn-hover: #55477a;
         }
 
-        .nav-item:hover i {
-            color: var(--pisang-primary);
+        body.theme-gangster {
+            --bg-primary: #1a120b;
+            --bg-secondary: #2c1e12;
+            --card-bg: #3e2c1b;
+            --text-primary: #d4af37;
+            --text-secondary: #b8860b;
+            --accent: #c9a227;
+            --accent-secondary: #8b5a2b;
+            --border-glow: 0 0 15px #b8860b;
+            --shadow: 0 0 30px #a0522d;
+            --btn-bg: #4a3824;
+            --btn-hover: #5e4830;
         }
 
-        .nav-item.active {
-            background: var(--pisang-primary);
-            color: var(--pisang-batangan);
-            font-weight: 600;
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
         }
 
-        .nav-item.active i {
-            color: var(--pisang-batangan);
+        /* ===== CONTAINER ===== */
+        .game-container {
+            max-width: 1100px;
+            width: 100%;
+            background: var(--bg-secondary);
+            border: 2px solid var(--accent);
+            border-radius: 40px;
+            padding: 24px;
+            box-shadow: var(--shadow), inset 0 0 40px rgba(0,255,255,0.1);
+            backdrop-filter: blur(5px);
         }
 
-        /* Main Content */
-        .main-content {
-            flex: 1;
-            margin-left: 260px;
-            padding: 2rem;
-        }
-
-        /* Top Navigation */
-        .top-nav {
-            background: white;
-            border-radius: 20px;
-            padding: 1rem 2rem;
-            margin-bottom: 2rem;
+        /* ===== HEADER ===== */
+        .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
-            border: 1px solid #e5e7eb;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 24px;
         }
 
-        .page-title {
-            font-size: 1.5rem;
-            font-weight: 600;
+        .title svg {
+            width: 220px;
+            height: 50px;
+            filter: drop-shadow(var(--border-glow));
+        }
+
+        .balance-box {
+            background: var(--card-bg);
+            border: 1px solid var(--accent);
+            border-radius: 60px;
+            padding: 12px 30px;
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 12px;
+            box-shadow: var(--shadow);
         }
 
-        .user-profile {
+        .balance-box svg {
+            width: 28px;
+            height: 28px;
+            fill: var(--accent);
+        }
+
+        #balanceDisplay {
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+        }
+
+        .theme-selector {
             display: flex;
-            align-items: center;
-            gap: 1rem;
+            gap: 8px;
         }
 
-        .user-avatar {
-            width: 45px;
-            height: 45px;
-            background: var(--pisang-primary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--pisang-batangan);
-            font-weight: 700;
-            font-size: 1.2rem;
+        .theme-btn {
+            background: var(--btn-bg);
+            border: 1px solid var(--accent);
+            color: var(--text-primary);
+            padding: 8px 16px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.2s;
         }
 
-        /* ⚠️⚠️⚠️ WELCOME BANNER DENGAN PERINGATAN */
-        .welcome-banner {
-            background: linear-gradient(135deg, var(--pisang-primary), var(--pisang-dark));
+        .theme-btn:hover {
+            background: var(--btn-hover);
+            box-shadow: var(--shadow);
+        }
+
+        /* ===== CHART AREA (SVG GRAFIK) ===== */
+        .chart-area {
+            background: var(--bg-primary);
+            border: 2px solid var(--accent);
             border-radius: 30px;
-            padding: 2rem;
-            margin-bottom: 2rem;
+            padding: 20px;
+            margin-bottom: 24px;
             position: relative;
-            overflow: hidden;
-            border: 3px solid var(--pisang-batangan);
+            box-shadow: inset 0 0 40px rgba(0,255,255,0.1);
         }
 
-        .banner-content {
-            position: relative;
-            z-index: 2;
+        .chart-svg {
+            width: 100%;
+            height: auto;
+            background: rgba(0,0,0,0.3);
+            border-radius: 20px;
+            display: block;
         }
 
-        .banner-title {
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: var(--pisang-batangan);
-            margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .banner-subtitle {
-            color: #5e3a1c;
-            font-size: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .banner-warning {
-            background: rgba(0,0,0,0.1);
-            padding: 0.8rem 1.5rem;
-            border-radius: 50px;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.8rem;
-            border: 2px dashed var(--pisang-batangan);
-        }
-
-        .pisang-pattern {
+        .current-price {
             position: absolute;
-            top: -20px;
-            right: -20px;
-            font-size: 12rem;
-            opacity: 0.1;
-            transform: rotate(20deg);
-        }
-
-        /* ⚠️⚠️⚠️ INFO PENTING NASABAH */
-        .info-penting {
-            background: white;
-            border-radius: 20px;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-            border-left: 8px solid #ffc107;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-        }
-
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1.5rem;
-            margin-top: 1rem;
-        }
-
-        .info-item {
-            text-align: center;
-        }
-
-        .info-label {
-            font-size: 0.85rem;
-            color: #6b7280;
-            margin-bottom: 0.3rem;
-        }
-
-        .info-value {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--pisang-batangan);
-        }
-
-        /* Balance Cards */
-        .balance-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .balance-card {
-            background: white;
-            border-radius: 20px;
-            padding: 1.5rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
-            border: 1px solid #e5e7eb;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .balance-card.penting {
-            border: 3px solid #ffc107;
-            background: #fffaf0;
-        }
-
-        .card-label {
+            top: 30px;
+            right: 40px;
+            background: var(--card-bg);
+            border: 1px solid var(--accent);
+            border-radius: 60px;
+            padding: 8px 24px;
+            font-size: 2rem;
+            font-weight: 800;
+            backdrop-filter: blur(8px);
+            box-shadow: var(--shadow);
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            color: #6b7280;
-            font-size: 0.9rem;
-            margin-bottom: 0.8rem;
+            gap: 10px;
         }
 
-        .card-amount {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .card-footer {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.85rem;
-        }
-
-        /* ⚠️⚠️⚠️ TUTORIAL NAMBAHIN RIWAYAT (UNTUK DEVELOPER) */
-        .tutorial-box {
-            background: #1e293b;
-            border-radius: 20px;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-            color: white;
-            border: 4px solid #ffc107;
-        }
-
-        .tutorial-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            color: #ffc107;
-        }
-
-        .tutorial-code {
-            background: #0f172a;
-            padding: 1.5rem;
-            border-radius: 12px;
-            font-family: monospace;
-            font-size: 0.9rem;
-            margin: 1rem 0;
-            border-left: 4px solid #ffc107;
-        }
-
-        .tutorial-step {
-            display: flex;
-            align-items: flex-start;
-            gap: 1rem;
-            margin: 1rem 0;
-            padding: 1rem;
-            background: rgba(255,255,255,0.05);
-            border-radius: 12px;
-        }
-
-        .step-number {
+        .current-price svg {
             width: 30px;
             height: 30px;
-            background: #ffc107;
-            color: black;
-            border-radius: 50%;
+            fill: var(--accent);
+        }
+
+        /* ===== TRADING PANEL ===== */
+        .trading-panel {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .direction-buttons {
+            flex: 2;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .direction-btn {
+            flex: 1;
+            background: var(--btn-bg);
+            border: 3px solid var(--accent);
+            border-radius: 50px;
+            padding: 20px;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .direction-btn svg {
+            width: 60px;
+            height: 60px;
+            fill: var(--accent);
+            transition: 0.2s;
+        }
+
+        .direction-btn:hover {
+            background: var(--btn-hover);
+            transform: scale(1.05);
+            box-shadow: var(--shadow);
+        }
+
+        .direction-btn:hover svg {
+            fill: var(--text-secondary);
+        }
+
+        .betting-controls {
+            flex: 1;
+            background: var(--card-bg);
+            border: 2px solid var(--accent);
+            border-radius: 40px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .bet-input {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .bet-input label {
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-weight: 700;
+            gap: 8px;
+            font-size: 1.1rem;
         }
 
-        /* Transaction Section */
-        .transaction-section {
-            background: white;
-            border-radius: 20px;
-            padding: 1.5rem;
-            border: 1px solid #e5e7eb;
+        .bet-input label svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--accent);
         }
 
-        .section-header {
+        .bet-input input {
+            background: var(--bg-primary);
+            border: 1px solid var(--accent);
+            color: var(--text-primary);
+            padding: 12px 16px;
+            font-size: 1.2rem;
+            border-radius: 30px;
+            outline: none;
+        }
+
+        .multiplier-info {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
         }
 
-        .filter-tabs {
-            display: flex;
-            gap: 0.5rem;
+        .multiplier-info svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--accent-secondary);
         }
 
-        .filter-tab {
-            padding: 0.5rem 1rem;
-            border-radius: 30px;
-            background: #f3f4f6;
+        #placeBetBtn {
+            background: var(--btn-bg);
+            border: 2px solid var(--accent);
+            color: var(--text-primary);
+            padding: 15px;
+            border-radius: 60px;
+            font-size: 1.3rem;
+            font-weight: bold;
             cursor: pointer;
-            font-size: 0.85rem;
-        }
-
-        .filter-tab.active {
-            background: var(--pisang-primary);
-            color: var(--pisang-batangan);
-            font-weight: 600;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th {
-            text-align: left;
-            padding: 1rem 0.5rem;
-            color: #6b7280;
-            font-weight: 500;
-            border-bottom: 1px solid #e5e7eb;
-        }
-
-        td {
-            padding: 1.2rem 0.5rem;
-            border-bottom: 1px solid #e5e7eb;
-        }
-
-        .transaction-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 12px;
+            transition: 0.2s;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #f3f4f6;
+            gap: 10px;
         }
 
-        .amount-credit { color: #059669; font-weight: 600; }
-        .amount-debit { color: #dc2626; font-weight: 600; }
-
-        /* ⚠️ Warning pada transaksi tertentu */
-        tr.penting-transaksi {
-            background: #fff3cd;
-            border-left: 4px solid #ffc107;
+        #placeBetBtn svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--accent);
         }
 
-        /* Footer */
-        footer {
-            margin-top: 3rem;
-            padding: 2rem;
-            background: white;
-            border-radius: 20px;
-            border: 1px solid #e5e7eb;
+        #placeBetBtn:hover {
+            background: var(--btn-hover);
+            box-shadow: var(--shadow);
+        }
+
+        /* ===== SHOP SECTION ===== */
+        .shop-section {
+            border: 2px dashed var(--accent);
+            border-radius: 40px;
+            padding: 24px;
+            margin-bottom: 24px;
+            background: var(--card-bg);
+        }
+
+        .shop-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        .shop-title svg {
+            width: 32px;
+            height: 32px;
+            fill: var(--accent);
+        }
+
+        .shop-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--bg-secondary);
+            border: 1px solid var(--accent);
+            border-radius: 60px;
+            padding: 16px 28px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .item-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .item-info svg {
+            width: 40px;
+            height: 40px;
+            fill: var(--accent-secondary);
+        }
+
+        .item-desc strong {
+            font-size: 1.3rem;
+        }
+
+        .item-price {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.5rem;
+            font-weight: 800;
+        }
+
+        .item-price svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--accent);
+        }
+
+        .buy-btn {
+            background: var(--btn-bg);
+            border: 1px solid var(--accent);
+            color: var(--text-primary);
+            padding: 10px 30px;
+            border-radius: 40px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .buy-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--accent);
+        }
+
+        .buy-btn:hover:not(:disabled) {
+            background: var(--btn-hover);
+            box-shadow: var(--shadow);
+        }
+
+        .buy-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .active-charm {
+            margin-top: 20px;
+            background: var(--bg-primary);
+            border-radius: 60px;
+            padding: 15px 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid var(--accent);
+            font-size: 1.2rem;
+        }
+
+        .active-charm svg {
+            width: 28px;
+            height: 28px;
+            fill: var(--accent-secondary);
+        }
+
+        #charmTimer {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--text-secondary);
+        }
+
+        /* ===== REDEEM SECTION ===== */
+        .redeem-section {
+            background: var(--card-bg);
+            border: 1px solid var(--accent);
+            border-radius: 40px;
+            padding: 20px;
+            margin-bottom: 24px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .redeem-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .redeem-left svg {
+            width: 32px;
+            height: 32px;
+            fill: var(--accent-secondary);
+        }
+
+        .redeem-left input {
+            background: var(--bg-primary);
+            border: 1px solid var(--accent);
+            color: var(--text-primary);
+            padding: 12px 20px;
+            border-radius: 60px;
+            font-size: 1rem;
+            width: 200px;
+        }
+
+        .redeem-btn {
+            background: var(--btn-bg);
+            border: 2px solid var(--accent);
+            color: var(--text-primary);
+            padding: 12px 28px;
+            border-radius: 60px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .redeem-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--accent);
+        }
+
+        .redeem-btn:hover {
+            background: var(--btn-hover);
+            box-shadow: var(--shadow);
+        }
+
+        .redeem-history {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* ===== RESULT MESSAGE ===== */
+        .result-message {
             text-align: center;
-            color: #6b7280;
+            padding: 18px;
+            border-radius: 60px;
+            background: var(--bg-primary);
+            border: 1px solid var(--accent);
+            margin-top: 20px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
         }
 
-        .warning-footer {
-            background: #fff3cd;
-            padding: 1rem;
-            border-radius: 12px;
-            margin-bottom: 1rem;
-            font-weight: 600;
-            color: #856404;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .sidebar { display: none; }
-            .main-content { margin-left: 0; }
-            .balance-grid { grid-template-columns: repeat(2, 1fr); }
-            .info-grid { grid-template-columns: repeat(2, 1fr); }
+        .result-message svg {
+            width: 28px;
+            height: 28px;
+            fill: var(--accent-secondary);
         }
     </style>
 </head>
-<body>
-    <div class="app-container">
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <div class="logo">
-                <div class="logo-icon">
-                    🍌
-                </div>
-                <div class="logo-text">
-                    Bank Pisang
-                    <span>BETA</span>
-                </div>
+<body class="theme-cyberpunk">
+    <div class="game-container">
+        <!-- HEADER -->
+        <div class="header">
+            <div class="title">
+                <svg viewBox="0 0 300 50">
+                    <text x="10" y="35" fill="none" stroke="currentColor" stroke-width="2" font-size="32" font-weight="bold" letter-spacing="2">NEON TRADER</text>
+                    <text x="10" y="35" fill="currentColor" font-size="32" font-weight="bold" letter-spacing="2">NEON TRADER</text>
+                </svg>
             </div>
-
-            <div class="nav-item active">
-                <i class="fas fa-home"></i>
-                <span>Dashboard</span>
+            <div class="balance-box">
+                <svg viewBox="0 0 32 32">
+                    <circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="2"/>
+                    <path d="M8 16 L24 16 M16 8 L16 24" stroke="currentColor" stroke-width="2"/>
+                    <circle cx="16" cy="16" r="4" fill="currentColor"/>
+                </svg>
+                <span id="balanceDisplay">10000</span>
             </div>
-            <div class="nav-item">
-                <i class="fas fa-exchange-alt"></i>
-                <span>⚠️ Transaksi</span>
-            </div>
-            <div class="nav-item">
-                <i class="fas fa-credit-card"></i>
-                <span>⚠️ Kartu Saya</span>
-            </div>
-            <div class="nav-item">
-                <i class="fas fa-chart-line"></i>
-                <span>Analisis</span>
-            </div>
-            <div class="nav-item">
-                <i class="fas fa-bell"></i>
-                <span>Notifikasi ⚠️</span>
-            </div>
-            <div class="nav-item">
-                <i class="fas fa-book"></i>
-                <span>⚠️ Tutorial</span>
+            <div class="theme-selector">
+                <div class="theme-btn" data-theme="cyberpunk">CYBER</div>
+                <div class="theme-btn" data-theme="tokyo">TOKYO</div>
+                <div class="theme-btn" data-theme="gangster">GANGSTER</div>
             </div>
         </div>
 
-        <!-- Main Content -->
-        <div class="main-content">
-            <!-- Top Navigation -->
-            <div class="top-nav">
-                <div class="page-title">
-                    <i class="fas fa-exclamation-triangle" style="color: #ffc107;"></i>
-                    Dashboard Bank Pisang
-                    <span class="badge-warning"><i class="fas fa-exclamation-circle"></i> VERSI SIMULASI</span>
+        <!-- CHART SVG -->
+        <div class="chart-area">
+            <svg class="chart-svg" viewBox="0 0 800 200" preserveAspectRatio="none">
+                <polyline id="chartLine" points="0,150 100,120 200,170 300,90 400,140 500,60 600,110 700,40 800,80" 
+                          fill="none" stroke="var(--accent)" stroke-width="3" vector-effect="non-scaling-stroke"/>
+                <circle cx="800" cy="80" r="6" fill="var(--accent-secondary)" id="currentPoint"/>
+            </svg>
+            <div class="current-price">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 2 L12 22 M5 12 L19 12" stroke="currentColor" stroke-width="2"/>
+                    <circle cx="12" cy="12" r="4" fill="currentColor"/>
+                </svg>
+                <span id="currentPriceLabel">100</span>
+            </div>
+        </div>
+
+        <!-- TRADING PANEL -->
+        <div class="trading-panel">
+            <div class="direction-buttons">
+                <div class="direction-btn" id="btnUp">
+                    <svg viewBox="0 0 100 100">
+                        <polygon points="50,10 90,80 10,80" fill="currentColor"/>
+                    </svg>
                 </div>
-                <div class="user-profile">
-                    <div class="user-avatar">FA</div>
-                    <div>
-                        <div style="font-weight: 600;">Farrel Agallant</div>
-                        <div style="font-size: 0.8rem; color: #6b7280;">⚠️ Nasabah Utama</div>
-                    </div>
+                <div class="direction-btn" id="btnDown">
+                    <svg viewBox="0 0 100 100">
+                        <polygon points="50,90 90,20 10,20" fill="currentColor"/>
+                    </svg>
                 </div>
             </div>
-
-            <!-- ⚠️⚠️⚠️ WELCOME BANNER DENGAN PERINGATAN -->
-            <div class="welcome-banner">
-                <div class="banner-content">
-                    <div class="banner-title">
-                        <i class="fas fa-exclamation-triangle"></i>
-                        Hallo, Farrel Agallant! 🍌
-                    </div>
-                    <div class="banner-subtitle">
-                        ⚠️⚠️⚠️ INI ADALAH SIMULASI BANK PISANG - JANGAN MASUKKAN DATA ASLI ⚠️⚠️⚠️
-                    </div>
-                    <div class="banner-warning">
-                        <i class="fas fa-exclamation-circle"></i>
-                        Saldo & transaksi hanya untuk keperluan demo/pembelajaran
-                    </div>
+            <div class="betting-controls">
+                <div class="bet-input">
+                    <label>
+                        <svg viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+                            <path d="M12 6 L12 18 M6 12 L18 12" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                        MODAL
+                    </label>
+                    <input type="number" id="betAmount" min="100" value="1000" step="100">
                 </div>
-                <div class="pisang-pattern">🍌🍌🍌</div>
+                <div class="multiplier-info">
+                    <span>
+                        <svg viewBox="0 0 24 24">
+                            <text x="2" y="20" font-size="20" fill="currentColor">2x</text>
+                        </svg>
+                        Pengganda:
+                    </span>
+                    <span id="multiplierDisplay">2x</span>
+                </div>
+                <button id="placeBetBtn">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M5 12 L19 12 M12 5 L12 19" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                    PASANG TARUHAN
+                </button>
             </div>
+        </div>
 
-            <!-- ⚠️ INFO PENTING NASABAH -->
-            <div class="info-penting">
-                <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
-                    <i class="fas fa-exclamation-triangle warning-icon"></i>
-                    <h3>⚠️ INFORMASI PENTING NASABAH ⚠️</h3>
-                </div>
-                <div class="info-grid">
-                    <div class="info-item">
-                        <div class="info-label">Nama Nasabah</div>
-                        <div class="info-value">Farrel Agallant</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">⚠️ No. Rekening</div>
-                        <div class="info-value">🍌 1337-6969-0420</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">⚠️ Tanggal Buka</div>
-                        <div class="info-value">01-04-2025</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">⚠️ Status</div>
-                        <div class="info-value">AKTIF (DEMO)</div>
-                    </div>
-                </div>
+        <!-- SHOP JIMAT -->
+        <div class="shop-section">
+            <div class="shop-title">
+                <svg viewBox="0 0 32 32">
+                    <rect x="4" y="10" width="24" height="18" rx="4" fill="none" stroke="currentColor" stroke-width="2"/>
+                    <path d="M8 10 L8 4 L24 4 L24 10" stroke="currentColor" stroke-width="2" fill="none"/>
+                </svg>
+                SHOP JIMAT • 1 MENIT
             </div>
-
-            <!-- Balance Cards -->
-            <div class="balance-grid">
-                <div class="balance-card penting">
-                    <div class="card-label">
-                        <i class="fas fa-exclamation-triangle" style="color: #ffc107;"></i>
-                        ⚠️ Total Saldo
-                    </div>
-                    <div class="card-amount">Rp 999.999.999</div>
-                    <div class="card-footer">
-                        <i class="fas fa-arrow-up" style="color: #059669;"></i> +1000% (simulasi)
+            <div class="shop-item">
+                <div class="item-info">
+                    <svg viewBox="0 0 40 40">
+                        <circle cx="20" cy="20" r="16" fill="none" stroke="currentColor" stroke-width="2"/>
+                        <path d="M20 8 L20 32 M8 20 L32 20" stroke="currentColor" stroke-width="2"/>
+                        <circle cx="20" cy="20" r="4" fill="currentColor"/>
+                    </svg>
+                    <div class="item-desc">
+                        <strong>JIMAT KEBERUNTUNGAN</strong><br>
+                        <small>Jika menang 3x lipat (aktif 60 detik)</small>
                     </div>
                 </div>
-                <div class="balance-card">
-                    <div class="card-label">
-                        ⚠️ Tabungan Pisang
-                    </div>
-                    <div class="card-amount">Rp 500.000.000</div>
-                    <div class="card-footer">Bunga 10% per hari ⚠️</div>
+                <div class="item-price">
+                    <svg viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+                        <text x="8" y="18" font-size="12" fill="currentColor">5</text>
+                    </svg>
+                    5000
                 </div>
-                <div class="balance-card">
-                    <div class="card-label">
-                        ⚠️ Kartu Kredit
-                    </div>
-                    <div class="card-amount">Rp 100.000.000</div>
-                    <div class="card-footer">Limit tak terbatas ⚠️</div>
-                </div>
-                <div class="balance-card">
-                    <div class="card-label">
-                        ⚠️ Investasi Pisang
-                    </div>
-                    <div class="card-amount">Rp 250.000.000</div>
-                    <div class="card-footer">+999% return ⚠️</div>
-                </div>
+                <button class="buy-btn" id="buyCharmBtn">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M5 12 L19 12 M12 5 L12 19" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                    BELI
+                </button>
             </div>
-
-            <!-- ⚠️⚠️⚠️ TUTORIAL CARA NAMBAHIN RIWAYAT TRANSAKSI (UNTUK DEVELOPER) ⚠️⚠️⚠️ -->
-            <div class="tutorial-box">
-                <div class="tutorial-title">
-                    <i class="fas fa-exclamation-triangle"></i>
-                    ⚠️⚠️⚠️ TUTORIAL: CARA NAMBAH RIWAYAT TRANSAKSI (UNTUK DEVELOPER) ⚠️⚠️⚠️
-                </div>
-                
-                <div class="tutorial-step">
-                    <div class="step-number">1</div>
-                    <div>
-                        <strong style="color: #ffc107;">CARI ARRAY "transactions" DI DALAM SCRIPT</strong>
-                        <p style="color: #9ca3af; margin-top: 0.3rem;">Gulir ke bawah sampai menemukan bagian yang bertuliskan "// ===== DATA TRANSAKSI ====="</p>
-                    </div>
-                </div>
-
-                <div class="tutorial-step">
-                    <div class="step-number">2</div>
-                    <div>
-                        <strong style="color: #ffc107;">FORMAT PENULISAN TRANSAKSI BARU</strong>
-                        <p style="color: #9ca3af;">Setiap transaksi ditulis dengan format seperti ini:</p>
-                    </div>
-                </div>
-
-                <!-- ⚠️ CODE EXAMPLE DENGAN WARNING -->
-                <div class="tutorial-code">
-                    <div style="color: #ffc107;">// ⚠️ CONTOH TRANSAKSI (COPY PASTE INI UNTUK NAMBAH)</div>
-                    {<br>
-                    &nbsp;&nbsp;date: "2025-03-20",&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #ffc107;">// ⚠️ Format: TAHUN-BULAN-TANGGAL</span><br>
-                    &nbsp;&nbsp;desc: "Belanja di Pasar",&nbsp;&nbsp;<span style="color: #ffc107;">// ⚠️ Deskripsi transaksi</span><br>
-                    &nbsp;&nbsp;category: "debit",&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #ffc107;">// ⚠️ Pilih: "credit" (masuk), "debit" (keluar), "transfer"</span><br>
-                    &nbsp;&nbsp;amount: 500000,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #ffc107;">// ⚠️ Jumlah dalam Rupiah (tanpa titik)</span><br>
-                    &nbsp;&nbsp;status: "success",&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #ffc107;">// ⚠️ "success" atau "pending"</span><br>
-                    &nbsp;&nbsp;icon: "fa-cart-shopping",&nbsp;&nbsp;<span style="color: #ffc107;">// ⚠️ Ikon Font Awesome</span><br>
-                    &nbsp;&nbsp;warning: true&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #ffc107;">// ⚠️ KASIH ⚠️ di transaksi? true/false</span><br>
-                    },
-                </div>
-
-                <div class="tutorial-step">
-                    <div class="step-number">3</div>
-                    <div>
-                        <strong style="color: #ffc107;">LOKASI YANG TEPAT UNTUK NAMBAH</strong>
-                        <p style="color: #9ca3af;">Tambahkan transaksi baru di dalam array, sebelum kurung siku tutup <strong style="color: #ffc107;">];</strong> Jangan lupa kasih koma setelah transaksi sebelumnya.</p>
-                    </div>
-                </div>
-
-                <div style="background: rgba(255,193,7,0.1); padding: 1rem; border-radius: 8px; margin-top: 1rem;">
-                    <i class="fas fa-exclamation-triangle" style="color: #ffc107;"></i>
-                    <strong style="color: #ffc107;">⚠️ PERHATIAN: </strong> 
-                    <span style="color: white;">Jangan hapus tanda kurung, koma, atau tanda petik yang udah ada, nanti error!</span>
-                </div>
+            <div id="activeCharmDisplay" class="active-charm" style="display: none;">
+                <svg viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+                    <path d="M12 6 L12 12 L16 14" stroke="currentColor" stroke-width="2" fill="none"/>
+                </svg>
+                <span>JIMAT AKTIF <span id="charmTimer">60</span>s</span>
             </div>
+        </div>
 
-            <!-- ⚠️⚠️⚠️ RIWAYAT TRANSAKSI (LENGKAP DENGAN TANDA PERINGATAN) ⚠️⚠️⚠️ -->
-            <div class="transaction-section">
-                <div class="section-header">
-                    <h3 style="display: flex; align-items: center; gap: 0.5rem;">
-                        <i class="fas fa-exclamation-triangle" style="color: #ffc107;"></i>
-                        ⚠️ RIWAYAT TRANSAKSI (Farrel Agallant) ⚠️
-                    </h3>
-                    <div class="filter-tabs">
-                        <div class="filter-tab active" onclick="filterTransactions('all')">Semua</div>
-                        <div class="filter-tab" onclick="filterTransactions('credit')">Masuk</div>
-                        <div class="filter-tab" onclick="filterTransactions('debit')">Keluar</div>
-                        <div class="filter-tab" onclick="filterTransactions('transfer')">Transfer</div>
-                    </div>
-                </div>
-
-                <table id="transactionTable">
-                    <thead>
-                        <tr>
-                            <th>⚠️ TRANSAKSI</th>
-                            <th>KATEGORI</th>
-                            <th>⚠️ JUMLAH</th>
-                            <th>STATUS</th>
-                            <th>⚠️ WARNING</th>
-                        </tr>
-                    </thead>
-                    <tbody id="transactionBody">
-                        <!-- Data akan diisi JavaScript -->
-                    </tbody>
-                </table>
+        <!-- REDEEM CODE SYSTEM -->
+        <div class="redeem-section">
+            <div class="redeem-left">
+                <svg viewBox="0 0 32 32">
+                    <rect x="6" y="10" width="20" height="16" rx="4" fill="none" stroke="currentColor" stroke-width="2"/>
+                    <path d="M10 6 L10 12 M22 6 L22 12" stroke="currentColor" stroke-width="2"/>
+                    <text x="8" y="28" font-size="12" fill="currentColor">$</text>
+                </svg>
+                <input type="text" id="redeemCodeInput" placeholder="MASUKKAN CODE" value="FREEBONUS">
+                <button class="redeem-btn" id="redeemBtn">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M20 6 L9 17 L4 12" stroke="currentColor" stroke-width="3" fill="none"/>
+                    </svg>
+                    REDEEM
+                </button>
             </div>
+            <div class="redeem-history">
+                <span id="redeemMessage"></span>
+            </div>
+        </div>
 
-            <!-- Footer dengan peringatan -->
-            <footer>
-                <div class="warning-footer">
-                    <i class="fas fa-exclamation-triangle"></i>
-                    ⚠️⚠️⚠️ BANK PISANG ADALAH SIMULASI / DEMO UNTUK PEMBELAJARAN - BUKAN BANK SUNGGAHAN ⚠️⚠️⚠️
-                </div>
-                <p>© 2025 Bank Pisang • Farrel Agallant • Semua transaksi adalah simulasi</p>
-            </footer>
+        <!-- RESULT MESSAGE -->
+        <div id="resultMessage" class="result-message">
+            <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+                <text x="7" y="18" font-size="14" fill="currentColor">i</text>
+            </svg>
+            <span>SIAP MAIN</span>
         </div>
     </div>
 
     <script>
-        // ===== DATA TRANSAKSI ===== ⚠️⚠️⚠️
-        // ⚠️⚠️⚠️ CARA NAMBAHIN RIWAYAT: 
-        // 1. Copy salah satu object di bawah ini (yang di dalam kurung kurawal {})
-        // 2. Tempel sebelum tanda ]; (kurung siku tutup)
-        // 3. Jangan lupa kasih koma (,) setelah object sebelumnya
-        // 4. Sesuaikan data: date, desc, category, amount, status, icon, warning
-        
-        let transactions = [
-            // ⚠️ TRANSAKSI PENTING DENGAN WARNING
-            { date: "2025-03-20", desc: "SETORAN PISANG RAYA ⚠️", category: "credit", amount: 100000000, status: "success", icon: "fa-leaf", warning: true },
-            { date: "2025-03-19", desc: "BELI PISANG GORENG 1000 PCS", category: "debit", amount: 15000000, status: "success", icon: "fa-utensils", warning: true },
-            { date: "2025-03-18", desc: "GAJI PISANG (BOSS)", category: "credit", amount: 50000000, status: "success", icon: "fa-briefcase", warning: false },
-            { date: "2025-03-17", desc: "TRANSFER KE KEBUN PISANG", category: "transfer", amount: 25000000, status: "success", icon: "fa-tree", warning: true },
-            { date: "2025-03-16", desc: "BELI PUPUK PISANG", category: "debit", amount: 5000000, status: "success", icon: "fa-flask", warning: true },
-            { date: "2025-03-15", desc: "HASIL PANEN PISANG", category: "credit", amount: 75000000, status: "success", icon: "fa-tractor", warning: false },
-            { date: "2025-03-14", desc: "BONUS AKHIR TAHUN PISANG", category: "credit", amount: 200000000, status: "success", icon: "fa-gift", warning: true },
-            { date: "2025-03-13", desc: "BELI TANAH UNTUK KEBUN", category: "debit", amount: 350000000, status: "success", icon: "fa-mountain", warning: true },
-            { date: "2025-03-12", desc: "PINJAMAN PISANG (TANPA BUNGA)", category: "credit", amount: 500000000, status: "success", icon: "fa-hand-holding-dollar", warning: true },
-            { date: "2025-03-11", desc: "BAYAR LISTRIK (Kulkas Pisang)", category: "debit", amount: 2500000, status: "success", icon: "fa-bolt", warning: false },
-            { date: "2025-03-10", desc: "PULSA 1000GB (BUAT PROMOSI)", category: "debit", amount: 10000000, status: "success", icon: "fa-wifi", warning: true },
-            { date: "2025-03-09", desc: "TRANSFER DARI BANK LAIN", category: "transfer", amount: 125000000, status: "pending", icon: "fa-building-columns", warning: true },
-            { date: "2025-03-08", desc: "BELI MOBIL PENGANGKUT PISANG", category: "debit", amount: 450000000, status: "success", icon: "fa-truck", warning: true },
-            { date: "2025-03-07", desc: "GAJI KARYAWAN KEBUN", category: "debit", amount: 85000000, status: "success", icon: "fa-users", warning: false },
-            { date: "2025-03-06", desc: "HADIAH LOMBA PISANG", category: "credit", amount: 50000000, status: "success", icon: "fa-trophy", warning: true },
-            { date: "2025-03-05", desc: "BELI BIBIT PISANG UNGGUL", category: "debit", amount: 15000000, status: "success", icon: "fa-seedling", warning: true },
-            { date: "2025-03-04", desc: "EXPORT PISANG KE JEPANG", category: "credit", amount: 950000000, status: "success", icon: "fa-plane", warning: true },
-            { date: "2025-03-03", desc: "BELI GUDANG PENDINGIN", category: "debit", amount: 750000000, status: "success", icon: "fa-warehouse", warning: true },
-            { date: "2025-03-02", desc: "DIVIDEN PERUSAHAAN PISANG", category: "credit", amount: 300000000, status: "success", icon: "fa-chart-pie", warning: false },
-            { date: "2025-03-01", desc: "BAYAR SEWA LAHAN", category: "debit", amount: 125000000, status: "success", icon: "fa-hand-holding-heart", warning: true }
-        ];
+        (function() {
+            // ----- STATE GAME -----
+            let balance = 10000;
+            let currentPrice = 100;
+            let priceHistory = [150, 120, 170, 90, 140, 60, 110, 40, 80]; // seed awal
+            let chartLine = document.getElementById('chartLine');
+            let currentPoint = document.getElementById('currentPoint');
+            let currentPriceLabel = document.getElementById('currentPriceLabel');
+            let balanceDisplay = document.getElementById('balanceDisplay');
+            let betAmountInput = document.getElementById('betAmount');
+            let multiplierDisplay = document.getElementById('multiplierDisplay');
+            let resultDiv = document.getElementById('resultMessage').querySelector('span');
+            let placeBetBtn = document.getElementById('placeBetBtn');
+            let btnUp = document.getElementById('btnUp');
+            let btnDown = document.getElementById('btnDown');
+            
+            // Status taruhan
+            let currentBet = null; // { direction, amount, priceAtBet }
+            let betPending = false;
+            
+            // Jimat
+            let charmActive = false;
+            let charmEndTime = 0;
+            let charmTimerInterval = null;
+            let activeCharmDisplay = document.getElementById('activeCharmDisplay');
+            let charmTimerSpan = document.getElementById('charmTimer');
+            let buyCharmBtn = document.getElementById('buyCharmBtn');
 
-        // Format Rupiah
-        function formatRupiah(amount) {
-            return 'Rp ' + amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-        }
+            // Redeem codes
+            let redeemCodes = {
+                "FREEBONUS": 5000,
+                "BONUS100": 10000,
+                "JIMATGRATIS": 2000,
+                "HOKI": 7500
+            
+            };
 
-        // Format Tanggal
-        function formatDate(dateStr) {
-            const date = new Date(dateStr);
-            return date.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
-        }
-
-        // Render Transactions
-        function renderTransactions(filter = 'all') {
-            const tbody = document.getElementById('transactionBody');
-            tbody.innerHTML = '';
-
-            let filtered = transactions;
-            if (filter !== 'all') {
-                filtered = transactions.filter(t => t.category === filter);
+            // ----- FUNGSI UPDATE UI -----
+            function updateBalance(amount) {
+                balance = amount;
+                balanceDisplay.textContent = balance;
             }
 
-            filtered.forEach(t => {
-                const row = document.createElement('tr');
-                if (t.warning) {
-                    row.classList.add('penting-transaksi');
+            // Update grafik SVG berdasarkan priceHistory
+            function updateChart() {
+                let points = "";
+                let width = 800, height = 200;
+                let step = width / (priceHistory.length - 1);
+                
+                // Normalize harga ke range 20-180 (biar keliatan di svg)
+                let minPrice = Math.min(...priceHistory, 20);
+                let maxPrice = Math.max(...priceHistory, 180);
+                let range = maxPrice - minPrice || 1;
+                
+                for (let i = 0; i < priceHistory.length; i++) {
+                    let x = i * step;
+                    let y = height - 20 - ((priceHistory[i] - minPrice) / range) * (height - 60);
+                    points += `${x},${y} `;
+                }
+                chartLine.setAttribute('points', points.trim());
+                
+                // update titik terakhir
+                let lastX = (priceHistory.length - 1) * step;
+                let lastY = height - 20 - ((priceHistory[priceHistory.length-1] - minPrice) / range) * (height - 60);
+                currentPoint.setAttribute('cx', lastX);
+                currentPoint.setAttribute('cy', lastY);
+                
+                currentPriceLabel.textContent = Math.floor(priceHistory[priceHistory.length-1]);
+            }
+
+            // Generate harga baru (random walk)
+            function generateNewPrice() {
+                let last = priceHistory[priceHistory.length-1];
+                let change = (Math.random() * 10) - 4; // -4 .. +6 (cenderung naik sedikit biar seru)
+                let newPrice = Math.max(10, last + change);
+                priceHistory.push(newPrice);
+                if (priceHistory.length > 10) priceHistory.shift();
+                currentPrice = newPrice;
+                updateChart();
+                
+                // Cek hasil taruhan jika ada yang pending
+                if (betPending && currentBet) {
+                    let result = null;
+                    if (newPrice > currentBet.priceAtBet) result = 'up';
+                    else if (newPrice < currentBet.priceAtBet) result = 'down';
+                    
+                    if (result) {
+                        let win = (currentBet.direction === result);
+                        let multiplier = charmActive ? 3 : 2;
+                        
+                        if (win) {
+                            let winAmount = currentBet.amount * multiplier;
+                            updateBalance(balance + winAmount);
+                            resultDiv.innerHTML = `MENANG! +${winAmount}`;
+                        } else {
+                            resultDiv.innerHTML = `KALAH... -${currentBet.amount}`;
+                            // saldo sudah dipotong saat pasang
+                        }
+                        
+                        // Tampilkan panah
+                        let arrow = result === 'up' ? '▲' : '▼';
+                        resultDiv.innerHTML += ` ${arrow}`;
+                        
+                        betPending = false;
+                        currentBet = null;
+                        placeBetBtn.disabled = false;
+                    }
+                }
+            }
+
+            // Interval gerak harga
+            setInterval(generateNewPrice, 1200);
+
+            // ----- TARUHAN -----
+            function placeBet(direction) {
+                if (betPending) {
+                    resultDiv.innerHTML = "TUNGGU TARUHAN SEBELUMNYA";
+                    return;
                 }
                 
-                const amountClass = t.category === 'credit' ? 'amount-credit' : 'amount-debit';
-                const amountPrefix = t.category === 'credit' ? '+ ' : (t.category === 'debit' ? '- ' : '↻ ');
+                let amount = parseInt(betAmountInput.value);
+                if (isNaN(amount) || amount < 100) amount = 100;
+                if (amount > balance) {
+                    resultDiv.innerHTML = "SALDO TIDAK CUKUP";
+                    return;
+                }
                 
-                // Tentukan ikon berdasarkan kategori
-                let iconBg = '#f3f4f6';
-                let iconColor = '#6b7280';
-                if (t.category === 'credit') { iconBg = '#d1fae5'; iconColor = '#059669'; }
-                else if (t.category === 'debit') { iconBg = '#fee2e2'; iconColor = '#dc2626'; }
-                else if (t.category === 'transfer') { iconBg = '#fff3cd'; iconColor = '#d97706'; }
+                // potong saldo
+                updateBalance(balance - amount);
+                
+                currentBet = {
+                    direction: direction,
+                    amount: amount,
+                    priceAtBet: currentPrice
+                };
+                betPending = true;
+                placeBetBtn.disabled = true;
+                
+                resultDiv.innerHTML = `TARUHAN ${direction === 'up' ? 'NAIK' : 'TURUN'} Rp${amount}...`;
+            }
 
-                row.innerHTML = `
-                    <td>
-                        <div style="display: flex; align-items: center; gap: 1rem;">
-                            <div class="transaction-icon" style="background: ${iconBg}; color: ${iconColor};">
-                                <i class="fas ${t.icon}"></i>
-                            </div>
-                            <div>
-                                <div style="font-weight: 600;">${t.desc}</div>
-                                <div style="font-size: 0.8rem; color: #6b7280;">${formatDate(t.date)}</div>
-                            </div>
-                        </div>
-                    </td>
-                    <td>${t.category === 'credit' ? 'Pemasukan' : (t.category === 'debit' ? 'Pengeluaran' : 'Transfer')}</td>
-                    <td class="${amountClass}">${amountPrefix}${formatRupiah(t.amount)}</td>
-                    <td>
-                        <span style="background: ${t.status === 'success' ? '#d1fae5' : '#fff3cd'}; 
-                                     color: ${t.status === 'success' ? '#059669' : '#d97706'};
-                                     padding: 0.2rem 1rem; border-radius: 30px; font-size: 0.8rem;">
-                            ${t.status === 'success' ? 'Berhasil' : 'Pending'}
-                        </span>
-                    </td>
-                    <td>
-                        ${t.warning ? '<i class="fas fa-exclamation-triangle" style="color: #ffc107; font-size: 1.2rem;" title="Transaksi Penting"></i> ⚠️' : '-'}
-                    </td>
-                `;
-                tbody.appendChild(row);
+            btnUp.addEventListener('click', () => placeBet('up'));
+            btnDown.addEventListener('click', () => placeBet('down'));
+
+            // ----- JIMAT -----
+            function buyCharm() {
+                if (balance < 5000) {
+                    resultDiv.innerHTML = "SALDO TIDAK CUKUP";
+                    return;
+                }
+                if (charmActive) {
+                    resultDiv.innerHTML = "JIMAT SUDAH AKTIF";
+                    return;
+                }
+                
+                updateBalance(balance - 5000);
+                charmActive = true;
+                charmEndTime = Date.now() + 60000; // 60 detik
+                activeCharmDisplay.style.display = 'flex';
+                multiplierDisplay.textContent = '3x';
+                
+                if (charmTimerInterval) clearInterval(charmTimerInterval);
+                charmTimerInterval = setInterval(() => {
+                    let remaining = Math.max(0, Math.ceil((charmEndTime - Date.now()) / 1000));
+                    charmTimerSpan.textContent = remaining;
+                    
+                    if (remaining <= 0) {
+                        charmActive = false;
+                        activeCharmDisplay.style.display = 'none';
+                        multiplierDisplay.textContent = '2x';
+                        clearInterval(charmTimerInterval);
+                    }
+                }, 200);
+            }
+            buyCharmBtn.addEventListener('click', buyCharm);
+
+            // ----- REDEEM CODE (bisa ditambah kapan saja via console atau dengan method) -----
+            window.addRedeemCode = function(code, value) {
+                redeemCodes[code.toUpperCase()] = value;
+                console.log(`✅ Code ${code} ditambahkan dengan nilai ${value}`);
+            };
+
+            document.getElementById('redeemBtn').addEventListener('click', function() {
+                let input = document.getElementById('redeemCodeInput').value.trim().toUpperCase();
+                let msg = document.getElementById('redeemMessage');
+                
+                if (redeemCodes.hasOwnProperty(input)) {
+                    let bonus = redeemCodes[input];
+                    updateBalance(balance + bonus);
+                    msg.innerHTML = `✅ REDEEM BERHASIL +${bonus}`;
+                    // Hapus code setelah dipakai (opsional)
+                    delete redeemCodes[input];
+                } else {
+                    msg.innerHTML = "❌ CODE TIDAK VALID";
+                }
             });
-        }
 
-        // Filter Handler
-        window.filterTransactions = function(filter) {
-            document.querySelectorAll('.filter-tab').forEach(tab => tab.classList.remove('active'));
-            event.target.classList.add('active');
-            renderTransactions(filter);
-        };
+            // ----- THEME SWITCHER -----
+            document.querySelectorAll('.theme-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    let theme = this.dataset.theme;
+                    document.body.className = ''; // reset
+                    document.body.classList.add(`theme-${theme}`);
+                });
+            });
 
-        // Initial Render
-        renderTransactions('all');
+            // ----- INITIAL RENDER -----
+            updateBalance(balance);
+            updateChart();
+            multiplierDisplay.textContent = '2x';
+            
+            // Contoh cara nambah redeem code via console: 
+            // addRedeemCode("RAHASIA", 25000)
+        })();
     </script>
 </body>
     </html>
