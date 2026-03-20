@@ -3,13 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>TRADE+ • Modern Trading</title>
+    <title>TRADE • Data Tersimpan</title>
     <!-- Font & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
-    <!-- Font Awesome (optional, untuk fallback, tapi kita akan lebih banyak pake SVG) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* RESET MODERN */
         * {
@@ -40,7 +38,6 @@
             position: relative;
         }
 
-        /* Konten utama dengan padding */
         .main-content {
             padding: 20px 18px;
         }
@@ -80,7 +77,7 @@
             fill: #f5b342;
         }
 
-        /* Tema selector kecil */
+        /* Theme selector */
         .theme-row {
             display: flex;
             gap: 8px;
@@ -98,7 +95,6 @@
             color: #64748b;
             cursor: pointer;
             transition: 0.2s;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
         }
 
         .theme-btn.active {
@@ -122,7 +118,6 @@
             color: #94a3b8;
             font-size: 0.8rem;
             margin-bottom: 12px;
-            padding: 0 4px;
         }
 
         .asset-info {
@@ -163,7 +158,6 @@
             font-weight: 400;
         }
 
-        /* SVG chart */
         .chart-svg-container {
             width: 100%;
             height: 130px;
@@ -198,16 +192,10 @@
             color: #1e293b;
             transition: 0.2s;
             cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
         }
 
-        .pred-btn.up {
-            color: #22c55e;
-        }
-
-        .pred-btn.down {
-            color: #ef4444;
-        }
+        .pred-btn.up { color: #22c55e; }
+        .pred-btn.down { color: #ef4444; }
 
         .pred-btn.active {
             background: #f8fafc;
@@ -265,10 +253,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-
-        .amount-input-wrapper button:hover {
-            background: #eef2f6;
         }
 
         .amount-input-wrapper input {
@@ -355,6 +339,8 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .charm-info {
@@ -416,16 +402,8 @@
             transition: 0.2s;
         }
 
-        .charm-buy:hover {
-            background: #1e3a8a;
-            color: white;
-            border-color: #1e3a8a;
-        }
-
-        .charm-buy:disabled {
-            opacity: 0.4;
-            pointer-events: none;
-        }
+        .charm-buy:hover { background: #1e3a8a; color: white; border-color: #1e3a8a; }
+        .charm-buy:disabled { opacity: 0.4; pointer-events: none; }
 
         .active-charm {
             margin-top: 16px;
@@ -437,11 +415,6 @@
             justify-content: space-between;
             font-size: 0.9rem;
             font-weight: 600;
-        }
-
-        .active-charm svg {
-            width: 20px;
-            fill: #b45309;
         }
 
         .timer {
@@ -503,7 +476,7 @@
             text-align: center;
         }
 
-        /* result */
+        /* Result */
         .result-line {
             display: flex;
             align-items: center;
@@ -517,10 +490,14 @@
             border-radius: 60px;
         }
 
-        /* responsive */
-        @media (max-width: 380px) {
-            .main-content { padding: 16px; }
-            .price-large { font-size: 1.8rem; }
+        /* Reset data button */
+        .reset-data {
+            text-align: center;
+            margin-top: 16px;
+            font-size: 0.75rem;
+            color: #94a3b8;
+            cursor: pointer;
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -541,7 +518,7 @@
                 </div>
             </div>
 
-            <!-- Theme selector simple -->
+            <!-- Theme selector -->
             <div class="theme-row">
                 <div class="theme-btn active" data-theme="light">Light</div>
                 <div class="theme-btn" data-theme="dark">Dark</div>
@@ -555,13 +532,13 @@
                         <span class="asset-name">BTC/USD</span>
                         <span class="asset-change" id="changePct">+2.4%</span>
                     </div>
-                    <span>24h Vol • 1.2B</span>
+                    <span>Trading</span>
                 </div>
                 <div class="price-large">
-                    <span id="currentPrice">48,234</span>
+                    <span id="currentPrice">48.234</span>
                     <small>USD</small>
                 </div>
-                <div class="chart-svg-container" id="chartContainer">
+                <div class="chart-svg-container">
                     <svg viewBox="0 0 300 100" preserveAspectRatio="none">
                         <polyline id="chartLine"
                             points="0,70 30,40 60,80 90,30 120,60 150,20 180,50 210,30 240,65 270,45 300,55"
@@ -587,7 +564,7 @@
                 </div>
             </div>
 
-            <!-- Control panel (modal + multiplier) -->
+            <!-- Control panel -->
             <div class="control-panel">
                 <div class="amount-row">
                     <span class="amount-label">Modal (Rp)</span>
@@ -675,23 +652,29 @@
                 </svg>
                 <span id="resultText">Siap main</span>
             </div>
+
+            <!-- Reset data (hidden, bisa diklik untuk reset) -->
+            <div class="reset-data" id="resetData">↻ Reset data (mulai baru)</div>
         </div>
     </div>
 
     <script>
         (function() {
-            // --- STATE ---
-            let balance = 10000;
+            // ===== STORAGE KEYS =====
+            const STORAGE_KEYS = {
+                BALANCE: 'tradeplus_balance',
+                CHARM_ACTIVE: 'tradeplus_charmActive',
+                CHARM_ENDTIME: 'tradeplus_charmEndTime',
+                REDEEM_CODES: 'tradeplus_redeemCodes'
+            };
+
+            // ===== STATE =====
+            let balance = 10000; // default
             let currentPrice = 48234;
-            let priceHistory = [70, 40, 80, 30, 60, 20, 50, 30, 65, 45, 55]; // normalized untuk svg
-            let chartLine = document.getElementById('chartLine');
-            let currentDot = document.getElementById('currentDot');
-            let currentPriceEl = document.getElementById('currentPrice');
-            let balanceEl = document.getElementById('balanceDisplay');
-            let changePctEl = document.getElementById('changePct');
+            let priceHistory = [70, 40, 80, 30, 60, 20, 50, 30, 65, 45, 55];
             
             // Taruhan
-            let currentBet = null; // { direction, amount, priceAtBet }
+            let currentBet = null;
             let betPending = false;
             let selectedDirection = null;
 
@@ -699,22 +682,8 @@
             let charmActive = false;
             let charmEndTime = 0;
             let charmTimerInterval = null;
-            let activeCharmDiv = document.getElementById('activeCharmDisplay');
-            let charmTimerSpan = document.getElementById('charmTimer');
-            let multiplierDisplay = document.getElementById('multiplierDisplay').querySelector('span');
-            let multiplierBadge = document.getElementById('multiplierDisplay');
 
-            // UI Elements
-            let betInput = document.getElementById('betAmount');
-            let placeBtn = document.getElementById('placeBetBtn');
-            let btnUp = document.getElementById('btnUp');
-            let btnDown = document.getElementById('btnDown');
-            let resultText = document.getElementById('resultText');
-            let redeemInput = document.getElementById('redeemCodeInput');
-            let redeemBtn = document.getElementById('redeemBtn');
-            let redeemMsg = document.getElementById('redeemMessage');
-
-            // --- REDEEM CODES (bisa ditambah kapan saja) ---
+            // Redeem codes (default)
             let redeemCodes = {
                 "WELCOME10": 5000,
                 "BONUS100": 10000,
@@ -722,13 +691,93 @@
                 "JIMATFREE": 2000
             };
 
-            // --- FUNGSI UPDATE UI ---
-            function updateBalance(amount) {
-                balance = amount;
-                balanceEl.textContent = balance.toLocaleString('id-ID');
+            // ===== LOAD DATA FROM STORAGE =====
+            function loadGameData() {
+                // Load balance
+                const savedBalance = localStorage.getItem(STORAGE_KEYS.BALANCE);
+                if (savedBalance !== null) {
+                    balance = parseInt(savedBalance) || 10000;
+                }
+
+                // Load charm status
+                const savedCharmActive = localStorage.getItem(STORAGE_KEYS.CHARM_ACTIVE);
+                const savedCharmEndTime = localStorage.getItem(STORAGE_KEYS.CHARM_ENDTIME);
+                
+                if (savedCharmActive === 'true' && savedCharmEndTime) {
+                    const endTime = parseInt(savedCharmEndTime);
+                    const now = Date.now();
+                    
+                    if (endTime > now) {
+                        // Charm masih aktif
+                        charmActive = true;
+                        charmEndTime = endTime;
+                    } else {
+                        // Charm sudah expired
+                        charmActive = false;
+                        charmEndTime = 0;
+                        localStorage.removeItem(STORAGE_KEYS.CHARM_ACTIVE);
+                        localStorage.removeItem(STORAGE_KEYS.CHARM_ENDTIME);
+                    }
+                }
+
+                // Load redeem codes (custom codes from user)
+                const savedCodes = localStorage.getItem(STORAGE_KEYS.REDEEM_CODES);
+                if (savedCodes) {
+                    try {
+                        const parsed = JSON.parse(savedCodes);
+                        redeemCodes = { ...redeemCodes, ...parsed };
+                    } catch (e) {
+                        console.error('Failed to parse redeem codes');
+                    }
+                }
             }
 
-            // Update grafik & harga
+            // ===== SAVE DATA TO STORAGE =====
+            function saveBalance() {
+                localStorage.setItem(STORAGE_KEYS.BALANCE, balance.toString());
+            }
+
+            function saveCharm() {
+                if (charmActive) {
+                    localStorage.setItem(STORAGE_KEYS.CHARM_ACTIVE, 'true');
+                    localStorage.setItem(STORAGE_KEYS.CHARM_ENDTIME, charmEndTime.toString());
+                } else {
+                    localStorage.removeItem(STORAGE_KEYS.CHARM_ACTIVE);
+                    localStorage.removeItem(STORAGE_KEYS.CHARM_ENDTIME);
+                }
+            }
+
+            function saveRedeemCodes() {
+                // Simpan hanya kode-kode custom (bawaan tetap ada)
+                localStorage.setItem(STORAGE_KEYS.REDEEM_CODES, JSON.stringify(redeemCodes));
+            }
+
+            // ===== UI ELEMENTS =====
+            const balanceEl = document.getElementById('balanceDisplay');
+            const chartLine = document.getElementById('chartLine');
+            const currentDot = document.getElementById('currentDot');
+            const currentPriceEl = document.getElementById('currentPrice');
+            const changePctEl = document.getElementById('changePct');
+            const betInput = document.getElementById('betAmount');
+            const placeBtn = document.getElementById('placeBetBtn');
+            const btnUp = document.getElementById('btnUp');
+            const btnDown = document.getElementById('btnDown');
+            const resultText = document.getElementById('resultText');
+            const redeemInput = document.getElementById('redeemCodeInput');
+            const redeemBtn = document.getElementById('redeemBtn');
+            const redeemMsg = document.getElementById('redeemMessage');
+            const buyCharmBtn = document.getElementById('buyCharmBtn');
+            const activeCharmDiv = document.getElementById('activeCharmDisplay');
+            const charmTimerSpan = document.getElementById('charmTimer');
+            const multiplierDisplay = document.getElementById('multiplierDisplay').querySelector('span');
+            const multiplierBadge = document.getElementById('multiplierDisplay');
+
+            // ===== FUNGSI UPDATE UI =====
+            function updateBalanceUI() {
+                balanceEl.textContent = balance.toLocaleString('id-ID');
+                saveBalance();
+            }
+
             function updateChart() {
                 let points = "";
                 let width = 300, height = 100;
@@ -736,34 +785,31 @@
                 
                 for (let i = 0; i < priceHistory.length; i++) {
                     let x = i * step;
-                    let y = height - priceHistory[i]; // karena nilai 20-80
+                    let y = height - priceHistory[i];
                     points += `${x},${y} `;
                 }
                 chartLine.setAttribute('points', points.trim());
                 
-                // update titik terakhir
                 let lastX = (priceHistory.length - 1) * step;
                 let lastY = height - priceHistory[priceHistory.length-1];
                 currentDot.setAttribute('cx', lastX);
                 currentDot.setAttribute('cy', lastY);
                 
-                // Update harga (fluktuasi)
                 let basePrice = 48000;
-                let change = (priceHistory[priceHistory.length-1] - 50) * 30; // simulasi
+                let change = (priceHistory[priceHistory.length-1] - 50) * 30;
                 let newPrice = basePrice + change;
                 currentPrice = Math.round(newPrice);
                 currentPriceEl.textContent = currentPrice.toLocaleString('id-ID');
                 
-                // Hitung persen perubahan (acak)
                 let pct = (Math.random() * 5 - 1).toFixed(1);
                 changePctEl.textContent = (pct > 0 ? '+' : '') + pct + '%';
                 changePctEl.style.color = pct >= 0 ? '#22c55e' : '#ef4444';
             }
 
-            // Generate harga baru (random walk)
+            // Generate harga baru
             function generateNewPrice() {
                 let last = priceHistory[priceHistory.length-1];
-                let change = Math.floor(Math.random() * 11) - 3; // -3..+7
+                let change = Math.floor(Math.random() * 11) - 3;
                 let newVal = Math.min(90, Math.max(10, last + change));
                 priceHistory.push(newVal);
                 if (priceHistory.length > 11) priceHistory.shift();
@@ -778,13 +824,12 @@
                     if (lastPrice > prevPrice) {
                         // harga naik
                         if (currentBet.direction === 'up') {
-                            // menang
                             let multiplier = charmActive ? 3 : 2;
                             let winAmount = currentBet.amount * multiplier;
-                            updateBalance(balance + winAmount);
+                            balance += winAmount;
+                            updateBalanceUI();
                             resultText.innerHTML = `MENANG +${winAmount.toLocaleString()}`;
                         } else {
-                            // kalah
                             resultText.innerHTML = `KALAH -${currentBet.amount.toLocaleString()}`;
                         }
                         betPending = false;
@@ -798,7 +843,8 @@
                         if (currentBet.direction === 'down') {
                             let multiplier = charmActive ? 3 : 2;
                             let winAmount = currentBet.amount * multiplier;
-                            updateBalance(balance + winAmount);
+                            balance += winAmount;
+                            updateBalanceUI();
                             resultText.innerHTML = `MENANG +${winAmount.toLocaleString()}`;
                         } else {
                             resultText.innerHTML = `KALAH -${currentBet.amount.toLocaleString()}`;
@@ -810,14 +856,10 @@
                         btnUp.classList.remove('active');
                         btnDown.classList.remove('active');
                     }
-                    // else equal -> tunggu pergerakan berikutnya
                 }
             }
 
-            // Interval harga
-            setInterval(generateNewPrice, 1500);
-
-            // --- SETUP TARUHAN ---
+            // ===== SETUP TARUHAN =====
             function setDirection(dir) {
                 if (betPending) return;
                 selectedDirection = dir;
@@ -833,7 +875,6 @@
             btnUp.addEventListener('click', () => setDirection('up'));
             btnDown.addEventListener('click', () => setDirection('down'));
 
-            // Place bet
             function placeBet() {
                 if (!selectedDirection) {
                     resultText.innerHTML = "Pilih arah dulu!";
@@ -850,8 +891,8 @@
                     return;
                 }
                 
-                // Potong saldo
-                updateBalance(balance - amount);
+                balance -= amount;
+                updateBalanceUI();
                 
                 currentBet = {
                     direction: selectedDirection,
@@ -866,8 +907,8 @@
 
             placeBtn.addEventListener('click', placeBet);
 
-            // --- JIMAT ---
-            document.getElementById('buyCharmBtn').addEventListener('click', function() {
+            // ===== JIMAT =====
+            function buyCharm() {
                 if (balance < 5000) {
                     resultText.innerHTML = "Saldo kurang!";
                     return;
@@ -876,12 +917,15 @@
                     resultText.innerHTML = "Jimat sudah aktif";
                     return;
                 }
-                updateBalance(balance - 5000);
+                balance -= 5000;
+                updateBalanceUI();
+                
                 charmActive = true;
                 charmEndTime = Date.now() + 60000;
                 activeCharmDiv.style.display = 'flex';
                 multiplierBadge.classList.add('highlight');
                 multiplierDisplay.textContent = '3x';
+                saveCharm();
                 
                 if (charmTimerInterval) clearInterval(charmTimerInterval);
                 charmTimerInterval = setInterval(() => {
@@ -894,13 +938,17 @@
                         multiplierBadge.classList.remove('highlight');
                         multiplierDisplay.textContent = '2x';
                         clearInterval(charmTimerInterval);
+                        saveCharm();
                     }
                 }, 200);
-            });
+            }
 
-            // --- REDEEM (bisa ditambah kapan saja via console) ---
+            buyCharmBtn.addEventListener('click', buyCharm);
+
+            // ===== REDEEM =====
             window.addRedeemCode = function(code, value) {
                 redeemCodes[code.toUpperCase()] = value;
+                saveRedeemCodes();
                 console.log(`✅ Code ${code} added with value ${value}`);
             };
 
@@ -908,16 +956,18 @@
                 let code = redeemInput.value.trim().toUpperCase();
                 if (redeemCodes[code]) {
                     let bonus = redeemCodes[code];
-                    updateBalance(balance + bonus);
+                    balance += bonus;
+                    updateBalanceUI();
                     redeemMsg.innerHTML = `✅ +${bonus} berhasil!`;
-                    // optional: delete after use
+                    // Hapus setelah dipakai (opsional)
                     delete redeemCodes[code];
+                    saveRedeemCodes();
                 } else {
                     redeemMsg.innerHTML = "❌ Kode tidak valid";
                 }
             });
 
-            // --- ADJUST AMOUNT ---
+            // ===== ADJUST AMOUNT =====
             document.getElementById('incrementAmount').addEventListener('click', function() {
                 let curr = parseInt(betInput.value) || 1000;
                 betInput.value = curr + 500;
@@ -927,7 +977,7 @@
                 if (curr > 500) betInput.value = curr - 500;
             });
 
-            // --- THEME SWITCH (simple) ---
+            // ===== THEME SWITCH =====
             document.querySelectorAll('.theme-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
                     document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
@@ -947,10 +997,72 @@
                 });
             });
 
-            // --- INIT ---
-            updateBalance(balance);
-            updateChart();
-            multiplierDisplay.textContent = '2x';
+            // ===== RESET DATA =====
+            document.getElementById('resetData').addEventListener('click', function() {
+                if (confirm('Reset semua data? Saldo akan kembali ke 10.000')) {
+                    // Clear storage
+                    localStorage.removeItem(STORAGE_KEYS.BALANCE);
+                    localStorage.removeItem(STORAGE_KEYS.CHARM_ACTIVE);
+                    localStorage.removeItem(STORAGE_KEYS.CHARM_ENDTIME);
+                    localStorage.removeItem(STORAGE_KEYS.REDEEM_CODES);
+                    
+                    // Reset state
+                    balance = 10000;
+                    charmActive = false;
+                    charmEndTime = 0;
+                    activeCharmDiv.style.display = 'none';
+                    multiplierBadge.classList.remove('highlight');
+                    multiplierDisplay.textContent = '2x';
+                    if (charmTimerInterval) clearInterval(charmTimerInterval);
+                    
+                    // Reset redeem codes ke default
+                    redeemCodes = {
+                        "WELCOME10": 5000,
+                        "BONUS100": 10000,
+                        "LUCKY7": 7000,
+                        "JIMATFREE": 2000
+                    };
+                    
+                    updateBalanceUI();
+                    resultText.innerHTML = "Data direset";
+                }
+            });
+
+            // ===== INIT =====
+            function init() {
+                loadGameData();
+                updateBalanceUI();
+                updateChart();
+                
+                // Set multiplier display
+                multiplierDisplay.textContent = charmActive ? '3x' : '2x';
+                
+                // Jika charm aktif, jalankan timer
+                if (charmActive) {
+                    activeCharmDiv.style.display = 'flex';
+                    multiplierBadge.classList.add('highlight');
+                    
+                    if (charmTimerInterval) clearInterval(charmTimerInterval);
+                    charmTimerInterval = setInterval(() => {
+                        let remaining = Math.max(0, Math.ceil((charmEndTime - Date.now()) / 1000));
+                        charmTimerSpan.textContent = remaining + 's';
+                        
+                        if (remaining <= 0) {
+                            charmActive = false;
+                            activeCharmDiv.style.display = 'none';
+                            multiplierBadge.classList.remove('highlight');
+                            multiplierDisplay.textContent = '2x';
+                            clearInterval(charmTimerInterval);
+                            saveCharm();
+                        }
+                    }, 200);
+                }
+                
+                // Start price generator
+                setInterval(generateNewPrice, 1500);
+            }
+
+            init();
         })();
     </script>
 </body>
