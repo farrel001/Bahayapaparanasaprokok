@@ -3,76 +3,106 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Paling Ganteng Sedunia</title>
+<title>Love Mode</title>
 
 <style>
-    body {
-        margin: 0;
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: linear-gradient(135deg, #000, #1a1a1a);
-        font-family: 'Arial', sans-serif;
-    }
+body {
+    margin: 0;
+    overflow: hidden;
+    height: 100vh;
+    background: radial-gradient(circle, #1a001a, #000);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial;
+}
 
-    .card {
-        position: relative;
-        padding: 15px;
-        border-radius: 20px;
-        background: rgba(255,255,255,0.05);
-        backdrop-filter: blur(10px);
-        box-shadow: 0 0 30px rgba(255, 0, 120, 0.6);
-        border: 2px solid rgba(255,255,255,0.1);
-        text-align: center;
-        animation: glow 2s infinite alternate;
-    }
+/* Card */
+.card {
+    position: relative;
+    text-align: center;
+    z-index: 2;
+}
 
-    @keyframes glow {
-        from { box-shadow: 0 0 20px rgba(255,0,120,0.5); }
-        to { box-shadow: 0 0 50px rgba(255,0,120,1); }
-    }
+.card img {
+    width: 260px;
+    border-radius: 20px;
+    border: 4px solid pink;
+    box-shadow: 0 0 30px pink;
+}
 
-    .card img {
-        width: 260px;
-        border-radius: 15px;
-        border: 4px solid white;
-    }
+.text {
+    margin-top: 10px;
+    color: white;
+    font-size: 22px;
+    font-weight: bold;
+    text-shadow: 0 0 10px pink, 0 0 20px red;
+}
 
-    .title {
-        margin-top: 12px;
-        font-size: 20px;
-        font-weight: bold;
-        color: #fff;
-        text-shadow: 0 0 10px pink, 0 0 20px red;
-    }
+/* Love animation */
+.heart {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: pink;
+    transform: rotate(45deg);
+    animation: float 6s linear infinite;
+}
 
-    .badge {
-        position: absolute;
-        top: -10px;
-        right: -10px;
-        background: pink;
-        color: black;
-        padding: 5px 10px;
-        border-radius: 10px;
-        font-size: 12px;
-        font-weight: bold;
-        box-shadow: 0 0 10px pink;
+.heart::before,
+.heart::after {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: pink;
+    border-radius: 50%;
+}
+
+.heart::before {
+    top: -10px;
+    left: 0;
+}
+
+.heart::after {
+    left: -10px;
+    top: 0;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(100vh) rotate(45deg);
+        opacity: 1;
     }
+    100% {
+        transform: translateY(-10vh) rotate(45deg);
+        opacity: 0;
+    }
+}
 </style>
-
 </head>
 <body>
 
 <div class="card">
-    <div class="badge">PLAYBOY</div>
-
     <img src="https://image2url.com/r2/default/images/1773989756777-bb1ab90b-438a-4b41-b3be-52814108bfa3.jpg">
-
-    <div class="title">
-        sikmaa
-    </div>
+    <div class="text">PALING GANTENG SEDUNIA ❤️🔥</div>
 </div>
+
+<script>
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+        heart.remove();
+    }, 6000);
+}
+
+setInterval(createHeart, 200);
+</script>
 
 </body>
 </html>
