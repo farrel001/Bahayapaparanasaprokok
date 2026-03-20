@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>TRADE • Data Tersimpan</title>
+    <title>NIKE SHOP • Official Store</title>
     <!-- Font & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
     <style>
-        /* RESET MODERN */
         * {
             margin: 0;
             padding: 0;
@@ -17,7 +16,7 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Inter', sans-serif;
             background: #f5f7fa;
             color: #1e293b;
             min-height: 100vh;
@@ -35,7 +34,7 @@
             border-radius: 36px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.08);
             overflow: hidden;
-            position: relative;
+            transition: background 0.3s;
         }
 
         .main-content {
@@ -47,16 +46,60 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 24px;
+            margin-bottom: 16px;
         }
 
         .logo h1 {
-            font-size: 1.6rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #0a1172, #1e4dd8);
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #000000, #555555);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            font-size: 0.9rem;
+            background: #111;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 40px;
+            margin-left: 4px;
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .cart-icon svg {
+            width: 28px;
+            height: 28px;
+            fill: #333;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ef4444;
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 600;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Balance & Theme Row */
+        .row-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
         }
 
         .balance-chip {
@@ -77,12 +120,9 @@
             fill: #f5b342;
         }
 
-        /* Theme selector */
         .theme-row {
             display: flex;
             gap: 8px;
-            margin-bottom: 20px;
-            justify-content: flex-end;
         }
 
         .theme-btn {
@@ -98,335 +138,254 @@
         }
 
         .theme-btn.active {
-            background: #1e3a8a;
+            background: #000;
             color: white;
-            border-color: #1e3a8a;
+            border-color: #000;
         }
 
-        /* Chart card */
-        .chart-card {
-            background: #0b1426;
-            border-radius: 28px;
-            padding: 20px 16px 16px;
-            margin-bottom: 20px;
-            box-shadow: 0 10px 25px rgba(0,20,80,0.15);
-        }
-
-        .chart-header {
-            display: flex;
-            justify-content: space-between;
-            color: #94a3b8;
-            font-size: 0.8rem;
-            margin-bottom: 12px;
-        }
-
-        .asset-info {
+        /* Search Bar */
+        .search-box {
+            background: #f1f5f9;
+            border-radius: 40px;
+            padding: 12px 18px;
             display: flex;
             align-items: center;
-            gap: 6px;
-        }
-
-        .asset-name {
-            color: white;
-            font-weight: 600;
-            font-size: 1rem;
-        }
-
-        .asset-change {
-            color: #22c55e;
-            background: rgba(34,197,94,0.1);
-            padding: 2px 8px;
-            border-radius: 40px;
-            font-size: 0.7rem;
-            font-weight: 600;
-        }
-
-        .price-large {
-            color: white;
-            font-size: 2.2rem;
-            font-weight: 700;
-            line-height: 1;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: baseline;
             gap: 8px;
-        }
-
-        .price-large small {
-            font-size: 1rem;
-            color: #64748b;
-            font-weight: 400;
-        }
-
-        .chart-svg-container {
-            width: 100%;
-            height: 130px;
-            margin: 10px 0 5px;
-        }
-
-        .chart-svg-container svg {
-            width: 100%;
-            height: 100%;
-            overflow: visible;
-        }
-
-        /* Prediksi tombol */
-        .prediction-box {
-            display: flex;
-            gap: 12px;
             margin-bottom: 24px;
         }
 
-        .pred-btn {
+        .search-box svg {
+            width: 18px;
+            fill: #64748b;
+        }
+
+        .search-box input {
             flex: 1;
-            background: white;
-            border: 1.5px solid #e2e8f0;
-            border-radius: 60px;
-            padding: 16px 0;
-            font-weight: 700;
-            font-size: 1.2rem;
+            border: none;
+            background: transparent;
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        /* Categories */
+        .categories {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            color: #1e293b;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+            scrollbar-width: none;
+        }
+
+        .categories::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category-item {
+            background: #f1f5f9;
+            padding: 8px 16px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .category-item.active {
+            background: #000;
+            color: white;
+        }
+
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .product-card {
+            background: white;
+            border: 1px solid #eef2f6;
+            border-radius: 24px;
+            padding: 16px 12px;
             transition: 0.2s;
             cursor: pointer;
         }
 
-        .pred-btn.up { color: #22c55e; }
-        .pred-btn.down { color: #ef4444; }
+        .product-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.04);
+            border-color: #ccc;
+        }
 
-        .pred-btn.active {
+        .product-image {
+            width: 100%;
+            aspect-ratio: 1/1;
             background: #f8fafc;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
+            border-radius: 20px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
         }
 
-        .pred-btn svg {
-            width: 24px;
-            height: 24px;
-            fill: currentColor;
+        .product-title {
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 4px;
         }
 
-        /* Control panel */
-        .control-panel {
+        .product-category {
+            font-size: 0.7rem;
+            color: #64748b;
+            margin-bottom: 8px;
+        }
+
+        .product-price {
+            font-weight: 700;
+            color: #000;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-bottom: 12px;
+        }
+
+        .product-price svg {
+            width: 14px;
+            fill: #f5b342;
+        }
+
+        .add-to-cart {
+            background: #000;
+            color: white;
+            border: none;
+            border-radius: 40px;
+            padding: 8px 0;
+            width: 100%;
+            font-weight: 600;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .add-to-cart:hover {
+            background: #333;
+        }
+
+        .add-to-cart:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        /* Cart Section */
+        .cart-section {
             background: #f8fafc;
             border-radius: 28px;
             padding: 18px;
             margin-bottom: 20px;
-            border: 1px solid #eef2f6;
         }
 
-        .amount-row {
+        .cart-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 16px;
         }
 
-        .amount-label {
-            font-size: 0.9rem;
-            color: #475569;
-            font-weight: 500;
-        }
-
-        .amount-input-wrapper {
-            display: flex;
-            align-items: center;
-            background: white;
-            border: 1px solid #e2e8f0;
-            border-radius: 40px;
-            padding: 4px;
-        }
-
-        .amount-input-wrapper button {
-            width: 40px;
-            height: 40px;
-            border: none;
-            background: transparent;
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: #64748b;
-            cursor: pointer;
-            border-radius: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .amount-input-wrapper input {
-            width: 90px;
-            border: none;
-            text-align: center;
-            font-weight: 600;
-            font-size: 1rem;
-            background: transparent;
-            color: #0f172a;
-        }
-
-        .multiplier-badge {
-            background: #e0f2fe;
-            color: #0369a1;
-            padding: 6px 14px;
-            border-radius: 40px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .multiplier-badge.highlight {
-            background: #fef9c3;
-            color: #854d0e;
-        }
-
-        .place-btn {
-            background: #1e3a8a;
-            color: white;
-            border: none;
-            border-radius: 60px;
-            padding: 16px;
-            font-weight: 700;
+        .cart-header h3 {
             font-size: 1.1rem;
-            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .clear-cart {
+            color: #ef4444;
+            font-size: 0.8rem;
             cursor: pointer;
-            transition: 0.2s;
-            margin-top: 12px;
+        }
+
+        .cart-items {
+            max-height: 200px;
+            overflow-y: auto;
+            margin-bottom: 16px;
+        }
+
+        .cart-item {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .place-btn:disabled {
-            opacity: 0.5;
-            pointer-events: none;
-        }
-
-        .place-btn svg {
-            width: 20px;
-            height: 20px;
-            fill: white;
-        }
-
-        /* Shop card */
-        .shop-card {
-            background: linear-gradient(145deg, #f1f5f9, #ffffff);
-            border-radius: 28px;
-            padding: 16px;
-            margin-bottom: 20px;
-            border: 1px solid #e9eef3;
-        }
-
-        .shop-header {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 600;
-            color: #0f172a;
-            margin-bottom: 14px;
-        }
-
-        .shop-header svg {
-            width: 22px;
-            height: 22px;
-            fill: #b45309;
-        }
-
-        .charm-item {
-            display: flex;
-            align-items: center;
             justify-content: space-between;
-            flex-wrap: wrap;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .cart-item-info {
+            display: flex;
+            align-items: center;
             gap: 10px;
         }
 
-        .charm-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
+        .cart-item-name {
+            font-weight: 600;
+            font-size: 0.9rem;
         }
 
-        .charm-icon {
-            background: #ffedd5;
-            width: 48px;
-            height: 48px;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .charm-icon svg {
-            width: 28px;
-            height: 28px;
-            fill: #c2410c;
-        }
-
-        .charm-text h4 {
-            font-size: 1rem;
-            font-weight: 700;
-        }
-
-        .charm-text p {
-            font-size: 0.75rem;
+        .cart-item-price {
+            font-size: 0.8rem;
             color: #64748b;
         }
 
-        .charm-price {
-            font-weight: 700;
-            color: #1e293b;
-            margin-right: 12px;
+        .cart-item-qty {
             display: flex;
             align-items: center;
-            gap: 4px;
+            gap: 8px;
         }
 
-        .charm-price svg {
-            width: 16px;
-            height: 16px;
-            fill: #f5b342;
-        }
-
-        .charm-buy {
+        .qty-btn {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
             background: white;
             border: 1px solid #cbd5e1;
-            border-radius: 40px;
-            padding: 8px 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
             font-weight: 600;
-            font-size: 0.9rem;
-            color: #334155;
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 16px;
+            padding-top: 10px;
+            border-top: 2px dashed #cbd5e1;
+        }
+
+        .checkout-btn {
+            background: #000;
+            color: white;
+            border: none;
+            border-radius: 60px;
+            padding: 16px;
+            font-weight: 700;
+            width: 100%;
             cursor: pointer;
             transition: 0.2s;
         }
 
-        .charm-buy:hover { background: #1e3a8a; color: white; border-color: #1e3a8a; }
-        .charm-buy:disabled { opacity: 0.4; pointer-events: none; }
-
-        .active-charm {
-            margin-top: 16px;
-            background: #f1f5f9;
-            border-radius: 60px;
-            padding: 12px 16px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-size: 0.9rem;
-            font-weight: 600;
+        .checkout-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
         }
 
-        .timer {
-            background: #1e293b;
-            color: white;
-            padding: 4px 12px;
-            border-radius: 40px;
-            font-family: monospace;
-            font-size: 1.1rem;
-        }
-
-        /* Redeem card */
+        /* Redeem Code */
         .redeem-card {
             background: white;
             border-radius: 28px;
@@ -445,16 +404,16 @@
             background: #f1f5f9;
             border: 1px solid #e2e8f0;
             border-radius: 40px;
-            padding: 14px 18px;
+            padding: 12px 16px;
             font-size: 0.9rem;
         }
 
         .redeem-btn {
             flex: 1;
-            background: #0f172a;
+            background: #000;
             border: none;
             border-radius: 40px;
-            padding: 14px 10px;
+            padding: 12px 10px;
             color: white;
             font-weight: 600;
             display: flex;
@@ -465,7 +424,7 @@
         }
 
         .redeem-btn svg {
-            width: 18px;
+            width: 16px;
             fill: white;
         }
 
@@ -476,21 +435,22 @@
             text-align: center;
         }
 
-        /* Result */
+        /* Result Message */
         .result-line {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
             font-weight: 600;
-            font-size: 1rem;
+            font-size: 0.95rem;
             color: #334155;
             padding: 12px;
             background: #f1f5f9;
             border-radius: 60px;
+            margin-top: 16px;
         }
 
-        /* Reset data button */
+        /* Reset Data */
         .reset-data {
             text-align: center;
             margin-top: 16px;
@@ -507,134 +467,76 @@
             <!-- Header -->
             <div class="header">
                 <div class="logo">
-                    <h1>trade+</h1>
+                    <h1>NIKE <span>SHOP</span></h1>
                 </div>
+                <div class="cart-icon" id="cartIcon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M6 6h15l-1.5 9h-12L6 6zm0 0L4.5 3H2" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                        <circle cx="9" cy="20" r="2" fill="currentColor"/>
+                        <circle cx="18" cy="20" r="2" fill="currentColor"/>
+                    </svg>
+                    <span class="cart-badge" id="cartCount">0</span>
+                </div>
+            </div>
+
+            <!-- Balance & Theme -->
+            <div class="row-flex">
                 <div class="balance-chip">
                     <svg viewBox="0 0 24 24">
                         <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.5"/>
                         <path d="M6 12h12M12 6v12" stroke="currentColor" stroke-width="1.5"/>
                     </svg>
-                    <span id="balanceDisplay">10.000</span>
+                    <span id="balanceDisplay">100.000</span>
+                </div>
+                <div class="theme-row">
+                    <div class="theme-btn active" data-theme="light">Light</div>
+                    <div class="theme-btn" data-theme="dark">Dark</div>
                 </div>
             </div>
 
-            <!-- Theme selector -->
-            <div class="theme-row">
-                <div class="theme-btn active" data-theme="light">Light</div>
-                <div class="theme-btn" data-theme="dark">Dark</div>
-                <div class="theme-btn" data-theme="blue">Blue</div>
+            <!-- Search -->
+            <div class="search-box">
+                <svg viewBox="0 0 24 24">
+                    <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                    <path d="M16 16l4 4" stroke="currentColor" stroke-width="1.5"/>
+                </svg>
+                <input type="text" id="searchInput" placeholder="Cari sepatu Nike...">
             </div>
 
-            <!-- Chart Card -->
-            <div class="chart-card" id="chartCard">
-                <div class="chart-header">
-                    <div class="asset-info">
-                        <span class="asset-name">BTC/USD</span>
-                        <span class="asset-change" id="changePct">+2.4%</span>
-                    </div>
-                    <span>Trading</span>
-                </div>
-                <div class="price-large">
-                    <span id="currentPrice">48.234</span>
-                    <small>USD</small>
-                </div>
-                <div class="chart-svg-container">
-                    <svg viewBox="0 0 300 100" preserveAspectRatio="none">
-                        <polyline id="chartLine"
-                            points="0,70 30,40 60,80 90,30 120,60 150,20 180,50 210,30 240,65 270,45 300,55"
-                            fill="none" stroke="#3b82f6" stroke-width="3" vector-effect="non-scaling-stroke" />
-                        <circle id="currentDot" cx="300" cy="55" r="5" fill="#3b82f6" stroke="white" stroke-width="2" />
-                    </svg>
-                </div>
+            <!-- Categories -->
+            <div class="categories" id="categoryContainer">
+                <div class="category-item active" data-cat="all">Semua</div>
+                <div class="category-item" data-cat="running">Running</div>
+                <div class="category-item" data-cat="basketball">Basketball</div>
+                <div class="category-item" data-cat="lifestyle">Lifestyle</div>
+                <div class="category-item" data-cat="soccer">Soccer</div>
             </div>
 
-            <!-- Prediksi naik/turun -->
-            <div class="prediction-box">
-                <div class="pred-btn up" id="btnUp">
-                    <svg viewBox="0 0 24 24">
-                        <polygon points="12,4 20,20 4,20" fill="currentColor"/>
-                    </svg>
-                    NAIK
-                </div>
-                <div class="pred-btn down" id="btnDown">
-                    <svg viewBox="0 0 24 24">
-                        <polygon points="12,20 20,4 4,4" fill="currentColor"/>
-                    </svg>
-                    TURUN
-                </div>
-            </div>
+            <!-- Product Grid -->
+            <div class="product-grid" id="productGrid"></div>
 
-            <!-- Control panel -->
-            <div class="control-panel">
-                <div class="amount-row">
-                    <span class="amount-label">Modal (Rp)</span>
-                    <div class="amount-input-wrapper">
-                        <button id="decrementAmount">−</button>
-                        <input type="text" id="betAmount" value="1000" readonly>
-                        <button id="incrementAmount">+</button>
-                    </div>
-                </div>
-                <div class="amount-row">
-                    <span class="amount-label">Pengganda</span>
-                    <div class="multiplier-badge" id="multiplierDisplay">
-                        <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
-                            <text x="2" y="18" font-size="16">2x</text>
+            <!-- Cart Section -->
+            <div class="cart-section" id="cartSection">
+                <div class="cart-header">
+                    <h3>
+                        <svg viewBox="0 0 24 24" width="20" height="20">
+                            <path d="M6 6h15l-1.5 9h-12L6 6zm0 0L4.5 3H2" stroke="currentColor" stroke-width="1.5" fill="none"/>
                         </svg>
-                        <span>2x</span>
-                    </div>
+                        Keranjang
+                    </h3>
+                    <span class="clear-cart" id="clearCart">Hapus semua</span>
                 </div>
-                <button class="place-btn" id="placeBetBtn">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M5 12h14M12 5v14" stroke="white" stroke-width="2" fill="none"/>
-                    </svg>
-                    Pasang Taruhan
-                </button>
+                <div class="cart-items" id="cartItems"></div>
+                <div class="cart-total">
+                    <span>Total</span>
+                    <span id="cartTotal">Rp 0</span>
+                </div>
+                <button class="checkout-btn" id="checkoutBtn" disabled>Checkout</button>
             </div>
 
-            <!-- SHOP JIMAT -->
-            <div class="shop-card">
-                <div class="shop-header">
-                    <svg viewBox="0 0 24 24">
-                        <rect x="4" y="8" width="16" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/>
-                        <path d="M8 6v2M16 6v2" stroke="currentColor" stroke-width="1.5"/>
-                    </svg>
-                    <span>Jimat Keberuntungan • 1 Menit</span>
-                </div>
-                <div class="charm-item">
-                    <div class="charm-info">
-                        <div class="charm-icon">
-                            <svg viewBox="0 0 24 24">
-                                <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.5"/>
-                                <path d="M12 8v8M8 12h8" stroke="currentColor" stroke-width="1.5"/>
-                            </svg>
-                        </div>
-                        <div class="charm-text">
-                            <h4>Amulet Keberuntungan</h4>
-                            <p>Menang jadi 3x lipat · 60 detik</p>
-                        </div>
-                    </div>
-                    <div class="charm-price">
-                        <svg viewBox="0 0 24 24">
-                            <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.5"/>
-                            <text x="7" y="18" font-size="12" fill="currentColor">5</text>
-                        </svg>
-                        5.000
-                    </div>
-                    <button class="charm-buy" id="buyCharmBtn">Beli</button>
-                </div>
-                <div id="activeCharmDisplay" class="active-charm" style="display: none;">
-                    <svg viewBox="0 0 24 24">
-                        <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.5"/>
-                        <path d="M12 6v6l4 2" stroke="currentColor" stroke-width="1.5"/>
-                    </svg>
-                    <span>Jimat aktif</span>
-                    <span class="timer" id="charmTimer">60s</span>
-                </div>
-            </div>
-
-            <!-- REDEEM CODE -->
+            <!-- Redeem Code -->
             <div class="redeem-card">
-                <input type="text" id="redeemCodeInput" placeholder="Kode promo" value="WELCOME10">
+                <input type="text" id="redeemCodeInput" placeholder="Kode promo" value="NIKE10">
                 <button class="redeem-btn" id="redeemBtn">
                     <svg viewBox="0 0 24 24">
                         <path d="M20 6L9 17l-5-5" stroke="white" stroke-width="2" fill="none"/>
@@ -644,17 +546,17 @@
                 <div class="redeem-message" id="redeemMessage"></div>
             </div>
 
-            <!-- Result message -->
+            <!-- Result Message -->
             <div class="result-line" id="resultMessage">
                 <svg viewBox="0 0 24 24" width="18" height="18">
                     <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.5"/>
                     <text x="7" y="18" font-size="12" fill="currentColor">i</text>
                 </svg>
-                <span id="resultText">Siap main</span>
+                <span id="resultText">Siap belanja</span>
             </div>
 
-            <!-- Reset data (hidden, bisa diklik untuk reset) -->
-            <div class="reset-data" id="resetData">↻ Reset data (mulai baru)</div>
+            <!-- Reset Data -->
+            <div class="reset-data" id="resetData">↻ Reset data</div>
         </div>
     </div>
 
@@ -662,288 +564,273 @@
         (function() {
             // ===== STORAGE KEYS =====
             const STORAGE_KEYS = {
-                BALANCE: 'tradeplus_balance',
-                CHARM_ACTIVE: 'tradeplus_charmActive',
-                CHARM_ENDTIME: 'tradeplus_charmEndTime',
-                REDEEM_CODES: 'tradeplus_redeemCodes'
+                BALANCE: 'nike_balance',
+                CART: 'nike_cart',
+                REDEEM_CODES: 'nike_redeemCodes'
             };
+
+            // ===== DATA PRODUK NIKE =====
+            const products = [
+                { id: 1, name: "Nike Air Max 90", category: "lifestyle", price: 1899000, image: "👟" },
+                { id: 2, name: "Nike Revolution 6", category: "running", price: 849000, image: "🏃" },
+                { id: 3, name: "Nike Air Zoom Pegasus 39", category: "running", price: 2199000, image: "⚡" },
+                { id: 4, name: "Nike Air Jordan 1 Low", category: "basketball", price: 2499000, image: "🏀" },
+                { id: 5, name: "Nike Air Force 1 '07", category: "lifestyle", price: 1799000, image: "👟" },
+                { id: 6, name: "Nike Phantom GT2", category: "soccer", price: 1899000, image: "⚽" },
+                { id: 7, name: "Nike LeBron 20", category: "basketball", price: 3499000, image: "👑" },
+                { id: 8, name: "Nike Mercurial Vapor 15", category: "soccer", price: 2799000, image: "🔥" },
+                { id: 9, name: "Nike Air Max 97", category: "lifestyle", price: 2499000, image: "✨" },
+                { id: 10, name: "Nike Free Run 5.0", category: "running", price: 1299000, image: "🌊" },
+                { id: 11, name: "Nike Kyrie 8", category: "basketball", price: 1999000, image: "🔮" },
+                { id: 12, name: "Nike Tiempo Legend 9", category: "soccer", price: 1699000, image: "🥅" }
+            ];
 
             // ===== STATE =====
-            let balance = 10000; // default
-            let currentPrice = 48234;
-            let priceHistory = [70, 40, 80, 30, 60, 20, 50, 30, 65, 45, 55];
-            
-            // Taruhan
-            let currentBet = null;
-            let betPending = false;
-            let selectedDirection = null;
+            let balance = 100000;
+            let cart = []; // { id, name, price, quantity }
+            let currentCategory = 'all';
+            let searchTerm = '';
 
-            // Jimat
-            let charmActive = false;
-            let charmEndTime = 0;
-            let charmTimerInterval = null;
-
-            // Redeem codes (default)
+            // Redeem codes default
             let redeemCodes = {
-                "WELCOME10": 5000,
-                "BONUS100": 10000,
-                "LUCKY7": 7000,
-                "JIMATFREE": 2000
+                "NIKE10": 10000,
+                "RUNNING50": 50000,
+                "JORDAN25": 25000,
+                "FREESHIP": 15000
             };
 
-            // ===== LOAD DATA FROM STORAGE =====
-            function loadGameData() {
+            // ===== LOAD DATA =====
+            function loadData() {
                 // Load balance
                 const savedBalance = localStorage.getItem(STORAGE_KEYS.BALANCE);
                 if (savedBalance !== null) {
-                    balance = parseInt(savedBalance) || 10000;
+                    balance = parseInt(savedBalance) || 100000;
                 }
 
-                // Load charm status
-                const savedCharmActive = localStorage.getItem(STORAGE_KEYS.CHARM_ACTIVE);
-                const savedCharmEndTime = localStorage.getItem(STORAGE_KEYS.CHARM_ENDTIME);
-                
-                if (savedCharmActive === 'true' && savedCharmEndTime) {
-                    const endTime = parseInt(savedCharmEndTime);
-                    const now = Date.now();
-                    
-                    if (endTime > now) {
-                        // Charm masih aktif
-                        charmActive = true;
-                        charmEndTime = endTime;
-                    } else {
-                        // Charm sudah expired
-                        charmActive = false;
-                        charmEndTime = 0;
-                        localStorage.removeItem(STORAGE_KEYS.CHARM_ACTIVE);
-                        localStorage.removeItem(STORAGE_KEYS.CHARM_ENDTIME);
+                // Load cart
+                const savedCart = localStorage.getItem(STORAGE_KEYS.CART);
+                if (savedCart !== null) {
+                    try {
+                        cart = JSON.parse(savedCart);
+                    } catch (e) {
+                        cart = [];
                     }
                 }
 
-                // Load redeem codes (custom codes from user)
+                // Load redeem codes
                 const savedCodes = localStorage.getItem(STORAGE_KEYS.REDEEM_CODES);
                 if (savedCodes) {
                     try {
                         const parsed = JSON.parse(savedCodes);
                         redeemCodes = { ...redeemCodes, ...parsed };
-                    } catch (e) {
-                        console.error('Failed to parse redeem codes');
-                    }
+                    } catch (e) {}
                 }
             }
 
-            // ===== SAVE DATA TO STORAGE =====
+            // ===== SAVE DATA =====
             function saveBalance() {
                 localStorage.setItem(STORAGE_KEYS.BALANCE, balance.toString());
             }
 
-            function saveCharm() {
-                if (charmActive) {
-                    localStorage.setItem(STORAGE_KEYS.CHARM_ACTIVE, 'true');
-                    localStorage.setItem(STORAGE_KEYS.CHARM_ENDTIME, charmEndTime.toString());
-                } else {
-                    localStorage.removeItem(STORAGE_KEYS.CHARM_ACTIVE);
-                    localStorage.removeItem(STORAGE_KEYS.CHARM_ENDTIME);
-                }
+            function saveCart() {
+                localStorage.setItem(STORAGE_KEYS.CART, JSON.stringify(cart));
             }
 
             function saveRedeemCodes() {
-                // Simpan hanya kode-kode custom (bawaan tetap ada)
                 localStorage.setItem(STORAGE_KEYS.REDEEM_CODES, JSON.stringify(redeemCodes));
             }
 
             // ===== UI ELEMENTS =====
             const balanceEl = document.getElementById('balanceDisplay');
-            const chartLine = document.getElementById('chartLine');
-            const currentDot = document.getElementById('currentDot');
-            const currentPriceEl = document.getElementById('currentPrice');
-            const changePctEl = document.getElementById('changePct');
-            const betInput = document.getElementById('betAmount');
-            const placeBtn = document.getElementById('placeBetBtn');
-            const btnUp = document.getElementById('btnUp');
-            const btnDown = document.getElementById('btnDown');
+            const cartCountEl = document.getElementById('cartCount');
+            const productGrid = document.getElementById('productGrid');
+            const cartItemsEl = document.getElementById('cartItems');
+            const cartTotalEl = document.getElementById('cartTotal');
+            const checkoutBtn = document.getElementById('checkoutBtn');
+            const clearCartBtn = document.getElementById('clearCart');
             const resultText = document.getElementById('resultText');
             const redeemInput = document.getElementById('redeemCodeInput');
             const redeemBtn = document.getElementById('redeemBtn');
             const redeemMsg = document.getElementById('redeemMessage');
-            const buyCharmBtn = document.getElementById('buyCharmBtn');
-            const activeCharmDiv = document.getElementById('activeCharmDisplay');
-            const charmTimerSpan = document.getElementById('charmTimer');
-            const multiplierDisplay = document.getElementById('multiplierDisplay').querySelector('span');
-            const multiplierBadge = document.getElementById('multiplierDisplay');
+            const searchInput = document.getElementById('searchInput');
 
-            // ===== FUNGSI UPDATE UI =====
+            // ===== FUNCTIONS =====
+            function formatRupiah(amount) {
+                return 'Rp ' + amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+            }
+
             function updateBalanceUI() {
-                balanceEl.textContent = balance.toLocaleString('id-ID');
+                balanceEl.textContent = formatRupiah(balance);
                 saveBalance();
             }
 
-            function updateChart() {
-                let points = "";
-                let width = 300, height = 100;
-                let step = width / (priceHistory.length - 1);
-                
-                for (let i = 0; i < priceHistory.length; i++) {
-                    let x = i * step;
-                    let y = height - priceHistory[i];
-                    points += `${x},${y} `;
-                }
-                chartLine.setAttribute('points', points.trim());
-                
-                let lastX = (priceHistory.length - 1) * step;
-                let lastY = height - priceHistory[priceHistory.length-1];
-                currentDot.setAttribute('cx', lastX);
-                currentDot.setAttribute('cy', lastY);
-                
-                let basePrice = 48000;
-                let change = (priceHistory[priceHistory.length-1] - 50) * 30;
-                let newPrice = basePrice + change;
-                currentPrice = Math.round(newPrice);
-                currentPriceEl.textContent = currentPrice.toLocaleString('id-ID');
-                
-                let pct = (Math.random() * 5 - 1).toFixed(1);
-                changePctEl.textContent = (pct > 0 ? '+' : '') + pct + '%';
-                changePctEl.style.color = pct >= 0 ? '#22c55e' : '#ef4444';
+            function updateCartCount() {
+                const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+                cartCountEl.textContent = totalItems;
             }
 
-            // Generate harga baru
-            function generateNewPrice() {
-                let last = priceHistory[priceHistory.length-1];
-                let change = Math.floor(Math.random() * 11) - 3;
-                let newVal = Math.min(90, Math.max(10, last + change));
-                priceHistory.push(newVal);
-                if (priceHistory.length > 11) priceHistory.shift();
-                
-                updateChart();
-                
-                // Cek hasil taruhan
-                if (betPending && currentBet) {
-                    let lastPrice = currentPrice;
-                    let prevPrice = currentBet.priceAtBet;
-                    
-                    if (lastPrice > prevPrice) {
-                        // harga naik
-                        if (currentBet.direction === 'up') {
-                            let multiplier = charmActive ? 3 : 2;
-                            let winAmount = currentBet.amount * multiplier;
-                            balance += winAmount;
-                            updateBalanceUI();
-                            resultText.innerHTML = `MENANG +${winAmount.toLocaleString()}`;
-                        } else {
-                            resultText.innerHTML = `KALAH -${currentBet.amount.toLocaleString()}`;
-                        }
-                        betPending = false;
-                        currentBet = null;
-                        placeBtn.disabled = false;
-                        selectedDirection = null;
-                        btnUp.classList.remove('active');
-                        btnDown.classList.remove('active');
-                    } else if (lastPrice < prevPrice) {
-                        // harga turun
-                        if (currentBet.direction === 'down') {
-                            let multiplier = charmActive ? 3 : 2;
-                            let winAmount = currentBet.amount * multiplier;
-                            balance += winAmount;
-                            updateBalanceUI();
-                            resultText.innerHTML = `MENANG +${winAmount.toLocaleString()}`;
-                        } else {
-                            resultText.innerHTML = `KALAH -${currentBet.amount.toLocaleString()}`;
-                        }
-                        betPending = false;
-                        currentBet = null;
-                        placeBtn.disabled = false;
-                        selectedDirection = null;
-                        btnUp.classList.remove('active');
-                        btnDown.classList.remove('active');
-                    }
-                }
+            function calculateCartTotal() {
+                return cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
             }
 
-            // ===== SETUP TARUHAN =====
-            function setDirection(dir) {
-                if (betPending) return;
-                selectedDirection = dir;
-                if (dir === 'up') {
-                    btnUp.classList.add('active');
-                    btnDown.classList.remove('active');
+            function renderProducts() {
+                let filtered = products;
+                
+                // Filter by category
+                if (currentCategory !== 'all') {
+                    filtered = filtered.filter(p => p.category === currentCategory);
+                }
+                
+                // Filter by search
+                if (searchTerm) {
+                    filtered = filtered.filter(p => 
+                        p.name.toLowerCase().includes(searchTerm.toLowerCase())
+                    );
+                }
+
+                if (filtered.length === 0) {
+                    productGrid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 30px; color: #64748b;">Produk tidak ditemukan</div>';
+                    return;
+                }
+
+                productGrid.innerHTML = filtered.map(product => {
+                    const inCart = cart.find(item => item.id === product.id);
+                    return `
+                        <div class="product-card">
+                            <div class="product-image">${product.image}</div>
+                            <div class="product-title">${product.name}</div>
+                            <div class="product-category">${product.category}</div>
+                            <div class="product-price">
+                                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.5"/><text x="7" y="18" font-size="12" fill="currentColor">$</text></svg>
+                                ${formatRupiah(product.price)}
+                            </div>
+                            <button class="add-to-cart" onclick="window.addToCart(${product.id})" ${inCart ? 'disabled' : ''}>
+                                ${inCart ? '✓ Di keranjang' : 'Tambah ke keranjang'}
+                            </button>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            function renderCart() {
+                if (cart.length === 0) {
+                    cartItemsEl.innerHTML = '<div style="text-align: center; padding: 20px; color: #64748b;">Keranjang kosong</div>';
+                    cartTotalEl.textContent = 'Rp 0';
+                    checkoutBtn.disabled = true;
+                    return;
+                }
+
+                cartItemsEl.innerHTML = cart.map(item => `
+                    <div class="cart-item">
+                        <div class="cart-item-info">
+                            <div>${item.image || '👟'}</div>
+                            <div>
+                                <div class="cart-item-name">${item.name}</div>
+                                <div class="cart-item-price">${formatRupiah(item.price)}</div>
+                            </div>
+                        </div>
+                        <div class="cart-item-qty">
+                            <div class="qty-btn" onclick="window.updateQuantity(${item.id}, -1)">−</div>
+                            <span>${item.quantity}</span>
+                            <div class="qty-btn" onclick="window.updateQuantity(${item.id}, 1)">+</div>
+                        </div>
+                    </div>
+                `).join('');
+
+                const total = calculateCartTotal();
+                cartTotalEl.textContent = formatRupiah(total);
+                checkoutBtn.disabled = total > balance;
+            }
+
+            // ===== CART ACTIONS =====
+            window.addToCart = function(productId) {
+                const product = products.find(p => p.id === productId);
+                if (!product) return;
+
+                const existing = cart.find(item => item.id === productId);
+                if (existing) {
+                    existing.quantity += 1;
                 } else {
-                    btnDown.classList.add('active');
-                    btnUp.classList.remove('active');
+                    cart.push({
+                        id: product.id,
+                        name: product.name,
+                        price: product.price,
+                        quantity: 1,
+                        image: product.image
+                    });
                 }
-            }
 
-            btnUp.addEventListener('click', () => setDirection('up'));
-            btnDown.addEventListener('click', () => setDirection('down'));
+                saveCart();
+                updateCartCount();
+                renderProducts();
+                renderCart();
+                resultText.innerHTML = `${product.name} ditambahkan ke keranjang`;
+            };
 
-            function placeBet() {
-                if (!selectedDirection) {
-                    resultText.innerHTML = "Pilih arah dulu!";
+            window.updateQuantity = function(productId, change) {
+                const index = cart.findIndex(item => item.id === productId);
+                if (index === -1) return;
+
+                const item = cart[index];
+                item.quantity += change;
+
+                if (item.quantity <= 0) {
+                    cart.splice(index, 1);
+                    resultText.innerHTML = `${item.name} dihapus dari keranjang`;
+                }
+
+                saveCart();
+                updateCartCount();
+                renderProducts();
+                renderCart();
+            };
+
+            // Checkout
+            checkoutBtn.addEventListener('click', function() {
+                const total = calculateCartTotal();
+                if (total > balance) {
+                    resultText.innerHTML = "Saldo tidak cukup!";
                     return;
                 }
-                if (betPending) {
-                    resultText.innerHTML = "Tunggu hasil sebelumnya";
-                    return;
-                }
-                let amount = parseInt(betInput.value.replace(/\D/g,'')) || 1000;
-                if (amount < 100) amount = 100;
-                if (amount > balance) {
-                    resultText.innerHTML = "Saldo tidak cukup";
-                    return;
-                }
+
+                balance -= total;
+                cart = [];
                 
-                balance -= amount;
+                saveBalance();
+                saveCart();
                 updateBalanceUI();
+                updateCartCount();
+                renderProducts();
+                renderCart();
                 
-                currentBet = {
-                    direction: selectedDirection,
-                    amount: amount,
-                    priceAtBet: currentPrice
-                };
-                betPending = true;
-                placeBtn.disabled = true;
-                
-                resultText.innerHTML = `Taruhan ${selectedDirection === 'up' ? 'NAIK' : 'TURUN'} Rp${amount.toLocaleString()}`;
-            }
+                resultText.innerHTML = `✅ Checkout berhasil! Total ${formatRupiah(total)}`;
+            });
 
-            placeBtn.addEventListener('click', placeBet);
+            // Clear cart
+            clearCartBtn.addEventListener('click', function() {
+                if (cart.length === 0) return;
+                cart = [];
+                saveCart();
+                updateCartCount();
+                renderProducts();
+                renderCart();
+                resultText.innerHTML = "Keranjang dikosongkan";
+            });
 
-            // ===== JIMAT =====
-            function buyCharm() {
-                if (balance < 5000) {
-                    resultText.innerHTML = "Saldo kurang!";
-                    return;
-                }
-                if (charmActive) {
-                    resultText.innerHTML = "Jimat sudah aktif";
-                    return;
-                }
-                balance -= 5000;
-                updateBalanceUI();
-                
-                charmActive = true;
-                charmEndTime = Date.now() + 60000;
-                activeCharmDiv.style.display = 'flex';
-                multiplierBadge.classList.add('highlight');
-                multiplierDisplay.textContent = '3x';
-                saveCharm();
-                
-                if (charmTimerInterval) clearInterval(charmTimerInterval);
-                charmTimerInterval = setInterval(() => {
-                    let remaining = Math.max(0, Math.ceil((charmEndTime - Date.now()) / 1000));
-                    charmTimerSpan.textContent = remaining + 's';
-                    
-                    if (remaining <= 0) {
-                        charmActive = false;
-                        activeCharmDiv.style.display = 'none';
-                        multiplierBadge.classList.remove('highlight');
-                        multiplierDisplay.textContent = '2x';
-                        clearInterval(charmTimerInterval);
-                        saveCharm();
-                    }
-                }, 200);
-            }
+            // ===== CATEGORY & SEARCH =====
+            document.querySelectorAll('.category-item').forEach(cat => {
+                cat.addEventListener('click', function() {
+                    document.querySelectorAll('.category-item').forEach(c => c.classList.remove('active'));
+                    this.classList.add('active');
+                    currentCategory = this.dataset.cat;
+                    renderProducts();
+                });
+            });
 
-            buyCharmBtn.addEventListener('click', buyCharm);
+            searchInput.addEventListener('input', function(e) {
+                searchTerm = e.target.value;
+                renderProducts();
+            });
 
             // ===== REDEEM =====
             window.addRedeemCode = function(code, value) {
@@ -958,8 +845,7 @@
                     let bonus = redeemCodes[code];
                     balance += bonus;
                     updateBalanceUI();
-                    redeemMsg.innerHTML = `✅ +${bonus} berhasil!`;
-                    // Hapus setelah dipakai (opsional)
+                    redeemMsg.innerHTML = `✅ +${formatRupiah(bonus)} berhasil!`;
                     delete redeemCodes[code];
                     saveRedeemCodes();
                 } else {
@@ -967,102 +853,51 @@
                 }
             });
 
-            // ===== ADJUST AMOUNT =====
-            document.getElementById('incrementAmount').addEventListener('click', function() {
-                let curr = parseInt(betInput.value) || 1000;
-                betInput.value = curr + 500;
-            });
-            document.getElementById('decrementAmount').addEventListener('click', function() {
-                let curr = parseInt(betInput.value) || 1000;
-                if (curr > 500) betInput.value = curr - 500;
-            });
-
-            // ===== THEME SWITCH =====
+            // ===== THEME =====
             document.querySelectorAll('.theme-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
                     document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
                     this.classList.add('active');
                     let theme = this.dataset.theme;
-                    let chart = document.getElementById('chartCard');
+                    let container = document.querySelector('.app-container');
+                    
                     if (theme === 'dark') {
-                        chart.style.background = '#0f172a';
-                        document.querySelector('.app-container').style.background = '#1e293b';
-                    } else if (theme === 'blue') {
-                        chart.style.background = '#172554';
-                        document.querySelector('.app-container').style.background = '#dbeafe';
+                        container.style.background = '#1e293b';
+                        container.style.color = 'white';
                     } else {
-                        chart.style.background = '#0b1426';
-                        document.querySelector('.app-container').style.background = 'white';
+                        container.style.background = 'white';
+                        container.style.color = '#1e293b';
                     }
                 });
             });
 
             // ===== RESET DATA =====
             document.getElementById('resetData').addEventListener('click', function() {
-                if (confirm('Reset semua data? Saldo akan kembali ke 10.000')) {
-                    // Clear storage
-                    localStorage.removeItem(STORAGE_KEYS.BALANCE);
-                    localStorage.removeItem(STORAGE_KEYS.CHARM_ACTIVE);
-                    localStorage.removeItem(STORAGE_KEYS.CHARM_ENDTIME);
-                    localStorage.removeItem(STORAGE_KEYS.REDEEM_CODES);
-                    
-                    // Reset state
-                    balance = 10000;
-                    charmActive = false;
-                    charmEndTime = 0;
-                    activeCharmDiv.style.display = 'none';
-                    multiplierBadge.classList.remove('highlight');
-                    multiplierDisplay.textContent = '2x';
-                    if (charmTimerInterval) clearInterval(charmTimerInterval);
-                    
-                    // Reset redeem codes ke default
+                if (confirm('Reset semua data?')) {
+                    localStorage.clear();
+                    balance = 100000;
+                    cart = [];
                     redeemCodes = {
-                        "WELCOME10": 5000,
-                        "BONUS100": 10000,
-                        "LUCKY7": 7000,
-                        "JIMATFREE": 2000
+                        "NIKE10": 10000,
+                        "RUNNING50": 50000,
+                        "JORDAN25": 25000,
+                        "FREESHIP": 15000
                     };
                     
                     updateBalanceUI();
+                    updateCartCount();
+                    renderProducts();
+                    renderCart();
                     resultText.innerHTML = "Data direset";
                 }
             });
 
             // ===== INIT =====
-            function init() {
-                loadGameData();
-                updateBalanceUI();
-                updateChart();
-                
-                // Set multiplier display
-                multiplierDisplay.textContent = charmActive ? '3x' : '2x';
-                
-                // Jika charm aktif, jalankan timer
-                if (charmActive) {
-                    activeCharmDiv.style.display = 'flex';
-                    multiplierBadge.classList.add('highlight');
-                    
-                    if (charmTimerInterval) clearInterval(charmTimerInterval);
-                    charmTimerInterval = setInterval(() => {
-                        let remaining = Math.max(0, Math.ceil((charmEndTime - Date.now()) / 1000));
-                        charmTimerSpan.textContent = remaining + 's';
-                        
-                        if (remaining <= 0) {
-                            charmActive = false;
-                            activeCharmDiv.style.display = 'none';
-                            multiplierBadge.classList.remove('highlight');
-                            multiplierDisplay.textContent = '2x';
-                            clearInterval(charmTimerInterval);
-                            saveCharm();
-                        }
-                    }, 200);
-                }
-                
-                // Start price generator
-                setInterval(generateNewPrice, 1500);
-            }
-
-            init();
+            loadData();
+            updateBalanceUI();
+            updateCartCount();
+            renderProducts();
+            renderCart();
         })();
     </script>
 </body>
