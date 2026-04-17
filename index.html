@@ -1,280 +1,55 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>AI Hand & Face Tracking 3D</title>
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            background-color: #000;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        /* Kamera Full Screen */
-        #container {
-            position: relative;
-            width: 100vw;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        #input_video {
-            display: none;
-        }
-
-        #output_canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transform: scaleX(-1); /* Mirroring */
-        }
-
-        #three_canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 10;
-            pointer-events: none;
-        }
-
-        /* UI Overlay */
-        .overlay {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            z-index: 100;
-            color: white;
-            background: rgba(0, 0, 0, 0.6);
-            padding: 15px;
-            border-radius: 12px;
-            backdrop-filter: blur(5px);
-            pointer-events: none;
-            max-width: 80%;
-        }
-
-        .status-dot {
-            display: inline-block;
-            width: 10px;
-            height: 10px;
-            background: #ff4757;
-            border-radius: 50%;
-            margin-right: 8px;
-        }
-
-        .status-active {
-            background: #2ed573;
-            box-shadow: 0 0 10px #2ed573;
-        }
-
-        .instructions {
-            position: absolute;
-            bottom: 30px;
-            width: 100%;
-            text-align: center;
-            color: white;
-            z-index: 100;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
-            font-weight: bold;
-            pointer-events: none;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Test Web Security</title>
+  <style>
+    body { font-family: Arial; background:#111; color:#eee; text-align:center; }
+    input, button { padding:10px; margin:5px; }
+    .box { background:#222; padding:20px; margin:20px auto; width:300px; border-radius:10px; }
+  </style>
 </head>
 <body>
 
-<div id="container">
-    <video id="input_video" playsinline></video>
-    <canvas id="output_canvas"></canvas>
-    <canvas id="three_canvas"></canvas>
+<h1>🔐 Test Website (Vulnerable)</h1>
 
-    <div class="overlay">
-        <div style="display: flex; align-items: center; margin-bottom: 5px;">
-            <div id="status_dot" class="status-dot"></div>
-            <strong id="status_text">Memuat AI...</strong>
-        </div>
-        <small id="fps_text">Menunggu kamera...</small>
-    </div>
+<div class="box">
+  <h2>Login</h2>
+  <input type="text" id="username" placeholder="Username"><br>
+  <input type="password" id="password" placeholder="Password"><br>
+  <button onclick="login()">Login</button>
+  <p id="loginResult"></p>
+</div>
 
-    <div class="instructions">
-        Gunakan JEMPOL + TELUNJUK untuk mencubit & menggerakkan kotak 3D!
-    </div>
+<div class="box">
+  <h2>Komentar</h2>
+  <input type="text" id="comment" placeholder="Tulis komentar"><br>
+  <button onclick="postComment()">Post</button>
+  <div id="comments"></div>
 </div>
 
 <script>
-    const videoElement = document.getElementById('input_video');
-    const canvasElement = document.getElementById('output_canvas');
-    const canvasCtx = canvasElement.getContext('2d');
-    const statusDot = document.getElementById('status_dot');
-    const statusText = document.getElementById('status_text');
-    const fpsText = document.getElementById('fps_text');
+// LOGIN (SENGAJA LEMAH)
+function login() {
+  let user = document.getElementById("username").value;
+  let pass = document.getElementById("password").value;
 
-    let isGrabbing = false;
+  // Simulasi login (vulnerable logic)
+  if (user == "admin" && pass == "1234") {
+    document.getElementById("loginResult").innerHTML = "Login berhasil!";
+  } else {
+    document.getElementById("loginResult").innerHTML = "Login gagal!";
+  }
+}
 
-    // --- INISIALISASI THREE.JS ---
-    const threeCanvas = document.getElementById('three_canvas');
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ 
-        canvas: threeCanvas, 
-        alpha: true, 
-        antialias: true 
-    });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(window.devicePixelRatio);
+// KOMENTAR (XSS VULNERABLE)
+function postComment() {
+  let comment = document.getElementById("comment").value;
 
-    // Objek 3D (Kotak)
-    const geometry = new THREE.BoxGeometry(0.8, 0.8, 0.8);
-    const material = new THREE.MeshNormalMaterial({ wireframe: false });
-    const cube = new THREE.Mesh(geometry, material);
-    scene.add(cube);
-
-    // Cahaya
-    const light = new THREE.PointLight(0xffffff, 1, 100);
-    light.position.set(0, 0, 10);
-    scene.add(light);
-
-    camera.position.z = 5;
-
-    // --- MEDIAPIPE SETUP ---
-    const hands = new Hands({
-        locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`
-    });
-
-    const faceMesh = new FaceMesh({
-        locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/${file}`
-    });
-
-    hands.setOptions({
-        maxNumHands: 1,
-        modelComplexity: 1,
-        minDetectionConfidence: 0.7,
-        minTrackingConfidence: 0.7
-    });
-
-    faceMesh.setOptions({
-        maxNumFaces: 1,
-        refineLandmarks: true,
-        minDetectionConfidence: 0.5,
-        minTrackingConfidence: 0.5
-    });
-
-    // --- LOGIKA DRAWING & INTERAKSI ---
-    function onResults(results) {
-        // Reset Canvas
-        canvasElement.width = window.innerWidth;
-        canvasElement.height = window.innerHeight;
-        
-        canvasCtx.save();
-        canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
-        
-        // Gambar Video Frame
-        canvasCtx.translate(canvasElement.width, 0);
-        canvasCtx.scale(-1, 1);
-        canvasCtx.drawImage(results.image, 0, 0, canvasElement.width, canvasElement.height);
-
-        // Gambar Landmark Tangan (Optional visual aid)
-        if (results.multiHandLandmarks) {
-            for (const landmarks of results.multiHandLandmarks) {
-                drawConnectors(canvasCtx, landmarks, HAND_CONNECTIONS, {color: '#00FF00', lineWidth: 2});
-                drawLandmarks(canvasCtx, landmarks, {color: '#FF0000', lineWidth: 1, radius: 2});
-
-                // Deteksi Pinch (Jempol & Telunjuk)
-                const thumb = landmarks[4];
-                const index = landmarks[8];
-                const distance = Math.sqrt(
-                    Math.pow(thumb.x - index.x, 2) + 
-                    Math.pow(thumb.y - index.y, 2)
-                );
-
-                // Jika jarak sangat dekat, anggap sebagai "Grab"
-                if (distance < 0.05) {
-                    isGrabbing = true;
-                    cube.scale.set(1.2, 1.2, 1.2);
-                } else {
-                    isGrabbing = false;
-                    cube.scale.set(1, 1, 1);
-                }
-
-                // Update Posisi Cube (Konversi koordinat 0-1 ke Three.js)
-                // Kita mirror koordinat X karena kamera di-mirror
-                const targetX = (1 - index.x - 0.5) * 8; 
-                const targetY = -(index.y - 0.5) * 8;
-                
-                // Animasi halus mengikuti jari
-                cube.position.x += (targetX - cube.position.x) * 0.3;
-                cube.position.y += (targetY - cube.position.y) * 0.3;
-                
-                if(!isGrabbing) {
-                    cube.rotation.y += 0.01;
-                    cube.rotation.x += 0.01;
-                }
-            }
-        }
-        canvasCtx.restore();
-        
-        statusDot.classList.add('status-active');
-        statusText.innerText = "Sistem Aktif";
-        renderer.render(scene, camera);
-    }
-
-    function onFaceResults(results) {
-        if (results.multiFaceLandmarks) {
-            for (const landmarks of results.multiFaceLandmarks) {
-                // Gambar mesh wajah dengan tipis
-                drawConnectors(canvasCtx, landmarks, FACEMESH_TESSELATION, {color: '#C0C0C077', lineWidth: 0.5});
-            }
-        }
-    }
-
-    // Connect Callback
-    hands.onResults(onResults);
-    faceMesh.onResults(onFaceResults);
-
-    // --- KAMERA ---
-    const cameraControl = new Camera(videoElement, {
-        onFrame: async () => {
-            // Jalankan kedua tracking secara bergantian atau bersamaan
-            await hands.send({image: videoElement});
-            await faceMesh.send({image: videoElement});
-        },
-        width: 1280,
-        height: 720
-    });
-
-    // Responsif saat HP diputar
-    window.addEventListener('resize', () => {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-    });
-
-    // Mulai Kamera
-    cameraControl.start()
-        .then(() => {
-            fpsText.innerText = "Kamera Terhubung. Siap digunakan!";
-        })
-        .catch(err => {
-            statusText.innerText = "Error Kamera";
-            fpsText.innerText = "Pastikan izin kamera diberikan.";
-            console.error(err);
-        });
-
+  // SENGAJA TIDAK DI-SANITIZE
+  document.getElementById("comments").innerHTML += "<p>" + comment + "</p>";
+}
 </script>
+
 </body>
-    </html>
+</html>
